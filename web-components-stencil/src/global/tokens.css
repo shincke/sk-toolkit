@@ -1,0 +1,122 @@
+/*
+ * Semantic design tokens for SK Toolkit components.
+ *
+ * Apply a preset theme by setting `data-sk-theme` on `html`, `body`,
+ * a container element, or directly on a component host.
+ *
+ * Available presets:
+ * - light
+ * - dark
+ * - accent
+ * - dynamic
+ *
+ * The `dynamic` preset expects consumers to define the `--sk-dynamic-*`
+ * tokens in their application stylesheet.
+ */
+
+:root,
+[data-sk-theme='light'] {
+  color-scheme: light;
+
+  --sk-color-background: #f8fafc;
+  --sk-color-surface: #e2e8f0;
+  --sk-color-surface-elevated: #ffffff;
+  --sk-color-surface-inverse: #0f172a;
+  --sk-color-surface-inverse-text: #f8fafc;
+
+  --sk-color-text-primary: #0f172a;
+  --sk-color-text-muted: #475569;
+  --sk-color-border: #cbd5e1;
+
+  --sk-color-accent: #2563eb;
+  --sk-color-accent-hover: #1d4ed8;
+  --sk-color-accent-contrast: #eff6ff;
+
+  --sk-color-overlay: rgba(15, 23, 42, 0.48);
+  --sk-color-shadow: rgba(15, 23, 42, 0.22);
+  --sk-color-focus-ring: rgba(37, 99, 235, 0.4);
+}
+
+:root[data-sk-theme='dark'],
+[data-sk-theme='dark'] {
+  color-scheme: dark;
+
+  --sk-color-background: #020617;
+  --sk-color-surface: #0f172a;
+  --sk-color-surface-elevated: #1e293b;
+  --sk-color-surface-inverse: #e2e8f0;
+  --sk-color-surface-inverse-text: #0f172a;
+
+  --sk-color-text-primary: #e2e8f0;
+  --sk-color-text-muted: #94a3b8;
+  --sk-color-border: #334155;
+
+  --sk-color-accent: #38bdf8;
+  --sk-color-accent-hover: #0ea5e9;
+  --sk-color-accent-contrast: #082f49;
+
+  --sk-color-overlay: rgba(2, 6, 23, 0.72);
+  --sk-color-shadow: rgba(2, 6, 23, 0.45);
+  --sk-color-focus-ring: rgba(56, 189, 248, 0.4);
+}
+
+:root[data-sk-theme='accent'],
+[data-sk-theme='accent'] {
+  color-scheme: light;
+
+  --sk-color-background: #f5f3ff;
+  --sk-color-surface: #ede9fe;
+  --sk-color-surface-elevated: #ffffff;
+  --sk-color-surface-inverse: #4c1d95;
+  --sk-color-surface-inverse-text: #f5f3ff;
+
+  --sk-color-text-primary: #2e1065;
+  --sk-color-text-muted: #5b21b6;
+  --sk-color-border: #c4b5fd;
+
+  --sk-color-accent: #7c3aed;
+  --sk-color-accent-hover: #6d28d9;
+  --sk-color-accent-contrast: #f5f3ff;
+
+  --sk-color-overlay: rgba(76, 29, 149, 0.34);
+  --sk-color-shadow: rgba(76, 29, 149, 0.2);
+  --sk-color-focus-ring: rgba(124, 58, 237, 0.35);
+}
+
+:root[data-sk-theme='dynamic'],
+[data-sk-theme='dynamic'] {
+  color-scheme: var(--sk-dynamic-color-scheme, light);
+
+  --sk-color-background: var(--sk-dynamic-background, #ffffff);
+  --sk-color-surface: var(--sk-dynamic-surface, #f3f4f6);
+  --sk-color-surface-elevated: var(--sk-dynamic-surface-elevated, #ffffff);
+  --sk-color-surface-inverse: var(--sk-dynamic-surface-inverse, #111827);
+  --sk-color-surface-inverse-text: var(--sk-dynamic-surface-inverse-text, #f9fafb);
+
+  --sk-color-text-primary: var(--sk-dynamic-text-primary, #111827);
+  --sk-color-text-muted: var(--sk-dynamic-text-muted, #6b7280);
+  --sk-color-border: var(--sk-dynamic-border, #d1d5db);
+
+  --sk-color-accent: var(--sk-dynamic-accent, #14b8a6);
+  --sk-color-accent-hover: var(--sk-dynamic-accent-hover, #0f766e);
+  --sk-color-accent-contrast: var(--sk-dynamic-accent-contrast, #f0fdfa);
+
+  --sk-color-overlay: var(--sk-dynamic-overlay, rgba(17, 24, 39, 0.45));
+  --sk-color-shadow: var(--sk-dynamic-shadow, rgba(17, 24, 39, 0.18));
+  --sk-color-focus-ring: var(--sk-dynamic-focus-ring, rgba(20, 184, 166, 0.35));
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--sk-color-background);
+  color: var(--sk-color-text-primary);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
