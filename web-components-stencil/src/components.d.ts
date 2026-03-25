@@ -20,11 +20,61 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface SkButton {
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default 'Button'
+         */
+        "label": string;
+        /**
+          * @default 'm'
+         */
+        "size": 's' | 'm' | 'l';
+        /**
+          * @default 'button'
+         */
+        "type": 'button' | 'submit' | 'reset';
+    }
     interface SkDefaultModal {
     }
     interface SkSideDrawer {
         "header": string;
         "open": boolean;
+    }
+    interface SkSimpleStage {
+        /**
+          * @default 'Learn more'
+         */
+        "ctaLabel": string;
+        /**
+          * @default 'Simple stage description for a teaser section.'
+         */
+        "description": string;
+        /**
+          * @default 'Simple Stage Title'
+         */
+        "heading": string;
+        /**
+          * @default '78vh'
+         */
+        "maxHeight": string;
+        /**
+          * @default 'Stage teaser media'
+         */
+        "mediaAlt": string;
+        "mediaSrc": string;
+        /**
+          * @default 'image'
+         */
+        "mediaType": 'image' | 'video';
+        /**
+          * @default '55vh'
+         */
+        "minHeight": string;
+        "poster": string;
     }
 }
 declare global {
@@ -33,6 +83,12 @@ declare global {
     var HTMLMyComponentElement: {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
+    };
+    interface HTMLSkButtonElement extends Components.SkButton, HTMLStencilElement {
+    }
+    var HTMLSkButtonElement: {
+        prototype: HTMLSkButtonElement;
+        new (): HTMLSkButtonElement;
     };
     interface HTMLSkDefaultModalElement extends Components.SkDefaultModal, HTMLStencilElement {
     }
@@ -46,10 +102,18 @@ declare global {
         prototype: HTMLSkSideDrawerElement;
         new (): HTMLSkSideDrawerElement;
     };
+    interface HTMLSkSimpleStageElement extends Components.SkSimpleStage, HTMLStencilElement {
+    }
+    var HTMLSkSimpleStageElement: {
+        prototype: HTMLSkSimpleStageElement;
+        new (): HTMLSkSimpleStageElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "sk-button": HTMLSkButtonElement;
         "sk-default-modal": HTMLSkDefaultModalElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
+        "sk-simple-stage": HTMLSkSimpleStageElement;
     }
 }
 declare namespace LocalJSX {
@@ -67,11 +131,61 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface SkButton {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default 'Button'
+         */
+        "label"?: string;
+        /**
+          * @default 'm'
+         */
+        "size"?: 's' | 'm' | 'l';
+        /**
+          * @default 'button'
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+    }
     interface SkDefaultModal {
     }
     interface SkSideDrawer {
         "header"?: string;
         "open"?: boolean;
+    }
+    interface SkSimpleStage {
+        /**
+          * @default 'Learn more'
+         */
+        "ctaLabel"?: string;
+        /**
+          * @default 'Simple stage description for a teaser section.'
+         */
+        "description"?: string;
+        /**
+          * @default 'Simple Stage Title'
+         */
+        "heading"?: string;
+        /**
+          * @default '78vh'
+         */
+        "maxHeight"?: string;
+        /**
+          * @default 'Stage teaser media'
+         */
+        "mediaAlt"?: string;
+        "mediaSrc"?: string;
+        /**
+          * @default 'image'
+         */
+        "mediaType"?: 'image' | 'video';
+        /**
+          * @default '55vh'
+         */
+        "minHeight"?: string;
+        "poster"?: string;
     }
 
     interface MyComponentAttributes {
@@ -79,15 +193,34 @@ declare namespace LocalJSX {
         "middle": string;
         "last": string;
     }
+    interface SkButtonAttributes {
+        "size": 's' | 'm' | 'l';
+        "label": string;
+        "type": 'button' | 'submit' | 'reset';
+        "disabled": boolean;
+    }
     interface SkSideDrawerAttributes {
         "header": string;
         "open": boolean;
     }
+    interface SkSimpleStageAttributes {
+        "heading": string;
+        "description": string;
+        "ctaLabel": string;
+        "mediaType": 'image' | 'video';
+        "mediaSrc": string;
+        "poster": string;
+        "mediaAlt": string;
+        "minHeight": string;
+        "maxHeight": string;
+    }
 
     interface IntrinsicElements {
         "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
         "sk-default-modal": SkDefaultModal;
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
+        "sk-simple-stage": Omit<SkSimpleStage, keyof SkSimpleStageAttributes> & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes]?: SkSimpleStage[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `attr:${K}`]?: SkSimpleStageAttributes[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `prop:${K}`]?: SkSimpleStage[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -95,8 +228,10 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
             "sk-default-modal": LocalJSX.IntrinsicElements["sk-default-modal"] & JSXBase.HTMLAttributes<HTMLSkDefaultModalElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
+            "sk-simple-stage": LocalJSX.IntrinsicElements["sk-simple-stage"] & JSXBase.HTMLAttributes<HTMLSkSimpleStageElement>;
         }
     }
 }
