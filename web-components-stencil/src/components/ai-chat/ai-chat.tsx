@@ -1,4 +1,4 @@
-import { Component, h, Prop } from "@stencil/core";
+import { Component, Event, EventEmitter, h, Prop, State, Watch } from "@stencil/core";
 import type { Message } from "./ai-chat.types";
 
 @Component({
@@ -7,58 +7,204 @@ import type { Message } from "./ai-chat.types";
   shadow: true,
 })
 export class AiChat {
-  @Prop() header = "AI Chat";
-  @Prop() subheader = "Ask questions and explore answers";
-  @Prop() inputPlaceholder = "Ask anything...";
-  @Prop() inputButtonLabel = "Send";
-  @Prop() suggestionsLabel = "Suggested prompts";
-  @Prop() messages: Message[] = [];
-  @Prop() showMockMessages = true;
-  @Prop() suggestedPrompts: string[] = [
+  @State() localMessages: Message[] = [];
+  @State() mockLoadingActive = false;
+  @State() mockStreamingContent = "";
+
+  @Prop() header: string;
+  @Prop() subheader: string;
+  @Prop() inputPlaceholder: string;
+  @Prop() inputButtonLabel: string;
+  @Prop() suggestionsLabel: string;
+  @Prop() loading = false;
+  @Prop() streamingAssistantContent = "";
+  @Prop() mockLoading = true;
+  @Prop() mockLoadingDelay = 900;
+  @Prop() mockStreaming = true;
+  @Prop() full = true;
+  @Prop() auto = false;
+  @Prop() loadingLabel = "Assistant is typing";
+  @Prop() suggestions: string[] = [
     "Create a summary from notes",
     "Draft a release checklist",
     "Explain this API surface",
   ];
+  @Prop() messages: Message[] = [];
 
-  private readonly mockMessages: Message[] = [
-    {
-      id: "m-1",
-      role: "user",
-      content: "Can you summarize the release notes into 3 bullets?",
-      timestamp: "09:41",
-      avatarLabel: "ME",
-    },
-    {
-      id: "m-2",
-      role: "assistant",
-      content:
-        "Sure.\n1) Build pipeline is now faster with incremental caching.\n2) Design tokens were standardized across buttons and inputs.\n3) ai-chat now supports structured message rendering with metadata.",
-      timestamp: "09:42",
-      avatarLabel: "AI",
-    },
-    {
-      id: "m-3",
-      role: "user",
-      content: "Great, also include one risk callout.",
-      timestamp: "09:42",
-      avatarLabel: "ME",
-    },
-    {
-      id: "m-4",
-      role: "assistant",
-      content:
-        "Risk: teams may rely on mock data in production demos if `showMockMessages` is not disabled when real data wiring is introduced.",
-      timestamp: "09:43",
-      avatarLabel: "AI",
-    },
-  ];
+  @Event({ eventName: "suggestionClick" }) suggestionClick: EventEmitter<string>;
+
+  private messageCounter = 0;
+  // TODO: remove mock
+  private readonly assistantReply = "This is a mocked AI response. It always answers with the same message so you can visualize the full chat flow.";
+  private messagesEl?: HTMLElement;
+  private shouldAutoScroll = false;
+  private mockLoadingTimeout?: number;
+  private mockStreamingInterval?: number;
+
+  componentWillLoad() {
+    this.localMessages = [...this.messages];
+    this.messageCounter = this.localMessages.length;
+  }
+
+  private getTimestamp(): string {
+    return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+
+  private createMessage(role: "user" | "assistant", content: string): Message {
+    this.messageCounter += 1;
+
+    return {
+      id: `m-${this.messageCounter}`,
+      role,
+      content,
+      timestamp: this.getTimestamp(),
+      avatarLabel: role === "assistant" ? "AI" : "ME",
+    };
+  }
+
+  private appendConversationTurn(rawContent: string) {
+    const userContent = rawContent.trim();
+
+    if (!userContent) {
+      return;
+    }
+
+    const nextMessages = [...this.localMessages, this.createMessage("user", userContent)];
+    const shouldRunMockLoading = this.mockLoading && !this.loading && this.streamingAssistantContent.trim().length === 0;
+
+    if (this.loading || shouldRunMockLoading) {
+      this.localMessages = nextMessages;
+    } else {
+      this.localMessages = [...nextMessages, this.createMessage("assistant", this.assistantReply)];
+    }
+
+    if (shouldRunMockLoading) {
+      this.runMockLoadingFlow();
+    }
+
+    this.queueAutoScroll();
+  }
+
+  private clearMockTimers() {
+    if (this.mockLoadingTimeout) {
+      window.clearTimeout(this.mockLoadingTimeout);
+      this.mockLoadingTimeout = undefined;
+    }
+
+    if (this.mockStreamingInterval) {
+      window.clearInterval(this.mockStreamingInterval);
+      this.mockStreamingInterval = undefined;
+    }
+  }
+
+  private finishMockLoadingFlow(finalContent: string) {
+    this.mockLoadingActive = false;
+    this.mockStreamingContent = "";
+    this.localMessages = [...this.localMessages, this.createMessage("assistant", finalContent)];
+    this.queueAutoScroll();
+  }
+
+  private runMockLoadingFlow() {
+    this.clearMockTimers();
+    this.mockLoadingActive = true;
+    this.mockStreamingContent = "";
+    this.queueAutoScroll();
+
+    this.mockLoadingTimeout = window.setTimeout(() => {
+      if (!this.mockStreaming) {
+        this.finishMockLoadingFlow(this.assistantReply);
+        return;
+      }
+
+      const fullText = this.assistantReply;
+      let cursor = 0;
+
+      this.mockLoadingActive = false;
+      this.mockStreamingInterval = window.setInterval(() => {
+        cursor += 3;
+        this.mockStreamingContent = fullText.slice(0, cursor);
+        this.queueAutoScroll();
+
+        if (cursor >= fullText.length) {
+          this.clearMockTimers();
+          this.finishMockLoadingFlow(fullText);
+        }
+      }, 24);
+    }, this.mockLoadingDelay);
+  }
+
+  private onMessageSubmit = (event: CustomEvent<string>) => {
+    this.appendConversationTurn(event.detail ?? "");
+  };
+
+  private onSuggestionClick = (suggestion: string) => {
+    this.suggestionClick.emit(suggestion);
+    this.appendConversationTurn(suggestion);
+  };
+
+  @Watch("loading")
+  onLoadingChange() {
+    this.queueAutoScroll();
+  }
+
+  @Watch("streamingAssistantContent")
+  onStreamingAssistantContentChange() {
+    this.queueAutoScroll();
+  }
+
+  private queueAutoScroll() {
+    this.shouldAutoScroll = true;
+  }
+
+  private scrollMessagesToBottom() {
+    if (!this.messagesEl) {
+      return;
+    }
+
+    this.messagesEl.scrollTo({
+      top: this.messagesEl.scrollHeight,
+      behavior: "smooth",
+    });
+  }
+
+  componentDidRender() {
+    if (!this.shouldAutoScroll) {
+      return;
+    }
+
+    this.scrollMessagesToBottom();
+    this.shouldAutoScroll = false;
+  }
+
+  disconnectedCallback() {
+    this.clearMockTimers();
+  }
 
   render() {
-    const renderedMessages = this.messages.length > 0 ? this.messages : this.showMockMessages ? this.mockMessages : [];
-    const hasAnswers = renderedMessages.some((message) => message.role === "assistant");
+    const renderedMessages = this.localMessages;
+    const effectiveLoading = this.loading || this.mockLoadingActive;
+    const effectiveStreamingContent = this.streamingAssistantContent.trim().length > 0 ? this.streamingAssistantContent : this.mockStreamingContent;
+    const hasConversation = renderedMessages.length > 0 || effectiveLoading || effectiveStreamingContent.trim().length > 0;
+    const hasUserMessage = renderedMessages.some((message) => message.role === "user");
+    const showSuggestions = !hasUserMessage && this.suggestions.length > 0;
+    const showStreamingAssistant = effectiveLoading || effectiveStreamingContent.trim().length > 0;
+    const useAutoLayout = this.auto;
+    const useFullLayout = !this.auto && this.full;
 
     return (
-      <section class="chat__wrapper" part="wrapper" aria-label="AI chat layout">
+      <section
+        class={{
+          chat__wrapper: true,
+          "chat__wrapper--empty": !hasConversation,
+          "chat__wrapper--has-messages": hasConversation,
+          "chat__wrapper--full": useFullLayout,
+          "chat__wrapper--auto": useAutoLayout,
+          "chat__wrapper--auto-collapsed": useAutoLayout && !hasConversation,
+          "chat__wrapper--auto-expanded": useAutoLayout && hasConversation,
+        }}
+        part="wrapper"
+        aria-label="AI chat layout"
+      >
         <header class="chat__header">
           <div class="chat__heading-group">
             <p>{this.subheader}</p>
@@ -69,14 +215,20 @@ export class AiChat {
           </div>
         </header>
 
+{/* messages are displayed when there is a conversation. As they are not always in the message format...
+as they could be videos, images, and other types of media...
+... they will be showed via slot and the logic should be applied from consumer side */}
         <section
           class={{
             chat__messages: true,
-            "chat__messages--hidden": !hasAnswers,
+            "chat__messages--hidden": !hasConversation,
           }}
           part="messages"
           aria-label="Conversation"
-          hidden={!hasAnswers}
+          hidden={!hasConversation}
+          ref={(el) => {
+            this.messagesEl = el as HTMLElement;
+          }}
         >
           {renderedMessages.map((message) => (
             <sk-message
@@ -87,20 +239,40 @@ export class AiChat {
               avatarLabel={message.avatarLabel}
             ></sk-message>
           ))}
+
+          {showStreamingAssistant && (
+            <sk-message key="m-streaming" messageRole="assistant" avatarLabel="AI">
+              {effectiveStreamingContent.trim().length > 0 ? (
+                effectiveStreamingContent
+              ) : (
+                <sk-loading active={effectiveLoading} label={this.loadingLabel}>
+                  <sk-typing-indicator></sk-typing-indicator>
+                </sk-loading>
+              )}
+            </sk-message>
+          )}
         </section>
 
+        {/* suggestions are displayed when there are no user messages - initial state */}
         <footer class="chat__footer" part="footer">
-          <section class="chat__suggested" aria-label="Suggested prompts">
-            <p>{this.suggestionsLabel}</p>
-            <div class="chat__suggestion-list">
-
-                {this.suggestedPrompts.map((prompt) => (
-                  <sk-button size="s" ui="ghost">{prompt}</sk-button>
+          {showSuggestions && (
+            <section class="chat__suggested" aria-label="Suggested prompts">
+              <p>{this.suggestionsLabel}</p>
+              <div class="chat__suggestion-list">
+                {this.suggestions.map((suggestion) => (
+                  <sk-button size="s" ui="ghost" onClick={() => this.onSuggestionClick(suggestion)}>
+                    {suggestion}
+                  </sk-button>
                 ))}
-            </div>
-          </section>
+              </div>
+            </section>
+          )}
 
-          <sk-input inputPlaceholder={this.inputPlaceholder} inputButtonLabel={this.inputButtonLabel}></sk-input>
+          <sk-input
+            inputPlaceholder={this.inputPlaceholder}
+            inputButtonLabel={this.inputButtonLabel}
+            onMessageSubmit={this.onMessageSubmit}
+          ></sk-input>
         </footer>
       </section>
     );

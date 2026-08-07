@@ -11,6 +11,7 @@
 .input__composer-shell {
 	display: grid;
 	grid-template-columns: 1fr auto;
+	align-items: end;
 	gap: var(--ai-chat-space-xs);
 	padding: var(--ai-chat-space-xs);
 	border: 1px solid var(--ai-chat-border);
@@ -18,15 +19,40 @@
 	background: var(--ai-chat-panel-bg);
 }
 
-.input__composer-shell input {
+.input__composer-shell textarea {
 	min-width: 0;
 	border: none;
+	resize: none;
+	min-height: 2.1rem;
+	max-height: calc((1.4em * 4) + 0.2rem);
 	padding: 0.55rem;
 	font-size: var(--ai-chat-body-size);
+	line-height: 1.4;
 	color: var(--ai-chat-text);
 	background: transparent;
 }
 
-.input__composer-shell input::placeholder {
+.input__composer-shell textarea:focus {
+	outline: none;
+}
+
+.input__composer-shell textarea::placeholder {
 	color: var(--ai-chat-muted-text);
+}
+
+.input__send {
+	border: 1px solid var(--ai-chat-accent);
+	border-radius: 0.75rem;
+	padding: 0 0.9rem;
+	height: 2rem;
+	font-size: var(--ai-chat-caption-size);
+	font-weight: 600;
+	color: var(--ai-chat-panel-bg);
+	background: var(--ai-chat-accent);
+	cursor: pointer;
+}
+
+.input__send:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
 }

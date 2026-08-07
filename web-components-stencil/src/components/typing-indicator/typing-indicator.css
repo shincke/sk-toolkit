@@ -1,0 +1,43 @@
+:host {
+  display: inline-flex;
+  --typing-dot-size: 0.34rem;
+  --typing-dot-gap: 0.26rem;
+  --typing-dot-color: var(--ai-chat-muted-text, #5b6d82);
+}
+
+.typing {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--typing-dot-gap);
+}
+
+.typing__dot {
+  width: var(--typing-dot-size);
+  height: var(--typing-dot-size);
+  border-radius: 999px;
+  background: var(--typing-dot-color);
+  opacity: 0.35;
+  animation: typing-bounce 1.05s infinite ease-in-out;
+}
+
+.typing__dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing__dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  40% {
+    transform: translateY(-0.16rem);
+    opacity: 0.85;
+  }
+}

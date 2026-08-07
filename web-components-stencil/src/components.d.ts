@@ -10,17 +10,24 @@ export { Message } from "./components/ai-chat/ai-chat.types";
 export namespace Components {
     interface SkAiChat {
         /**
-          * @default "AI Chat"
+          * @default false
          */
+        "auto": boolean;
+        /**
+          * @default true
+         */
+        "full": boolean;
         "header": string;
-        /**
-          * @default "Send"
-         */
         "inputButtonLabel": string;
-        /**
-          * @default "Ask anything..."
-         */
         "inputPlaceholder": string;
+        /**
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * @default "Assistant is typing"
+         */
+        "loadingLabel": string;
         /**
           * @default []
          */
@@ -28,18 +35,24 @@ export namespace Components {
         /**
           * @default true
          */
-        "showMockMessages": boolean;
+        "mockLoading": boolean;
         /**
-          * @default "Ask questions and explore answers"
+          * @default 900
          */
+        "mockLoadingDelay": number;
+        /**
+          * @default true
+         */
+        "mockStreaming": boolean;
+        /**
+          * @default ""
+         */
+        "streamingAssistantContent": string;
         "subheader": string;
         /**
           * @default [     "Create a summary from notes",     "Draft a release checklist",     "Explain this API surface",   ]
          */
-        "suggestedPrompts": string[];
-        /**
-          * @default "Suggested prompts"
-         */
+        "suggestions": string[];
         "suggestionsLabel": string;
     }
     interface SkButton {
@@ -68,6 +81,10 @@ export namespace Components {
         /**
           * @default false
          */
+        "disabled": boolean;
+        /**
+          * @default false
+         */
         "inputButtonDisabled": boolean;
         /**
           * @default "Send"
@@ -77,6 +94,16 @@ export namespace Components {
           * @default "Ask anything..."
          */
         "inputPlaceholder": string;
+    }
+    interface SkLoading {
+        /**
+          * @default false
+         */
+        "active": boolean;
+        /**
+          * @default "Loading"
+         */
+        "label": string;
     }
     interface SkMessage {
         "avatarLabel"?: string;
@@ -126,9 +153,30 @@ export namespace Components {
         "minHeight": string;
         "poster": string;
     }
+    interface SkTypingIndicator {
+    }
+}
+export interface SkAiChatCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkAiChatElement;
+}
+export interface SkInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkInputElement;
 }
 declare global {
+    interface HTMLSkAiChatElementEventMap {
+        "suggestionClick": string;
+    }
     interface HTMLSkAiChatElement extends Components.SkAiChat, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkAiChatElementEventMap>(type: K, listener: (this: HTMLSkAiChatElement, ev: SkAiChatCustomEvent<HTMLSkAiChatElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkAiChatElementEventMap>(type: K, listener: (this: HTMLSkAiChatElement, ev: SkAiChatCustomEvent<HTMLSkAiChatElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLSkAiChatElement: {
         prototype: HTMLSkAiChatElement;
@@ -140,11 +188,28 @@ declare global {
         prototype: HTMLSkButtonElement;
         new (): HTMLSkButtonElement;
     };
+    interface HTMLSkInputElementEventMap {
+        "messageSubmit": string;
+    }
     interface HTMLSkInputElement extends Components.SkInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkInputElementEventMap>(type: K, listener: (this: HTMLSkInputElement, ev: SkInputCustomEvent<HTMLSkInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkInputElementEventMap>(type: K, listener: (this: HTMLSkInputElement, ev: SkInputCustomEvent<HTMLSkInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLSkInputElement: {
         prototype: HTMLSkInputElement;
         new (): HTMLSkInputElement;
+    };
+    interface HTMLSkLoadingElement extends Components.SkLoading, HTMLStencilElement {
+    }
+    var HTMLSkLoadingElement: {
+        prototype: HTMLSkLoadingElement;
+        new (): HTMLSkLoadingElement;
     };
     interface HTMLSkMessageElement extends Components.SkMessage, HTMLStencilElement {
     }
@@ -164,29 +229,44 @@ declare global {
         prototype: HTMLSkSimpleStageElement;
         new (): HTMLSkSimpleStageElement;
     };
+    interface HTMLSkTypingIndicatorElement extends Components.SkTypingIndicator, HTMLStencilElement {
+    }
+    var HTMLSkTypingIndicatorElement: {
+        prototype: HTMLSkTypingIndicatorElement;
+        new (): HTMLSkTypingIndicatorElement;
+    };
     interface HTMLElementTagNameMap {
         "sk-ai-chat": HTMLSkAiChatElement;
         "sk-button": HTMLSkButtonElement;
         "sk-input": HTMLSkInputElement;
+        "sk-loading": HTMLSkLoadingElement;
         "sk-message": HTMLSkMessageElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
         "sk-simple-stage": HTMLSkSimpleStageElement;
+        "sk-typing-indicator": HTMLSkTypingIndicatorElement;
     }
 }
 declare namespace LocalJSX {
     interface SkAiChat {
         /**
-          * @default "AI Chat"
+          * @default false
          */
+        "auto"?: boolean;
+        /**
+          * @default true
+         */
+        "full"?: boolean;
         "header"?: string;
-        /**
-          * @default "Send"
-         */
         "inputButtonLabel"?: string;
-        /**
-          * @default "Ask anything..."
-         */
         "inputPlaceholder"?: string;
+        /**
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * @default "Assistant is typing"
+         */
+        "loadingLabel"?: string;
         /**
           * @default []
          */
@@ -194,18 +274,25 @@ declare namespace LocalJSX {
         /**
           * @default true
          */
-        "showMockMessages"?: boolean;
+        "mockLoading"?: boolean;
         /**
-          * @default "Ask questions and explore answers"
+          * @default 900
          */
+        "mockLoadingDelay"?: number;
+        /**
+          * @default true
+         */
+        "mockStreaming"?: boolean;
+        "onSuggestionClick"?: (event: SkAiChatCustomEvent<string>) => void;
+        /**
+          * @default ""
+         */
+        "streamingAssistantContent"?: string;
         "subheader"?: string;
         /**
           * @default [     "Create a summary from notes",     "Draft a release checklist",     "Explain this API surface",   ]
          */
-        "suggestedPrompts"?: string[];
-        /**
-          * @default "Suggested prompts"
-         */
+        "suggestions"?: string[];
         "suggestionsLabel"?: string;
     }
     interface SkButton {
@@ -234,6 +321,10 @@ declare namespace LocalJSX {
         /**
           * @default false
          */
+        "disabled"?: boolean;
+        /**
+          * @default false
+         */
         "inputButtonDisabled"?: boolean;
         /**
           * @default "Send"
@@ -243,6 +334,17 @@ declare namespace LocalJSX {
           * @default "Ask anything..."
          */
         "inputPlaceholder"?: string;
+        "onMessageSubmit"?: (event: SkInputCustomEvent<string>) => void;
+    }
+    interface SkLoading {
+        /**
+          * @default false
+         */
+        "active"?: boolean;
+        /**
+          * @default "Loading"
+         */
+        "label"?: string;
     }
     interface SkMessage {
         "avatarLabel"?: string;
@@ -292,6 +394,8 @@ declare namespace LocalJSX {
         "minHeight"?: string;
         "poster"?: string;
     }
+    interface SkTypingIndicator {
+    }
 
     interface SkAiChatAttributes {
         "header": string;
@@ -299,7 +403,14 @@ declare namespace LocalJSX {
         "inputPlaceholder": string;
         "inputButtonLabel": string;
         "suggestionsLabel": string;
-        "showMockMessages": boolean;
+        "loading": boolean;
+        "streamingAssistantContent": string;
+        "mockLoading": boolean;
+        "mockLoadingDelay": number;
+        "mockStreaming": boolean;
+        "full": boolean;
+        "auto": boolean;
+        "loadingLabel": string;
     }
     interface SkButtonAttributes {
         "size": 's' | 'm' | 'l';
@@ -312,6 +423,11 @@ declare namespace LocalJSX {
         "inputPlaceholder": string;
         "inputButtonLabel": string;
         "inputButtonDisabled": boolean;
+        "disabled": boolean;
+    }
+    interface SkLoadingAttributes {
+        "active": boolean;
+        "label": string;
     }
     interface SkMessageAttributes {
         "messageRole": MessageRole;
@@ -339,9 +455,11 @@ declare namespace LocalJSX {
         "sk-ai-chat": Omit<SkAiChat, keyof SkAiChatAttributes> & { [K in keyof SkAiChat & keyof SkAiChatAttributes]?: SkAiChat[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `attr:${K}`]?: SkAiChatAttributes[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `prop:${K}`]?: SkAiChat[K] };
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
         "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
+        "sk-loading": Omit<SkLoading, keyof SkLoadingAttributes> & { [K in keyof SkLoading & keyof SkLoadingAttributes]?: SkLoading[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `attr:${K}`]?: SkLoadingAttributes[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `prop:${K}`]?: SkLoading[K] };
         "sk-message": Omit<SkMessage, keyof SkMessageAttributes> & { [K in keyof SkMessage & keyof SkMessageAttributes]?: SkMessage[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `attr:${K}`]?: SkMessageAttributes[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `prop:${K}`]?: SkMessage[K] };
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
         "sk-simple-stage": Omit<SkSimpleStage, keyof SkSimpleStageAttributes> & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes]?: SkSimpleStage[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `attr:${K}`]?: SkSimpleStageAttributes[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `prop:${K}`]?: SkSimpleStage[K] };
+        "sk-typing-indicator": SkTypingIndicator;
     }
 }
 export { LocalJSX as JSX };
@@ -351,9 +469,11 @@ declare module "@stencil/core" {
             "sk-ai-chat": LocalJSX.IntrinsicElements["sk-ai-chat"] & JSXBase.HTMLAttributes<HTMLSkAiChatElement>;
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
             "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
+            "sk-loading": LocalJSX.IntrinsicElements["sk-loading"] & JSXBase.HTMLAttributes<HTMLSkLoadingElement>;
             "sk-message": LocalJSX.IntrinsicElements["sk-message"] & JSXBase.HTMLAttributes<HTMLSkMessageElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
             "sk-simple-stage": LocalJSX.IntrinsicElements["sk-simple-stage"] & JSXBase.HTMLAttributes<HTMLSkSimpleStageElement>;
+            "sk-typing-indicator": LocalJSX.IntrinsicElements["sk-typing-indicator"] & JSXBase.HTMLAttributes<HTMLSkTypingIndicatorElement>;
         }
     }
 }
