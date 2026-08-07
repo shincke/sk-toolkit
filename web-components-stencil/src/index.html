@@ -9,10 +9,131 @@
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
   </head>
-  <body data-sk-theme="light">
-    <!-- <sk-side-drawer header="Menu" open></sk-side-drawer>
-    <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
-    <sk-simple-stage cta-label="Banana"></sk-simple-stage> -->
-    <sk-ai-chat header="What do you want to know?" subheader="Search" input-placeholder="Type your question..." suggestions-label="Suggested prompts"  />
+  <body data-sk-theme="dark">
+    <sk-ai-chat id="chat"></sk-ai-chat>
+
+    <script type="module">
+      customElements.whenDefined("sk-ai-chat").then(() => {
+        const chat = document.querySelector("#chat");
+
+        let responses = [];
+
+        const suggestions = [
+          {
+            id: "s-1",
+            label: "Show me Japanese Jazz",
+            description: "Curated picks from 70s and 80s",
+            icon: "🎷",
+            category: "genres",
+          },
+          {
+            id: "s-2",
+            label: "Recommend Brazilian records",
+            description: "Bossa nova and MPB classics",
+            icon: "🇧🇷",
+            category: "genres",
+          },
+          {
+            id: "s-3",
+            label: "Explain your curation criteria",
+            description: "How this collection is selected",
+            icon: "🧠",
+            category: "about",
+          },
+        ];
+
+        chat.text = {
+          header: "What do you want to know?",
+          subheader: "Search",
+          inputPlaceholder: "Type your question...",
+          inputButtonLabel: "Send",
+          suggestionsLabel: "Suggested prompts",
+          emptyTitle: "Ask your first question",
+          emptyDescription: "Try a suggested prompt or write your own.",
+          errorMessage: "Something went wrong while loading this conversation.",
+          retryLabel: "Retry",
+          loadingLabel: "Thinking",
+        };
+
+        chat.layout = "auto";
+        chat.status = "idle";
+        chat.suggestions = suggestions;
+
+        function createTextResponse(id, role, text) {
+          return {
+            id,
+            role,
+            blocks: [
+              {
+                id: `${id}-text`,
+                type: "text",
+                text,
+              },
+            ],
+            timestamp: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            avatarLabel: role === "assistant" ? "AI" : "ME",
+          };
+        }
+
+        function render(next) {
+          responses = next;
+          chat.responses = responses;
+        }
+
+        render([
+          createTextResponse(
+            "a-1",
+            "assistant",
+            "Welcome! Ask about our collection, genres, or recommendations."
+          ),
+        ]);
+
+        chat.addEventListener("messageSubmit", (event) => {
+          const prompt = String(event.detail || "").trim();
+          if (!prompt) {
+            return;
+          }
+
+          const next = [...responses, createTextResponse(crypto.randomUUID(), "user", prompt)];
+          render(next);
+
+          chat.status = "loading";
+          chat.streamingAssistantContent = "";
+
+          const fullAnswer = `You asked: "${prompt}". This is a mock assistant response using the new Responses -> Blocks architecture.`;
+          let cursor = 0;
+
+          const streamTimer = setInterval(() => {
+            cursor += 5;
+            chat.streamingAssistantContent = fullAnswer.slice(0, cursor);
+
+            if (cursor >= fullAnswer.length) {
+              clearInterval(streamTimer);
+              chat.streamingAssistantContent = "";
+              chat.status = "idle";
+              render([...next, createTextResponse(crypto.randomUUID(), "assistant", fullAnswer)]);
+            }
+          }, 28);
+        });
+
+        chat.addEventListener("suggestionSelect", (event) => {
+          const suggestion = event.detail;
+          if (!suggestion || !suggestion.label) {
+            return;
+          }
+
+          chat.dispatchEvent(
+            new CustomEvent("messageSubmit", {
+              detail: suggestion.label,
+              bubbles: true,
+              composed: true,
+            })
+          );
+        });
+      });
+    </script>
   </body>
 </html>

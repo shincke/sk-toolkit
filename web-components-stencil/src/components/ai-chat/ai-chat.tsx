@@ -1,5 +1,11 @@
-import { Component, Event, EventEmitter, h, Prop, State, Watch } from "@stencil/core";
-import type { Message } from "./ai-chat.types";
+import { Component, Event, EventEmitter, h, Prop, Watch } from "@stencil/core";
+import type {
+  AiChatLayout,
+  AiChatStatus,
+  AiChatTextConfig,
+  ChatResponse,
+  Suggestion,
+} from "./ai-chat.types";
 
 @Component({
   tag: "sk-ai-chat",
@@ -7,143 +13,104 @@ import type { Message } from "./ai-chat.types";
   shadow: true,
 })
 export class AiChat {
-  @State() localMessages: Message[] = [];
-  @State() mockLoadingActive = false;
-  @State() mockStreamingContent = "";
-
-  @Prop() header: string;
-  @Prop() subheader: string;
-  @Prop() inputPlaceholder: string;
-  @Prop() inputButtonLabel: string;
-  @Prop() suggestionsLabel: string;
-  @Prop() loading = false;
+  @Prop() status: AiChatStatus = "idle";
+  @Prop() layout: AiChatLayout = "full";
   @Prop() streamingAssistantContent = "";
-  @Prop() mockLoading = true;
-  @Prop() mockLoadingDelay = 900;
-  @Prop() mockStreaming = true;
-  @Prop() full = true;
-  @Prop() auto = false;
-  @Prop() loadingLabel = "Assistant is typing";
-  @Prop() suggestions: string[] = [
-    "Create a summary from notes",
-    "Draft a release checklist",
-    "Explain this API surface",
+  @Prop() showSuggestions?: boolean;
+  @Prop() suggestions: Suggestion[] = [
+    { id: "1", label: "Create a summary from notes" },
+    { id: "2", label: "Draft a release checklist" },
+    { id: "3", label: "Explain this API surface" },
   ];
-  @Prop() messages: Message[] = [];
+  @Prop() text: Partial<AiChatTextConfig> = {};
+  @Prop() responses: ChatResponse[] = [];
 
+  @Event({ eventName: "suggestionSelect" }) suggestionSelect: EventEmitter<Suggestion>;
   @Event({ eventName: "suggestionClick" }) suggestionClick: EventEmitter<string>;
+  @Event({ eventName: "messageSubmit" }) messageSubmit: EventEmitter<string>;
 
-  private messageCounter = 0;
-  // TODO: remove mock
-  private readonly assistantReply = "This is a mocked AI response. It always answers with the same message so you can visualize the full chat flow.";
   private messagesEl?: HTMLElement;
   private shouldAutoScroll = false;
-  private mockLoadingTimeout?: number;
-  private mockStreamingInterval?: number;
 
-  componentWillLoad() {
-    this.localMessages = [...this.messages];
-    this.messageCounter = this.localMessages.length;
-  }
+  private readonly defaultText: AiChatTextConfig = {
+    header: "AI Chat",
+    subheader: "Ask questions and explore answers",
+    inputPlaceholder: "Ask anything...",
+    inputButtonLabel: "Send",
+    suggestionsLabel: "Suggested prompts",
+    emptyTitle: "Start a conversation",
+    emptyDescription: "Ask a question below or choose one of the suggested prompts.",
+    errorMessage: "We could not load the conversation right now.",
+    retryLabel: "Retry",
+    loadingLabel: "Assistant is typing",
+  };
 
-  private getTimestamp(): string {
-    return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  }
-
-  private createMessage(role: "user" | "assistant", content: string): Message {
-    this.messageCounter += 1;
-
+  private get resolvedText(): AiChatTextConfig {
     return {
-      id: `m-${this.messageCounter}`,
-      role,
-      content,
-      timestamp: this.getTimestamp(),
-      avatarLabel: role === "assistant" ? "AI" : "ME",
+      ...this.defaultText,
+      ...(this.text || {}),
     };
   }
 
-  private appendConversationTurn(rawContent: string) {
-    const userContent = rawContent.trim();
+  private get isErrorState(): boolean {
+    return this.status === "error";
+  }
 
+  private get isDisabledState(): boolean {
+    return this.status === "disabled";
+  }
+
+  private get isLoadingState(): boolean {
+    return this.status === "loading";
+  }
+
+  private normalizeSuggestion(item: Suggestion, index: number): Suggestion {
+    return {
+      id: item.id || `suggestion-${index}`,
+      label: item.label,
+      description: item.description,
+      icon: item.icon,
+      category: item.category,
+      payload: item.payload,
+      metadata: item.metadata,
+    };
+  }
+
+  private get normalizedSuggestions(): Suggestion[] {
+    return this.suggestions
+      .map((item, index) => this.normalizeSuggestion(item, index))
+      .filter((item) => item.label && item.label.trim().length > 0);
+  }
+
+  private onMessageSubmit = (event: CustomEvent<string>) => {
+    if (this.isDisabledState || this.isErrorState) {
+      return;
+    }
+
+    const userContent = (event.detail ?? "").trim();
     if (!userContent) {
       return;
     }
 
-    const nextMessages = [...this.localMessages, this.createMessage("user", userContent)];
-    const shouldRunMockLoading = this.mockLoading && !this.loading && this.streamingAssistantContent.trim().length === 0;
-
-    if (this.loading || shouldRunMockLoading) {
-      this.localMessages = nextMessages;
-    } else {
-      this.localMessages = [...nextMessages, this.createMessage("assistant", this.assistantReply)];
-    }
-
-    if (shouldRunMockLoading) {
-      this.runMockLoadingFlow();
-    }
-
-    this.queueAutoScroll();
-  }
-
-  private clearMockTimers() {
-    if (this.mockLoadingTimeout) {
-      window.clearTimeout(this.mockLoadingTimeout);
-      this.mockLoadingTimeout = undefined;
-    }
-
-    if (this.mockStreamingInterval) {
-      window.clearInterval(this.mockStreamingInterval);
-      this.mockStreamingInterval = undefined;
-    }
-  }
-
-  private finishMockLoadingFlow(finalContent: string) {
-    this.mockLoadingActive = false;
-    this.mockStreamingContent = "";
-    this.localMessages = [...this.localMessages, this.createMessage("assistant", finalContent)];
-    this.queueAutoScroll();
-  }
-
-  private runMockLoadingFlow() {
-    this.clearMockTimers();
-    this.mockLoadingActive = true;
-    this.mockStreamingContent = "";
-    this.queueAutoScroll();
-
-    this.mockLoadingTimeout = window.setTimeout(() => {
-      if (!this.mockStreaming) {
-        this.finishMockLoadingFlow(this.assistantReply);
-        return;
-      }
-
-      const fullText = this.assistantReply;
-      let cursor = 0;
-
-      this.mockLoadingActive = false;
-      this.mockStreamingInterval = window.setInterval(() => {
-        cursor += 3;
-        this.mockStreamingContent = fullText.slice(0, cursor);
-        this.queueAutoScroll();
-
-        if (cursor >= fullText.length) {
-          this.clearMockTimers();
-          this.finishMockLoadingFlow(fullText);
-        }
-      }, 24);
-    }, this.mockLoadingDelay);
-  }
-
-  private onMessageSubmit = (event: CustomEvent<string>) => {
-    this.appendConversationTurn(event.detail ?? "");
+    this.messageSubmit.emit(userContent);
   };
 
-  private onSuggestionClick = (suggestion: string) => {
-    this.suggestionClick.emit(suggestion);
-    this.appendConversationTurn(suggestion);
+  private onSuggestionClick = (suggestion: Suggestion) => {
+    if (this.isDisabledState || this.isErrorState) {
+      return;
+    }
+
+    this.suggestionSelect.emit(suggestion);
+    this.suggestionClick.emit(suggestion.label);
   };
 
-  @Watch("loading")
-  onLoadingChange() {
+  @Watch("responses")
+  onResponsesChange() {
+    this.queueAutoScroll();
+  }
+
+  @Watch("status")
+  onStatusChange() {
     this.queueAutoScroll();
   }
 
@@ -176,104 +143,198 @@ export class AiChat {
     this.shouldAutoScroll = false;
   }
 
-  disconnectedCallback() {
-    this.clearMockTimers();
+  private getRenderState() {
+    const text = this.resolvedText;
+    const renderedResponses = this.responses;
+    const effectiveLoading = this.isLoadingState;
+    const effectiveStreamingContent = this.streamingAssistantContent;
+    const hasConversation = renderedResponses.length > 0 || effectiveLoading || effectiveStreamingContent.trim().length > 0;
+    const isErrorState = this.isErrorState;
+    const isDisabledState = this.isDisabledState;
+    const isEmptyState = !isErrorState && !hasConversation;
+    const hasUserMessage = renderedResponses.some((response) => response.role === "user");
+    const suggestions = this.normalizedSuggestions;
+    const defaultShowSuggestions = isEmptyState && !isDisabledState && !effectiveLoading && !hasUserMessage && suggestions.length > 0;
+    const showSuggestions = this.showSuggestions ?? defaultShowSuggestions;
+    const showStreamingAssistant = !isErrorState && (effectiveLoading || effectiveStreamingContent.trim().length > 0);
+    const useAutoLayout = this.layout === "auto";
+    const useFullLayout = this.layout === "full";
+
+    return {
+      text,
+      renderedResponses,
+      effectiveLoading,
+      effectiveStreamingContent,
+      hasConversation,
+      isErrorState,
+      isDisabledState,
+      isEmptyState,
+      suggestions,
+      showSuggestions,
+      showStreamingAssistant,
+      useAutoLayout,
+      useFullLayout,
+    };
+  }
+
+  private renderHeader(text: AiChatTextConfig) {
+    return (
+      <header class="chat__header">
+        <slot name="header">
+          <sk-chat-header header={text.header} subheader={text.subheader}>
+            <slot name="header-actions" slot="actions" />
+          </sk-chat-header>
+        </slot>
+      </header>
+    );
+  }
+
+  private renderErrorState(text: AiChatTextConfig) {
+    return (
+      <section class="chat__error-state" part="error-state" aria-live="polite">
+        <slot name="error-message">
+          <p>{text.errorMessage}</p>
+        </slot>
+        <button type="button" class="chat__retry" disabled>
+          {text.retryLabel}
+        </button>
+      </section>
+    );
+  }
+
+  private renderResponseMessages(renderedResponses: ChatResponse[]) {
+    return renderedResponses.map((response) => (
+      <sk-chat-response key={response.id} response={response}></sk-chat-response>
+    ));
+  }
+
+  private renderStreamingAssistant(effectiveStreamingContent: string, effectiveLoading: boolean, text: AiChatTextConfig) {
+    const streamingResponse: ChatResponse = {
+      id: "streaming-response",
+      role: "assistant",
+      blocks:
+        effectiveStreamingContent.trim().length > 0
+          ? [
+              {
+                id: "streaming-text",
+                type: "text",
+                text: effectiveStreamingContent,
+              },
+            ]
+          : [],
+    };
+
+    return (
+      <sk-chat-response key="m-streaming" response={streamingResponse}>
+        {effectiveStreamingContent.trim().length === 0 && (
+          <slot name="loading" slot="message-footer">
+            <sk-loading active={effectiveLoading} label={text.loadingLabel}>
+              <sk-typing-indicator></sk-typing-indicator>
+            </sk-loading>
+          </slot>
+        )}
+      </sk-chat-response>
+    );
+  }
+
+  private renderMessagesSection(state: ReturnType<AiChat['getRenderState']>) {
+    const messageContent = state.isErrorState
+      ? this.renderErrorState(state.text)
+      : [
+          ...this.renderResponseMessages(state.renderedResponses),
+          state.showStreamingAssistant &&
+            this.renderStreamingAssistant(state.effectiveStreamingContent, state.effectiveLoading, state.text),
+        ];
+
+    return (
+      <section
+        class={{
+          chat__messages: true,
+          "chat__messages--hidden": state.isEmptyState && !state.isErrorState,
+        }}
+        part="messages"
+        aria-label="Conversation"
+        hidden={state.isEmptyState && !state.isErrorState}
+        ref={(el) => {
+          this.messagesEl = el as HTMLElement;
+        }}
+      >
+        <slot name="messages">{messageContent}</slot>
+      </section>
+    );
+  }
+
+  private renderEmptyScreen(state: ReturnType<AiChat['getRenderState']>) {
+    if (!state.isEmptyState) {
+      return null;
+    }
+
+    return (
+      <section class="chat__empty-screen" part="empty-screen" aria-live="polite">
+        <slot name="empty-state">
+          <sk-chat-empty title={state.text.emptyTitle} description={state.text.emptyDescription}></sk-chat-empty>
+        </slot>
+      </section>
+    );
+  }
+
+  private renderSuggestions(state: ReturnType<AiChat['getRenderState']>) {
+    if (!state.showSuggestions) {
+      return null;
+    }
+
+    return (
+      <sk-chat-suggestions
+        label={state.text.suggestionsLabel}
+        suggestions={state.suggestions}
+        disabled={state.isDisabledState || state.isErrorState}
+        onSuggestionSelect={(event) => this.onSuggestionClick(event.detail)}
+      ></sk-chat-suggestions>
+    );
+  }
+
+  private renderFooter(state: ReturnType<AiChat['getRenderState']>) {
+    return (
+      <footer class="chat__footer" part="footer">
+        <slot name="footer">
+          {this.renderSuggestions(state)}
+
+          <slot name="composer">
+            <sk-input
+              inputPlaceholder={state.text.inputPlaceholder}
+              inputButtonLabel={state.text.inputButtonLabel}
+              disabled={state.isDisabledState || state.isErrorState}
+              onMessageSubmit={this.onMessageSubmit}
+            ></sk-input>
+          </slot>
+        </slot>
+      </footer>
+    );
   }
 
   render() {
-    const renderedMessages = this.localMessages;
-    const effectiveLoading = this.loading || this.mockLoadingActive;
-    const effectiveStreamingContent = this.streamingAssistantContent.trim().length > 0 ? this.streamingAssistantContent : this.mockStreamingContent;
-    const hasConversation = renderedMessages.length > 0 || effectiveLoading || effectiveStreamingContent.trim().length > 0;
-    const hasUserMessage = renderedMessages.some((message) => message.role === "user");
-    const showSuggestions = !hasUserMessage && this.suggestions.length > 0;
-    const showStreamingAssistant = effectiveLoading || effectiveStreamingContent.trim().length > 0;
-    const useAutoLayout = this.auto;
-    const useFullLayout = !this.auto && this.full;
+    const state = this.getRenderState();
 
     return (
       <section
         class={{
           chat__wrapper: true,
-          "chat__wrapper--empty": !hasConversation,
-          "chat__wrapper--has-messages": hasConversation,
-          "chat__wrapper--full": useFullLayout,
-          "chat__wrapper--auto": useAutoLayout,
-          "chat__wrapper--auto-collapsed": useAutoLayout && !hasConversation,
-          "chat__wrapper--auto-expanded": useAutoLayout && hasConversation,
+          "chat__wrapper--empty": state.isEmptyState,
+          "chat__wrapper--has-messages": state.hasConversation,
+          "chat__wrapper--full": state.useFullLayout,
+          "chat__wrapper--auto": state.useAutoLayout,
+          "chat__wrapper--auto-collapsed": state.useAutoLayout && state.isEmptyState,
+          "chat__wrapper--auto-expanded": state.useAutoLayout && state.hasConversation,
+          "chat__wrapper--error": state.isErrorState,
+          "chat__wrapper--disabled": state.isDisabledState,
         }}
         part="wrapper"
         aria-label="AI chat layout"
       >
-        <header class="chat__header">
-          <div class="chat__heading-group">
-            <p>{this.subheader}</p>
-            <h1>{this.header}</h1>
-          </div>
-          <div class="chat__header-actions">
-            <slot name="header-actions" />
-          </div>
-        </header>
-
-{/* messages are displayed when there is a conversation. As they are not always in the message format...
-as they could be videos, images, and other types of media...
-... they will be showed via slot and the logic should be applied from consumer side */}
-        <section
-          class={{
-            chat__messages: true,
-            "chat__messages--hidden": !hasConversation,
-          }}
-          part="messages"
-          aria-label="Conversation"
-          hidden={!hasConversation}
-          ref={(el) => {
-            this.messagesEl = el as HTMLElement;
-          }}
-        >
-          {renderedMessages.map((message) => (
-            <sk-message
-              key={message.id}
-              messageRole={message.role}
-              content={message.content}
-              timestamp={message.timestamp}
-              avatarLabel={message.avatarLabel}
-            ></sk-message>
-          ))}
-
-          {showStreamingAssistant && (
-            <sk-message key="m-streaming" messageRole="assistant" avatarLabel="AI">
-              {effectiveStreamingContent.trim().length > 0 ? (
-                effectiveStreamingContent
-              ) : (
-                <sk-loading active={effectiveLoading} label={this.loadingLabel}>
-                  <sk-typing-indicator></sk-typing-indicator>
-                </sk-loading>
-              )}
-            </sk-message>
-          )}
-        </section>
-
-        {/* suggestions are displayed when there are no user messages - initial state */}
-        <footer class="chat__footer" part="footer">
-          {showSuggestions && (
-            <section class="chat__suggested" aria-label="Suggested prompts">
-              <p>{this.suggestionsLabel}</p>
-              <div class="chat__suggestion-list">
-                {this.suggestions.map((suggestion) => (
-                  <sk-button size="s" ui="ghost" onClick={() => this.onSuggestionClick(suggestion)}>
-                    {suggestion}
-                  </sk-button>
-                ))}
-              </div>
-            </section>
-          )}
-
-          <sk-input
-            inputPlaceholder={this.inputPlaceholder}
-            inputButtonLabel={this.inputButtonLabel}
-            onMessageSubmit={this.onMessageSubmit}
-          ></sk-input>
-        </footer>
+        {this.renderHeader(state.text)}
+        {this.renderMessagesSection(state)}
+        {this.renderEmptyScreen(state)}
+        {this.renderFooter(state)}
       </section>
     );
   }

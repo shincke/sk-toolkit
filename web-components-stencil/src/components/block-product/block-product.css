@@ -1,0 +1,20 @@
+:host {
+  display: block;
+}
+
+.block-product {
+  display: grid;
+  gap: var(--ai-chat-space-xxs, 0.25rem);
+  padding: var(--ai-chat-space-sm, 0.75rem);
+  border: 1px solid var(--ai-chat-border-color, #dce6f3);
+  border-radius: var(--ai-chat-radius-md, 0.8rem);
+  background: var(--ai-chat-surface-raised, #ffffff);
+}
+
+.block-product p {
+  margin: 0;
+}
+
+.block-product__name {
+  font-weight: 600;
+}

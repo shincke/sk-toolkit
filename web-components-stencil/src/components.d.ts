@@ -5,55 +5,53 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Message } from "./components/ai-chat/ai-chat.types";
-export { Message } from "./components/ai-chat/ai-chat.types";
+import { ActionBlock, AiChatLayout, AiChatStatus, AiChatTextConfig, ChatResponse, CitationBlock, MarkdownBlock, ProductBlock, Suggestion, TextBlock, VideoBlock } from "./components/ai-chat/ai-chat.types";
+export { ActionBlock, AiChatLayout, AiChatStatus, AiChatTextConfig, ChatResponse, CitationBlock, MarkdownBlock, ProductBlock, Suggestion, TextBlock, VideoBlock } from "./components/ai-chat/ai-chat.types";
 export namespace Components {
     interface SkAiChat {
         /**
-          * @default false
+          * @default "full"
          */
-        "auto": boolean;
-        /**
-          * @default true
-         */
-        "full": boolean;
-        "header": string;
-        "inputButtonLabel": string;
-        "inputPlaceholder": string;
-        /**
-          * @default false
-         */
-        "loading": boolean;
-        /**
-          * @default "Assistant is typing"
-         */
-        "loadingLabel": string;
+        "layout": AiChatLayout;
         /**
           * @default []
          */
-        "messages": Message[];
+        "responses": ChatResponse[];
+        "showSuggestions"?: boolean;
         /**
-          * @default true
+          * @default "idle"
          */
-        "mockLoading": boolean;
-        /**
-          * @default 900
-         */
-        "mockLoadingDelay": number;
-        /**
-          * @default true
-         */
-        "mockStreaming": boolean;
+        "status": AiChatStatus;
         /**
           * @default ""
          */
         "streamingAssistantContent": string;
-        "subheader": string;
         /**
-          * @default [     "Create a summary from notes",     "Draft a release checklist",     "Explain this API surface",   ]
+          * @default [     { id: "1", label: "Create a summary from notes" },     { id: "2", label: "Draft a release checklist" },     { id: "3", label: "Explain this API surface" },   ]
          */
-        "suggestions": string[];
-        "suggestionsLabel": string;
+        "suggestions": Suggestion[];
+        /**
+          * @default {}
+         */
+        "text": Partial<AiChatTextConfig>;
+    }
+    interface SkBlockActions {
+        "block"?: ActionBlock;
+    }
+    interface SkBlockCitation {
+        "block"?: CitationBlock;
+    }
+    interface SkBlockMarkdown {
+        "block"?: MarkdownBlock;
+    }
+    interface SkBlockProduct {
+        "block"?: ProductBlock;
+    }
+    interface SkBlockText {
+        "block"?: TextBlock;
+    }
+    interface SkBlockVideo {
+        "block"?: VideoBlock;
     }
     interface SkButton {
         /**
@@ -76,6 +74,43 @@ export namespace Components {
           * @default 'primary'
          */
         "ui": 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
+    }
+    interface SkChatEmpty {
+        /**
+          * @default "Ask a question below or choose one of the suggested prompts."
+         */
+        "description": string;
+        /**
+          * @default "Start a conversation"
+         */
+        "title": string;
+    }
+    interface SkChatHeader {
+        /**
+          * @default "AI Chat"
+         */
+        "header": string;
+        /**
+          * @default ""
+         */
+        "subheader": string;
+    }
+    interface SkChatResponse {
+        "response"?: ChatResponse;
+    }
+    interface SkChatSuggestions {
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default "Suggested prompts"
+         */
+        "label": string;
+        /**
+          * @default []
+         */
+        "suggestions": Suggestion[];
     }
     interface SkInput {
         /**
@@ -160,13 +195,23 @@ export interface SkAiChatCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkAiChatElement;
 }
+export interface SkBlockActionsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkBlockActionsElement;
+}
+export interface SkChatSuggestionsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkChatSuggestionsElement;
+}
 export interface SkInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkInputElement;
 }
 declare global {
     interface HTMLSkAiChatElementEventMap {
+        "suggestionSelect": Suggestion;
         "suggestionClick": string;
+        "messageSubmit": string;
     }
     interface HTMLSkAiChatElement extends Components.SkAiChat, HTMLStencilElement {
         addEventListener<K extends keyof HTMLSkAiChatElementEventMap>(type: K, listener: (this: HTMLSkAiChatElement, ev: SkAiChatCustomEvent<HTMLSkAiChatElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -182,11 +227,94 @@ declare global {
         prototype: HTMLSkAiChatElement;
         new (): HTMLSkAiChatElement;
     };
+    interface HTMLSkBlockActionsElementEventMap {
+        "actionBlockSelect": string;
+    }
+    interface HTMLSkBlockActionsElement extends Components.SkBlockActions, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkBlockActionsElementEventMap>(type: K, listener: (this: HTMLSkBlockActionsElement, ev: SkBlockActionsCustomEvent<HTMLSkBlockActionsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkBlockActionsElementEventMap>(type: K, listener: (this: HTMLSkBlockActionsElement, ev: SkBlockActionsCustomEvent<HTMLSkBlockActionsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkBlockActionsElement: {
+        prototype: HTMLSkBlockActionsElement;
+        new (): HTMLSkBlockActionsElement;
+    };
+    interface HTMLSkBlockCitationElement extends Components.SkBlockCitation, HTMLStencilElement {
+    }
+    var HTMLSkBlockCitationElement: {
+        prototype: HTMLSkBlockCitationElement;
+        new (): HTMLSkBlockCitationElement;
+    };
+    interface HTMLSkBlockMarkdownElement extends Components.SkBlockMarkdown, HTMLStencilElement {
+    }
+    var HTMLSkBlockMarkdownElement: {
+        prototype: HTMLSkBlockMarkdownElement;
+        new (): HTMLSkBlockMarkdownElement;
+    };
+    interface HTMLSkBlockProductElement extends Components.SkBlockProduct, HTMLStencilElement {
+    }
+    var HTMLSkBlockProductElement: {
+        prototype: HTMLSkBlockProductElement;
+        new (): HTMLSkBlockProductElement;
+    };
+    interface HTMLSkBlockTextElement extends Components.SkBlockText, HTMLStencilElement {
+    }
+    var HTMLSkBlockTextElement: {
+        prototype: HTMLSkBlockTextElement;
+        new (): HTMLSkBlockTextElement;
+    };
+    interface HTMLSkBlockVideoElement extends Components.SkBlockVideo, HTMLStencilElement {
+    }
+    var HTMLSkBlockVideoElement: {
+        prototype: HTMLSkBlockVideoElement;
+        new (): HTMLSkBlockVideoElement;
+    };
     interface HTMLSkButtonElement extends Components.SkButton, HTMLStencilElement {
     }
     var HTMLSkButtonElement: {
         prototype: HTMLSkButtonElement;
         new (): HTMLSkButtonElement;
+    };
+    interface HTMLSkChatEmptyElement extends Components.SkChatEmpty, HTMLStencilElement {
+    }
+    var HTMLSkChatEmptyElement: {
+        prototype: HTMLSkChatEmptyElement;
+        new (): HTMLSkChatEmptyElement;
+    };
+    interface HTMLSkChatHeaderElement extends Components.SkChatHeader, HTMLStencilElement {
+    }
+    var HTMLSkChatHeaderElement: {
+        prototype: HTMLSkChatHeaderElement;
+        new (): HTMLSkChatHeaderElement;
+    };
+    interface HTMLSkChatResponseElement extends Components.SkChatResponse, HTMLStencilElement {
+    }
+    var HTMLSkChatResponseElement: {
+        prototype: HTMLSkChatResponseElement;
+        new (): HTMLSkChatResponseElement;
+    };
+    interface HTMLSkChatSuggestionsElementEventMap {
+        "suggestionSelect": Suggestion;
+        "suggestionClick": string;
+    }
+    interface HTMLSkChatSuggestionsElement extends Components.SkChatSuggestions, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkChatSuggestionsElementEventMap>(type: K, listener: (this: HTMLSkChatSuggestionsElement, ev: SkChatSuggestionsCustomEvent<HTMLSkChatSuggestionsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkChatSuggestionsElementEventMap>(type: K, listener: (this: HTMLSkChatSuggestionsElement, ev: SkChatSuggestionsCustomEvent<HTMLSkChatSuggestionsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkChatSuggestionsElement: {
+        prototype: HTMLSkChatSuggestionsElement;
+        new (): HTMLSkChatSuggestionsElement;
     };
     interface HTMLSkInputElementEventMap {
         "messageSubmit": string;
@@ -237,7 +365,17 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "sk-ai-chat": HTMLSkAiChatElement;
+        "sk-block-actions": HTMLSkBlockActionsElement;
+        "sk-block-citation": HTMLSkBlockCitationElement;
+        "sk-block-markdown": HTMLSkBlockMarkdownElement;
+        "sk-block-product": HTMLSkBlockProductElement;
+        "sk-block-text": HTMLSkBlockTextElement;
+        "sk-block-video": HTMLSkBlockVideoElement;
         "sk-button": HTMLSkButtonElement;
+        "sk-chat-empty": HTMLSkChatEmptyElement;
+        "sk-chat-header": HTMLSkChatHeaderElement;
+        "sk-chat-response": HTMLSkChatResponseElement;
+        "sk-chat-suggestions": HTMLSkChatSuggestionsElement;
         "sk-input": HTMLSkInputElement;
         "sk-loading": HTMLSkLoadingElement;
         "sk-message": HTMLSkMessageElement;
@@ -249,51 +387,52 @@ declare global {
 declare namespace LocalJSX {
     interface SkAiChat {
         /**
-          * @default false
+          * @default "full"
          */
-        "auto"?: boolean;
-        /**
-          * @default true
-         */
-        "full"?: boolean;
-        "header"?: string;
-        "inputButtonLabel"?: string;
-        "inputPlaceholder"?: string;
-        /**
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * @default "Assistant is typing"
-         */
-        "loadingLabel"?: string;
+        "layout"?: AiChatLayout;
+        "onMessageSubmit"?: (event: SkAiChatCustomEvent<string>) => void;
+        "onSuggestionClick"?: (event: SkAiChatCustomEvent<string>) => void;
+        "onSuggestionSelect"?: (event: SkAiChatCustomEvent<Suggestion>) => void;
         /**
           * @default []
          */
-        "messages"?: Message[];
+        "responses"?: ChatResponse[];
+        "showSuggestions"?: boolean;
         /**
-          * @default true
+          * @default "idle"
          */
-        "mockLoading"?: boolean;
-        /**
-          * @default 900
-         */
-        "mockLoadingDelay"?: number;
-        /**
-          * @default true
-         */
-        "mockStreaming"?: boolean;
-        "onSuggestionClick"?: (event: SkAiChatCustomEvent<string>) => void;
+        "status"?: AiChatStatus;
         /**
           * @default ""
          */
         "streamingAssistantContent"?: string;
-        "subheader"?: string;
         /**
-          * @default [     "Create a summary from notes",     "Draft a release checklist",     "Explain this API surface",   ]
+          * @default [     { id: "1", label: "Create a summary from notes" },     { id: "2", label: "Draft a release checklist" },     { id: "3", label: "Explain this API surface" },   ]
          */
-        "suggestions"?: string[];
-        "suggestionsLabel"?: string;
+        "suggestions"?: Suggestion[];
+        /**
+          * @default {}
+         */
+        "text"?: Partial<AiChatTextConfig>;
+    }
+    interface SkBlockActions {
+        "block"?: ActionBlock;
+        "onActionBlockSelect"?: (event: SkBlockActionsCustomEvent<string>) => void;
+    }
+    interface SkBlockCitation {
+        "block"?: CitationBlock;
+    }
+    interface SkBlockMarkdown {
+        "block"?: MarkdownBlock;
+    }
+    interface SkBlockProduct {
+        "block"?: ProductBlock;
+    }
+    interface SkBlockText {
+        "block"?: TextBlock;
+    }
+    interface SkBlockVideo {
+        "block"?: VideoBlock;
     }
     interface SkButton {
         /**
@@ -316,6 +455,45 @@ declare namespace LocalJSX {
           * @default 'primary'
          */
         "ui"?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
+    }
+    interface SkChatEmpty {
+        /**
+          * @default "Ask a question below or choose one of the suggested prompts."
+         */
+        "description"?: string;
+        /**
+          * @default "Start a conversation"
+         */
+        "title"?: string;
+    }
+    interface SkChatHeader {
+        /**
+          * @default "AI Chat"
+         */
+        "header"?: string;
+        /**
+          * @default ""
+         */
+        "subheader"?: string;
+    }
+    interface SkChatResponse {
+        "response"?: ChatResponse;
+    }
+    interface SkChatSuggestions {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default "Suggested prompts"
+         */
+        "label"?: string;
+        "onSuggestionClick"?: (event: SkChatSuggestionsCustomEvent<string>) => void;
+        "onSuggestionSelect"?: (event: SkChatSuggestionsCustomEvent<Suggestion>) => void;
+        /**
+          * @default []
+         */
+        "suggestions"?: Suggestion[];
     }
     interface SkInput {
         /**
@@ -398,25 +576,28 @@ declare namespace LocalJSX {
     }
 
     interface SkAiChatAttributes {
-        "header": string;
-        "subheader": string;
-        "inputPlaceholder": string;
-        "inputButtonLabel": string;
-        "suggestionsLabel": string;
-        "loading": boolean;
+        "status": AiChatStatus;
+        "layout": AiChatLayout;
         "streamingAssistantContent": string;
-        "mockLoading": boolean;
-        "mockLoadingDelay": number;
-        "mockStreaming": boolean;
-        "full": boolean;
-        "auto": boolean;
-        "loadingLabel": string;
+        "showSuggestions": boolean;
     }
     interface SkButtonAttributes {
         "size": 's' | 'm' | 'l';
         "label": string;
         "type": 'button' | 'submit' | 'reset';
         "ui": 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
+        "disabled": boolean;
+    }
+    interface SkChatEmptyAttributes {
+        "title": string;
+        "description": string;
+    }
+    interface SkChatHeaderAttributes {
+        "header": string;
+        "subheader": string;
+    }
+    interface SkChatSuggestionsAttributes {
+        "label": string;
         "disabled": boolean;
     }
     interface SkInputAttributes {
@@ -453,7 +634,17 @@ declare namespace LocalJSX {
 
     interface IntrinsicElements {
         "sk-ai-chat": Omit<SkAiChat, keyof SkAiChatAttributes> & { [K in keyof SkAiChat & keyof SkAiChatAttributes]?: SkAiChat[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `attr:${K}`]?: SkAiChatAttributes[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `prop:${K}`]?: SkAiChat[K] };
+        "sk-block-actions": SkBlockActions;
+        "sk-block-citation": SkBlockCitation;
+        "sk-block-markdown": SkBlockMarkdown;
+        "sk-block-product": SkBlockProduct;
+        "sk-block-text": SkBlockText;
+        "sk-block-video": SkBlockVideo;
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
+        "sk-chat-empty": Omit<SkChatEmpty, keyof SkChatEmptyAttributes> & { [K in keyof SkChatEmpty & keyof SkChatEmptyAttributes]?: SkChatEmpty[K] } & { [K in keyof SkChatEmpty & keyof SkChatEmptyAttributes as `attr:${K}`]?: SkChatEmptyAttributes[K] } & { [K in keyof SkChatEmpty & keyof SkChatEmptyAttributes as `prop:${K}`]?: SkChatEmpty[K] };
+        "sk-chat-header": Omit<SkChatHeader, keyof SkChatHeaderAttributes> & { [K in keyof SkChatHeader & keyof SkChatHeaderAttributes]?: SkChatHeader[K] } & { [K in keyof SkChatHeader & keyof SkChatHeaderAttributes as `attr:${K}`]?: SkChatHeaderAttributes[K] } & { [K in keyof SkChatHeader & keyof SkChatHeaderAttributes as `prop:${K}`]?: SkChatHeader[K] };
+        "sk-chat-response": SkChatResponse;
+        "sk-chat-suggestions": Omit<SkChatSuggestions, keyof SkChatSuggestionsAttributes> & { [K in keyof SkChatSuggestions & keyof SkChatSuggestionsAttributes]?: SkChatSuggestions[K] } & { [K in keyof SkChatSuggestions & keyof SkChatSuggestionsAttributes as `attr:${K}`]?: SkChatSuggestionsAttributes[K] } & { [K in keyof SkChatSuggestions & keyof SkChatSuggestionsAttributes as `prop:${K}`]?: SkChatSuggestions[K] };
         "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
         "sk-loading": Omit<SkLoading, keyof SkLoadingAttributes> & { [K in keyof SkLoading & keyof SkLoadingAttributes]?: SkLoading[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `attr:${K}`]?: SkLoadingAttributes[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `prop:${K}`]?: SkLoading[K] };
         "sk-message": Omit<SkMessage, keyof SkMessageAttributes> & { [K in keyof SkMessage & keyof SkMessageAttributes]?: SkMessage[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `attr:${K}`]?: SkMessageAttributes[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `prop:${K}`]?: SkMessage[K] };
@@ -467,7 +658,17 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "sk-ai-chat": LocalJSX.IntrinsicElements["sk-ai-chat"] & JSXBase.HTMLAttributes<HTMLSkAiChatElement>;
+            "sk-block-actions": LocalJSX.IntrinsicElements["sk-block-actions"] & JSXBase.HTMLAttributes<HTMLSkBlockActionsElement>;
+            "sk-block-citation": LocalJSX.IntrinsicElements["sk-block-citation"] & JSXBase.HTMLAttributes<HTMLSkBlockCitationElement>;
+            "sk-block-markdown": LocalJSX.IntrinsicElements["sk-block-markdown"] & JSXBase.HTMLAttributes<HTMLSkBlockMarkdownElement>;
+            "sk-block-product": LocalJSX.IntrinsicElements["sk-block-product"] & JSXBase.HTMLAttributes<HTMLSkBlockProductElement>;
+            "sk-block-text": LocalJSX.IntrinsicElements["sk-block-text"] & JSXBase.HTMLAttributes<HTMLSkBlockTextElement>;
+            "sk-block-video": LocalJSX.IntrinsicElements["sk-block-video"] & JSXBase.HTMLAttributes<HTMLSkBlockVideoElement>;
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
+            "sk-chat-empty": LocalJSX.IntrinsicElements["sk-chat-empty"] & JSXBase.HTMLAttributes<HTMLSkChatEmptyElement>;
+            "sk-chat-header": LocalJSX.IntrinsicElements["sk-chat-header"] & JSXBase.HTMLAttributes<HTMLSkChatHeaderElement>;
+            "sk-chat-response": LocalJSX.IntrinsicElements["sk-chat-response"] & JSXBase.HTMLAttributes<HTMLSkChatResponseElement>;
+            "sk-chat-suggestions": LocalJSX.IntrinsicElements["sk-chat-suggestions"] & JSXBase.HTMLAttributes<HTMLSkChatSuggestionsElement>;
             "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
             "sk-loading": LocalJSX.IntrinsicElements["sk-loading"] & JSXBase.HTMLAttributes<HTMLSkLoadingElement>;
             "sk-message": LocalJSX.IntrinsicElements["sk-message"] & JSXBase.HTMLAttributes<HTMLSkMessageElement>;

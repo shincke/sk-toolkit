@@ -46,17 +46,42 @@
   /* Composite typography token for logo-style text */
   --sk-font-logo-style: var(--sk-font-weight-logo) var(--sk-font-size-logo) / 1.1
     var(--sk-font-logo);
+
+  --sk-ai-chat-max-width: 56rem;
+	--sk-ai-chat-height: min(100dvh, 44rem);
+	--sk-ai-chat-collapsed-height: 22rem;
+	--sk-ai-chat-auto-expanded-height: 100dvh;
+	--sk-ai-chat-bg: #f7f9fc;
+	--sk-ai-chat-panel-bg: #ffffff;
+	--sk-ai-chat-muted-bg: #f2f5f8;
+	--sk-ai-chat-border: #d8e0e8;
+	--sk-ai-chat-text: #12263f;
+	--sk-ai-chat-muted-text: #5b6d82;
+	--sk-ai-chat-accent: #0d7ca5;
+	--sk-ai-chat-shadow: 0 0.5rem 2rem color-mix(in srgb, var(--sk-ai-chat-text) 10%, transparent);
+	--sk-ai-chat-radius: 1rem;
+	--sk-ai-chat-gap: 0.75rem;
+	--sk-ai-chat-space-xs: 0.5rem;
+	--sk-ai-chat-space-sm: 0.75rem;
+	--sk-ai-chat-space-md: 1rem;
+	--sk-ai-chat-space-lg: 1.25rem;
+	--sk-ai-chat-title-size: 1.05rem;
+	--sk-ai-chat-body-size: 0.95rem;
+	--sk-ai-chat-caption-size: 0.78rem;
 }
 
 :root,
 [data-sk-theme='light'] {
   color-scheme: light;
 
-  --sk-color-background: #f8fafc;
-  --sk-color-surface: #e2e8f0;
-  --sk-color-surface-elevated: #ffffff;
+  --sk-color-background: #ffffff;
+  --sk-color-surface: #f3f4f6;
+  --sk-color-surface-elevated: #f8fafc;
   --sk-color-surface-inverse: #0f172a;
   --sk-color-surface-inverse-text: #f8fafc;
+  --sk-color-surface-blur: #ffffff45;
+  --sk-gradient-color-light-to-dark: linear-gradient(178.7deg, rgba(226, 215, 183, 1) 1.7%, rgb(184, 167, 122) 63%);
+  --sk-gradient-color-dark-to-light: linear-gradient(178.7deg, rgb(184, 167, 122) 1.7%, rgba(226, 215, 183, 1) 63%);
 
   --sk-color-text-primary: #0f172a;
   --sk-color-text-muted: #475569;
@@ -80,6 +105,9 @@
   --sk-color-surface-elevated: #1e293b;
   --sk-color-surface-inverse: #e2e8f0;
   --sk-color-surface-inverse-text: #0f172a;
+  --sk-color-surface-blur: #00000045;
+  --sk-gradient-color-light-to-dark: linear-gradient(178.7deg, #1f0f5c 1.7%, rgb(2, 0, 20) 63%);
+  --sk-gradient-color-dark-to-light: linear-gradient(178.7deg, rgb(2, 0, 20) 1.7%, #1f0f5c 63%);
 
   --sk-color-text-primary: #e2e8f0;
   --sk-color-text-muted: #94a3b8;
@@ -147,7 +175,7 @@ body {
 
 body {
   margin: 0;
-  background: var(--sk-color-background);
+  background: var(--sk-gradient-color-light-to-dark);
   color: var(--sk-color-text-primary);
   font-family: var(--sk-font-body);
   font-weight: var(--sk-font-weight-body);

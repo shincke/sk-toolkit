@@ -76,9 +76,9 @@
 .message__body {
 	margin: 0;
 	padding: 0.55rem 0.7rem;
-	border: 1px solid var(--message-border);
+	border: 1px solid var(--sk-color-border);
 	border-radius: 0.8rem;
-	background: var(--message-surface);
+	background: var(--sk-color-surface-blur);
 	font-size: var(--message-body-size);
 	line-height: 1.45;
 	color: var(--message-text);

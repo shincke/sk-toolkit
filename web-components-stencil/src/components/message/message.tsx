@@ -35,6 +35,12 @@ export class Message {
           <div class="message__body" data-markdown-ready="true">
             <slot>{this.content}</slot>
           </div>
+          <div class="message__actions">
+            <slot name="message-actions" />
+          </div>
+          <div class="message__footer">
+            <slot name="message-footer" />
+          </div>
         </div>
       </article>
     );

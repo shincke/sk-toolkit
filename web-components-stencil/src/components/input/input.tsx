@@ -13,7 +13,7 @@ export class Input {
   @Prop() inputButtonDisabled = false;
   @Prop() disabled = false;
 
-  @Event({ eventName: "messageSubmit" }) messageSubmit: EventEmitter<string>;
+  @Event({ eventName: "messageSubmit", bubbles: false, composed: false }) messageSubmit: EventEmitter<string>;
 
   private textareaEl?: HTMLTextAreaElement;
 

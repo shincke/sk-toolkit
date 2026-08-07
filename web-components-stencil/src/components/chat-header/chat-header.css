@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.chat-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ai-chat-gap, 0.75rem);
+}
+
+.chat-header__heading-group p {
+  margin: 0;
+  font-size: var(--ai-chat-caption-size, 0.78rem);
+  color: var(--ai-chat-muted-text, #5b6d82);
+}
+
+.chat-header__heading-group h1 {
+  margin: var(--ai-chat-space-xs, 0.5rem) 0 0;
+  font-size: var(--ai-chat-title-size, 1.05rem);
+  line-height: 1.2;
+  color: var(--ai-chat-text, #12263f);
+}
+
+.chat-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ai-chat-space-xs, 0.5rem);
+}
