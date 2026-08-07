@@ -38,6 +38,33 @@
 	font-size: 1.05rem;
 }
 
+.button--primary {
+	background: var(--sk-color-accent);
+	color: var(--sk-color-accent-contrast);
+}
+
+.button--secondary {
+	background: var(--sk-color-accent-muted);
+	color: var(--sk-color-accent-contrast);
+}
+
+.button--tertiary {
+	background: var(--sk-color-accent-muted);
+	color: var(--sk-color-accent-contrast);
+}
+
+.button--ghost {
+	background: transparent;
+	color: var(--sk-color-accent);
+	border: 1px solid var(--sk-color-accent);
+}
+
+.button--link {
+	background: transparent;
+	color: var(--sk-color-accent);
+	text-decoration: underline;
+}
+
 .button:hover {
 	background: var(--sk-color-accent-hover);
 }

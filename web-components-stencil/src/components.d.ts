@@ -5,20 +5,42 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Message } from "./components/ai-chat/ai-chat.types";
+export { Message } from "./components/ai-chat/ai-chat.types";
 export namespace Components {
-    interface MyComponent {
+    interface SkAiChat {
         /**
-          * The first name
+          * @default "AI Chat"
          */
-        "first": string;
+        "header": string;
         /**
-          * The last name
+          * @default "Send"
          */
-        "last": string;
+        "inputButtonLabel": string;
         /**
-          * The middle name
+          * @default "Ask anything..."
          */
-        "middle": string;
+        "inputPlaceholder": string;
+        /**
+          * @default []
+         */
+        "messages": Message[];
+        /**
+          * @default true
+         */
+        "showMockMessages": boolean;
+        /**
+          * @default "Ask questions and explore answers"
+         */
+        "subheader": string;
+        /**
+          * @default [     "Create a summary from notes",     "Draft a release checklist",     "Explain this API surface",   ]
+         */
+        "suggestedPrompts": string[];
+        /**
+          * @default "Suggested prompts"
+         */
+        "suggestionsLabel": string;
     }
     interface SkButton {
         /**
@@ -37,8 +59,36 @@ export namespace Components {
           * @default 'button'
          */
         "type": 'button' | 'submit' | 'reset';
+        /**
+          * @default 'primary'
+         */
+        "ui": 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
     }
-    interface SkDefaultModal {
+    interface SkInput {
+        /**
+          * @default false
+         */
+        "inputButtonDisabled": boolean;
+        /**
+          * @default "Send"
+         */
+        "inputButtonLabel": string;
+        /**
+          * @default "Ask anything..."
+         */
+        "inputPlaceholder": string;
+    }
+    interface SkMessage {
+        "avatarLabel"?: string;
+        /**
+          * @default ""
+         */
+        "content": string;
+        /**
+          * @default "assistant"
+         */
+        "messageRole": MessageRole;
+        "timestamp"?: string;
     }
     interface SkSideDrawer {
         "header": string;
@@ -78,11 +128,11 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLSkAiChatElement extends Components.SkAiChat, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLSkAiChatElement: {
+        prototype: HTMLSkAiChatElement;
+        new (): HTMLSkAiChatElement;
     };
     interface HTMLSkButtonElement extends Components.SkButton, HTMLStencilElement {
     }
@@ -90,11 +140,17 @@ declare global {
         prototype: HTMLSkButtonElement;
         new (): HTMLSkButtonElement;
     };
-    interface HTMLSkDefaultModalElement extends Components.SkDefaultModal, HTMLStencilElement {
+    interface HTMLSkInputElement extends Components.SkInput, HTMLStencilElement {
     }
-    var HTMLSkDefaultModalElement: {
-        prototype: HTMLSkDefaultModalElement;
-        new (): HTMLSkDefaultModalElement;
+    var HTMLSkInputElement: {
+        prototype: HTMLSkInputElement;
+        new (): HTMLSkInputElement;
+    };
+    interface HTMLSkMessageElement extends Components.SkMessage, HTMLStencilElement {
+    }
+    var HTMLSkMessageElement: {
+        prototype: HTMLSkMessageElement;
+        new (): HTMLSkMessageElement;
     };
     interface HTMLSkSideDrawerElement extends Components.SkSideDrawer, HTMLStencilElement {
     }
@@ -109,27 +165,48 @@ declare global {
         new (): HTMLSkSimpleStageElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "sk-ai-chat": HTMLSkAiChatElement;
         "sk-button": HTMLSkButtonElement;
-        "sk-default-modal": HTMLSkDefaultModalElement;
+        "sk-input": HTMLSkInputElement;
+        "sk-message": HTMLSkMessageElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
         "sk-simple-stage": HTMLSkSimpleStageElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface SkAiChat {
         /**
-          * The first name
+          * @default "AI Chat"
          */
-        "first"?: string;
+        "header"?: string;
         /**
-          * The last name
+          * @default "Send"
          */
-        "last"?: string;
+        "inputButtonLabel"?: string;
         /**
-          * The middle name
+          * @default "Ask anything..."
          */
-        "middle"?: string;
+        "inputPlaceholder"?: string;
+        /**
+          * @default []
+         */
+        "messages"?: Message[];
+        /**
+          * @default true
+         */
+        "showMockMessages"?: boolean;
+        /**
+          * @default "Ask questions and explore answers"
+         */
+        "subheader"?: string;
+        /**
+          * @default [     "Create a summary from notes",     "Draft a release checklist",     "Explain this API surface",   ]
+         */
+        "suggestedPrompts"?: string[];
+        /**
+          * @default "Suggested prompts"
+         */
+        "suggestionsLabel"?: string;
     }
     interface SkButton {
         /**
@@ -148,8 +225,36 @@ declare namespace LocalJSX {
           * @default 'button'
          */
         "type"?: 'button' | 'submit' | 'reset';
+        /**
+          * @default 'primary'
+         */
+        "ui"?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
     }
-    interface SkDefaultModal {
+    interface SkInput {
+        /**
+          * @default false
+         */
+        "inputButtonDisabled"?: boolean;
+        /**
+          * @default "Send"
+         */
+        "inputButtonLabel"?: string;
+        /**
+          * @default "Ask anything..."
+         */
+        "inputPlaceholder"?: string;
+    }
+    interface SkMessage {
+        "avatarLabel"?: string;
+        /**
+          * @default ""
+         */
+        "content"?: string;
+        /**
+          * @default "assistant"
+         */
+        "messageRole"?: MessageRole;
+        "timestamp"?: string;
     }
     interface SkSideDrawer {
         "header"?: string;
@@ -188,16 +293,31 @@ declare namespace LocalJSX {
         "poster"?: string;
     }
 
-    interface MyComponentAttributes {
-        "first": string;
-        "middle": string;
-        "last": string;
+    interface SkAiChatAttributes {
+        "header": string;
+        "subheader": string;
+        "inputPlaceholder": string;
+        "inputButtonLabel": string;
+        "suggestionsLabel": string;
+        "showMockMessages": boolean;
     }
     interface SkButtonAttributes {
         "size": 's' | 'm' | 'l';
         "label": string;
         "type": 'button' | 'submit' | 'reset';
+        "ui": 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
         "disabled": boolean;
+    }
+    interface SkInputAttributes {
+        "inputPlaceholder": string;
+        "inputButtonLabel": string;
+        "inputButtonDisabled": boolean;
+    }
+    interface SkMessageAttributes {
+        "messageRole": MessageRole;
+        "content": string;
+        "timestamp": string;
+        "avatarLabel": string;
     }
     interface SkSideDrawerAttributes {
         "header": string;
@@ -216,9 +336,10 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
-        "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "sk-ai-chat": Omit<SkAiChat, keyof SkAiChatAttributes> & { [K in keyof SkAiChat & keyof SkAiChatAttributes]?: SkAiChat[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `attr:${K}`]?: SkAiChatAttributes[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `prop:${K}`]?: SkAiChat[K] };
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
-        "sk-default-modal": SkDefaultModal;
+        "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
+        "sk-message": Omit<SkMessage, keyof SkMessageAttributes> & { [K in keyof SkMessage & keyof SkMessageAttributes]?: SkMessage[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `attr:${K}`]?: SkMessageAttributes[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `prop:${K}`]?: SkMessage[K] };
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
         "sk-simple-stage": Omit<SkSimpleStage, keyof SkSimpleStageAttributes> & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes]?: SkSimpleStage[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `attr:${K}`]?: SkSimpleStageAttributes[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `prop:${K}`]?: SkSimpleStage[K] };
     }
@@ -227,9 +348,10 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "sk-ai-chat": LocalJSX.IntrinsicElements["sk-ai-chat"] & JSXBase.HTMLAttributes<HTMLSkAiChatElement>;
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
-            "sk-default-modal": LocalJSX.IntrinsicElements["sk-default-modal"] & JSXBase.HTMLAttributes<HTMLSkDefaultModalElement>;
+            "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
+            "sk-message": LocalJSX.IntrinsicElements["sk-message"] & JSXBase.HTMLAttributes<HTMLSkMessageElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
             "sk-simple-stage": LocalJSX.IntrinsicElements["sk-simple-stage"] & JSXBase.HTMLAttributes<HTMLSkSimpleStageElement>;
         }

@@ -1,0 +1,32 @@
+.input__composer {
+	display: grid;
+	gap: var(--ai-chat-space-xs);
+}
+
+.input__composer-label {
+	font-size: var(--ai-chat-caption-size);
+	color: var(--ai-chat-muted-text);
+}
+
+.input__composer-shell {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: var(--ai-chat-space-xs);
+	padding: var(--ai-chat-space-xs);
+	border: 1px solid var(--ai-chat-border);
+	border-radius: calc(var(--ai-chat-radius) - 0.25rem);
+	background: var(--ai-chat-panel-bg);
+}
+
+.input__composer-shell input {
+	min-width: 0;
+	border: none;
+	padding: 0.55rem;
+	font-size: var(--ai-chat-body-size);
+	color: var(--ai-chat-text);
+	background: transparent;
+}
+
+.input__composer-shell input::placeholder {
+	color: var(--ai-chat-muted-text);
+}
