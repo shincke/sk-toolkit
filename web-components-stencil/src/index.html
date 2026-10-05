@@ -3,137 +3,664 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
+    <title>SK Toolkit Showcase</title>
 
     <link rel="stylesheet" href="/build/web-components-stencil.css" />
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      body.dark {
+        color-scheme: dark;
+      }
+
+      body {
+        padding: 32px 20px 72px;
+      }
+
+      .showcase-shell {
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+
+      .showcase-hero {
+        display: grid;
+        gap: 24px;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .showcase-hero-top {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .showcase-theme-toggle {
+        display: inline-flex;
+        justify-content: flex-end;
+      }
+
+      .showcase-kicker {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .showcase-lead {
+        max-width: 62rem;
+      }
+
+      .showcase-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+      }
+
+      .showcase-card {
+        grid-column: span 12;
+        display: grid;
+        gap: 20px;
+        padding: 24px;
+        border: 1px solid var(--color-border);
+        background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+        box-shadow: var(--shadow-none);
+      }
+
+      .showcase-card.is-wide {
+        grid-column: span 12;
+      }
+
+      .showcase-card-header {
+        display: grid;
+        gap: 10px;
+      }
+
+      .showcase-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .showcase-row.is-spread {
+        justify-content: space-between;
+      }
+
+      .showcase-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .showcase-columns {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .showcase-selects {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .showcase-typography {
+        display: grid;
+        gap: 14px;
+      }
+
+      .showcase-card-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .showcase-card-meta,
+      .showcase-card-link {
+        margin: 0;
+      }
+
+      .showcase-card-link {
+        color: var(--color-text-primary);
+      }
+
+      .showcase-patterns-grid {
+        display: grid;
+        gap: 24px;
+      }
+
+      .showcase-patterns-layouts {
+        display: grid;
+        gap: 24px;
+      }
+
+      .showcase-patterns-grid-demo {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-auto-rows: 1fr;
+      }
+
+      .showcase-patterns-detail {
+        max-width: 100%;
+      }
+
+      .showcase-patterns-section-title {
+        display: grid;
+        gap: 10px;
+      }
+
+      .showcase-patterns-note {
+        max-width: 56rem;
+      }
+
+      .showcase-drawer-launches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .showcase-drawer-items {
+        display: grid;
+        gap: 0;
+      }
+
+      .showcase-drawer-item {
+        display: grid;
+        grid-template-columns: 88px minmax(0, 1fr) auto;
+        gap: 16px;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .showcase-drawer-item:last-child {
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .showcase-drawer-item.is-mobile {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .showcase-drawer-thumb {
+        width: 88px;
+        height: 88px;
+        border: 1px solid var(--color-border);
+        background: color-mix(in srgb, var(--color-background) 65%, var(--color-surface));
+      }
+
+      .showcase-drawer-item.is-mobile .showcase-drawer-thumb {
+        display: none;
+      }
+
+      .showcase-drawer-copy {
+        display: grid;
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .showcase-drawer-title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .showcase-drawer-item.is-mobile .showcase-drawer-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .showcase-drawer-artist,
+      .showcase-drawer-label,
+      .showcase-drawer-price {
+        margin: 0;
+      }
+
+      .showcase-drawer-price {
+        color: var(--color-text-primary);
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .showcase-drawer-footer {
+        display: grid;
+        gap: 16px;
+      }
+
+      .showcase-drawer-total {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .showcase-skeleton-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .showcase-skeleton-list {
+        display: grid;
+      }
+
+      .showcase-skeleton-list sk-skeleton {
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .showcase-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .showcase-muted {
+        opacity: 0.88;
+      }
+
+      @media (min-width: 900px) {
+        .showcase-card.is-half {
+          grid-column: span 6;
+        }
+      }
+
+      @media (max-width: 899px) {
+        .showcase-columns,
+        .showcase-selects {
+          grid-template-columns: 1fr;
+        }
+
+        .showcase-card-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .showcase-patterns-grid-demo {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 20px 14px 48px;
+        }
+
+        .showcase-hero-top {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .showcase-card {
+          padding: 18px;
+        }
+
+        .showcase-theme-toggle {
+          justify-content: flex-start;
+        }
+
+        .showcase-card-grid,
+        .showcase-columns,
+        .showcase-selects {
+          grid-template-columns: 1fr;
+        }
+
+        .showcase-patterns-grid-demo {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    </style>
   </head>
-  <body data-sk-theme="dark">
-    <sk-ai-chat id="chat"></sk-ai-chat>
+  <body class="light">
+    <main class="showcase-shell">
+      <section class="showcase-hero">
+        <div class="showcase-hero-top">
+          <div>
+            <sk-caption class="showcase-kicker">SK Toolkit / Web Components</sk-caption>
+            <sk-heading size="display">Component Catalog</sk-heading>
+          </div>
+          <div class="showcase-theme-toggle">
+            <sk-toggle id="theme-toggle" label="Dark mode"></sk-toggle>
+          </div>
+        </div>
+        <div class="showcase-lead">
+          <sk-text size="lg">A living showcase for the current SK Toolkit primitives, built to compare states, typography, and interaction patterns in one place.</sk-text>
+        </div>
+      </section>
+
+      <section class="showcase-grid">
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Buttons</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Action styles, disabled states, loading behavior, and icon-only treatment.</sk-text>
+          </div>
+          <div class="showcase-row">
+            <sk-button variant="primary" size="sm">Click me</sk-button>
+            <sk-button variant="secondary" size="md">Click me</sk-button>
+            <sk-button variant="secondary" size="md" loading>Click me</sk-button>
+            <sk-button variant="destructive" size="lg" disabled>Click me</sk-button>
+            <sk-button variant="ghost" size="lg">Click me</sk-button>
+            <sk-button size="lg" iconOnly>
+              <sk-icon name="plus" aria-label="Add"></sk-icon>
+            </sk-button>
+          </div>
+        </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Form Controls</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Input, switch, and select patterns using native semantics and design-system tokens.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <sk-caption>Text Input</sk-caption>
+            <div class="showcase-row">
+              <sk-input label="Username" placeholder="Enter username"></sk-input>
+              <sk-input type="email" label="Email" placeholder="you@example.com" hint="We'll never share your email"></sk-input>
+            </div>
+            <div class="showcase-row">
+              <sk-input type="password" label="Password" placeholder="Enter password"></sk-input>
+              <sk-input type="password" label="Password" value="password123" error="Passwords must be at least 8 characters"></sk-input>
+            </div>
+            <div class="showcase-row">
+              <sk-input label="Disabled" value="Cannot edit" disabled></sk-input>
+              <sk-input type="number" label="Age" placeholder="Enter your age"></sk-input>
+            </div>
+            <sk-caption>Toggles</sk-caption>
+            <div class="showcase-row">
+              <sk-toggle label="Theme mode"></sk-toggle>
+              <sk-toggle checked label="Dark mode"></sk-toggle>
+            </div>
+            <sk-caption>Select</sk-caption>
+            <div class="showcase-row">
+              <sk-select label="City" placeholder="Select city..." options='["Tokyo","Osaka","Kyoto","Sapporo"]'></sk-select>
+              <sk-select label="City" placeholder="Select city..." options='["Tokyo","Osaka","Kyoto","Sapporo"]' disabled></sk-select>
+            </div>
+          </div>
+        </article>
+
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Typography</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Serif editorial headings, body copy scales, and monospace supporting text.</sk-text>
+          </div>
+          <div class="showcase-typography">
+            <sk-heading size="display">形態</sk-heading>
+            <sk-heading size="lg">Graphic Form</sk-heading>
+            <sk-heading size="md">Spatial Memory</sk-heading>
+            <sk-heading size="sm">Geometric Reduction</sk-heading>
+            <sk-text size="lg">The postwar Japanese graphic poster synthesized Western modernism with indigenous visual traditions to produce a singular and enduring aesthetic language.</sk-text>
+            <sk-text size="md">Shigeo Fukuda's reductive compositions strip imagery to geometric essentials, allowing negative space to generate meaning as forcefully as positive form.</sk-text>
+            <sk-text size="sm">Awazu's experimental collage work collapsed the distance between art, protest, and commercial design across three decades of radical practice.</sk-text>
+            <sk-caption>Fig. 01 - Osaka, 1970</sk-caption>
+          </div>
+        </article>
+
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Badges</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Status markers, metadata chips, and AI-style suggestion prompts.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <sk-caption>Status</sk-caption>
+            <div class="showcase-row">
+              <sk-badge variant="status" color="success" label="Published"></sk-badge>
+              <sk-badge variant="status" color="warning" label="Draft"></sk-badge>
+              <sk-badge variant="status" color="secondary" label="Archived"></sk-badge>
+              <sk-badge variant="status" color="accent" label="Featured"></sk-badge>
+              <sk-badge variant="status" color="error" label="Error"></sk-badge>
+            </div>
+            <sk-caption>Filled</sk-caption>
+            <div class="showcase-row">
+              <sk-badge variant="filled" color="success" label="Published"></sk-badge>
+              <sk-badge variant="filled" color="warning" label="Draft"></sk-badge>
+              <sk-badge variant="filled" color="secondary" label="Archived"></sk-badge>
+              <sk-badge variant="filled" color="accent" label="Featured"></sk-badge>
+              <sk-badge variant="filled" color="error" label="Error"></sk-badge>
+            </div>
+            <sk-caption>Category / Metadata</sk-caption>
+            <div class="showcase-row">
+              <sk-badge variant="category" color="default" label="Research"></sk-badge>
+              <sk-badge variant="category" color="default" label="Archive"></sk-badge>
+              <sk-badge variant="category" color="default" label="Poster Design"></sk-badge>
+              <sk-badge variant="category" color="default" label="Typography"></sk-badge>
+              <sk-badge variant="category" color="default" label="Editorial"></sk-badge>
+              <sk-badge variant="category" color="default" label="Vol. 04"></sk-badge>
+            </div>
+            <sk-caption>AI Suggestion Chip</sk-caption>
+            <div class="showcase-row">
+              <sk-caption>Try</sk-caption>
+              <sk-badge variant="ai-chip" color="default" label="Something atmospheric"></sk-badge>
+              <sk-badge variant="ai-chip" color="default" label="Brazilian electronic"></sk-badge>
+              <sk-badge variant="ai-chip" color="default" label="Japanese ambient 1980s"></sk-badge>
+              <sk-badge variant="ai-chip" color="default" label="Similar to Aphex Twin"></sk-badge>
+            </div>
+          </div>
+        </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Cards</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Editorial surfaces with default, image, and selected variants.</sk-text>
+          </div>
+          <div class="showcase-card-grid">
+            <sk-card variant="default" title="Graphic Form and Spatial Memory" subtitle="Research · 2024">
+              <sk-text size="md">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
+              <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
+            </sk-card>
+
+            <sk-card
+              variant="image"
+              title="Graphic Form and Spatial Memory"
+              subtitle="Research · 2024"
+              image-alt="Abstract waterside gate illustration"
+            >
+              <sk-text size="md">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
+              <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
+            </sk-card>
+
+            <sk-card variant="selected" title="Graphic Form and Spatial Memory" subtitle="Research · 2024" selected>
+              <sk-text size="md">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
+              <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
+            </sk-card>
+          </div>
+        </article>
+
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Loading</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Animated spinner for indicating ongoing operations and data fetching.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <sk-caption>Sizes</sk-caption>
+            <div class="showcase-row">
+              <sk-loading size="14" label="14px"></sk-loading>
+              <sk-loading size="20" label="20px"></sk-loading>
+              <sk-loading size="28" label="28px"></sk-loading>
+              <sk-loading size="40" label="40px"></sk-loading>
+            </div>
+            <sk-caption>Loading State</sk-caption>
+            <sk-loading size="28" label="Loading records..."></sk-loading>
+          </div>
+        </article>
+
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Drawer</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Selection drawer overlay with desktop width and mobile full-width behavior.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <div class="showcase-drawer-launches">
+              <sk-button id="open-selection-drawer" variant="secondary">Open Selection Drawer</sk-button>
+              <sk-button id="open-mobile-drawer" variant="ghost">Open Mobile Drawer</sk-button>
+            </div>
+          </div>
+        </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Skeleton</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Loading placeholders that mimic content shape for skeleton screens.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <sk-caption>Grid Variant</sk-caption>
+            <div class="showcase-skeleton-grid" style="margin-bottom: 24px;">
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+            </div>
+            <sk-caption>List Variant</sk-caption>
+            <div class="showcase-skeleton-list" style="margin-bottom: 24px;">
+              <sk-skeleton variant="list"></sk-skeleton>
+              <sk-skeleton variant="list"></sk-skeleton>
+              <sk-skeleton variant="list"></sk-skeleton>
+            </div>
+            <sk-caption>Text Block Variant</sk-caption>
+            <div style="margin-bottom: 24px;">
+              <sk-skeleton variant="text-block"></sk-skeleton>
+            </div>
+          </div>
+        </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Icons</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Stroke-based symbol set for navigation, state, contact, and utility affordances.</sk-text>
+          </div>
+          <div class="showcase-icons">
+            <sk-icon name="arrow" size="16" aria-label="Arrow"></sk-icon>
+            <sk-icon name="plus" size="24" aria-label="Add"></sk-icon>
+            <sk-icon name="close" size="24" aria-label="Close"></sk-icon>
+            <sk-icon name="menu" size="24" aria-label="Menu"></sk-icon>
+            <sk-icon name="search" size="24" aria-label="Search"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="down" aria-label="Chevron down"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="up" aria-label="Chevron up"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="left" aria-label="Chevron left"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="right" aria-label="Chevron right"></sk-icon>
+            <sk-icon name="check" size="24" aria-label="Check"></sk-icon>
+            <sk-icon name="external" size="24" aria-label="External"></sk-icon>
+            <sk-icon name="moon" size="24" aria-label="Moon"></sk-icon>
+            <sk-icon name="sun" size="24" aria-label="Sun"></sk-icon>
+            <sk-icon name="mail" size="24" aria-label="Mail"></sk-icon>
+            <sk-icon name="github" size="24" aria-label="GitHub"></sk-icon>
+            <sk-icon name="instagram" size="24" aria-label="Instagram"></sk-icon>
+            <sk-icon name="chevron" dir="down" size="32" aria-label="Chevron"></sk-icon>
+          </div>
+        </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-patterns-grid">
+            <div class="showcase-patterns-section-title">
+              <sk-caption>Patterns</sk-caption>
+              <sk-text size="sm" class="showcase-muted showcase-patterns-note">A component is a reusable UI building block. A pattern is a reusable combination of building blocks that solves a specific UI problem.</sk-text>
+            </div>
+
+            <div class="showcase-patterns-layouts">
+              <div class="showcase-card-header">
+                <sk-caption>List - Checkout / Selection</sk-caption>
+              </div>
+              <div class="showcase-stack">
+                <sk-record-card variant="list" title="Watering a Flower" artist="Haruomi Hosono" price="32" label="LP" condition="VG+" image-alt="Album artwork"></sk-record-card>
+                <sk-record-card variant="list" title="Through the Looking Glass" artist="Midori Takada" price="28" label="LP" condition="NM" image-alt="Album artwork"></sk-record-card>
+                <sk-record-card variant="list" title="Technodelic" artist="Yellow Magic Orchestra" price="45" label="LP" condition="VG" image-alt="Album artwork"></sk-record-card>
+              </div>
+
+              <div class="showcase-card-header">
+                <sk-caption>Grid - Shop Listing</sk-caption>
+              </div>
+              <div class="showcase-patterns-grid-demo">
+                <sk-record-card variant="grid" title="Watering a Flower" artist="Haruomi Hosono" price="32" condition="G"></sk-record-card>
+                <sk-record-card variant="grid" title="Through the Looking Glass" artist="Midori Takada" price="28" condition="NM"></sk-record-card>
+                <sk-record-card variant="grid" title="Technodelic" artist="Yellow Magic Orchestra" price="45" condition="RARE"></sk-record-card>
+                <sk-record-card variant="grid" title="B-2 Unit" artist="Ryuichi Sakamoto" price="38" condition="VG+"></sk-record-card>
+              </div>
+
+              <div class="showcase-card-header">
+                <sk-caption>Detail - Single Product</sk-caption>
+              </div>
+              <div class="showcase-patterns-detail">
+                <sk-record-card
+                  variant="detail"
+                  title="Watering a Flower"
+                  artist="Haruomi Hosono"
+                  price="32"
+                  label="LP"
+                  year="1984"
+                  condition="VG+"
+                  genre="Ambient, Electronic, Japanese"
+                ></sk-record-card>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <sk-drawer id="selection-drawer" title="Selection - 2" type="selection">
+      <div class="showcase-drawer-items">
+        <sk-record-card variant="list" title="Watering a Flower" artist="Haruomi Hosono" price="32" label="LP" condition="VG+" image-alt="Album artwork"></sk-record-card>
+        <sk-record-card variant="list" title="Through the Looking Glass" artist="Midori Takada" price="28" label="LP" condition="NM" image-alt="Album artwork"></sk-record-card>
+      </div>
+      <div slot="footer" class="showcase-drawer-footer">
+        <div class="showcase-drawer-total">
+          <sk-caption class="showcase-drawer-label">Total</sk-caption>
+          <p class="showcase-drawer-price">$60</p>
+        </div>
+        <sk-button variant="primary" full-width>Checkout</sk-button>
+      </div>
+    </sk-drawer>
+
+    <sk-drawer id="mobile-drawer" title="Selection - 2" type="selection" is-mobile>
+      <div class="showcase-drawer-items">
+        <sk-record-card variant="list" title="Watering a Flower" artist="Haruomi Hosono" price="32" label="LP" condition="VG+" image-alt="Album artwork"></sk-record-card>
+        <sk-record-card variant="list" title="Through the Looking Glass" artist="Midori Takada" price="28" label="LP" condition="NM" image-alt="Album artwork"></sk-record-card>
+      </div>
+      <div slot="footer" class="showcase-drawer-footer">
+        <sk-button variant="primary" full-width>Checkout</sk-button>
+      </div>
+    </sk-drawer>
 
     <script type="module">
-      customElements.whenDefined("sk-ai-chat").then(() => {
-        const chat = document.querySelector("#chat");
+      const body = document.body;
+      const themeToggle = document.querySelector('#theme-toggle');
+      const selectionDrawer = document.querySelector('#selection-drawer');
+      const mobileDrawer = document.querySelector('#mobile-drawer');
+      const openSelectionDrawer = document.querySelector('#open-selection-drawer');
+      const openMobileDrawer = document.querySelector('#open-mobile-drawer');
 
-        let responses = [];
-
-        const suggestions = [
-          {
-            id: "s-1",
-            label: "Show me Japanese Jazz",
-            description: "Curated picks from 70s and 80s",
-            icon: "🎷",
-            category: "genres",
-          },
-          {
-            id: "s-2",
-            label: "Recommend Brazilian records",
-            description: "Bossa nova and MPB classics",
-            icon: "🇧🇷",
-            category: "genres",
-          },
-          {
-            id: "s-3",
-            label: "Explain your curation criteria",
-            description: "How this collection is selected",
-            icon: "🧠",
-            category: "about",
-          },
-        ];
-
-        chat.text = {
-          header: "What do you want to know?",
-          subheader: "Search",
-          inputPlaceholder: "Type your question...",
-          inputButtonLabel: "Send",
-          suggestionsLabel: "Suggested prompts",
-          emptyTitle: "Ask your first question",
-          emptyDescription: "Try a suggested prompt or write your own.",
-          errorMessage: "Something went wrong while loading this conversation.",
-          retryLabel: "Retry",
-          loadingLabel: "Thinking",
-        };
-
-        chat.layout = "auto";
-        chat.status = "idle";
-        chat.suggestions = suggestions;
-
-        function createTextResponse(id, role, text) {
-          return {
-            id,
-            role,
-            blocks: [
-              {
-                id: `${id}-text`,
-                type: "text",
-                text,
-              },
-            ],
-            timestamp: new Date().toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
-            avatarLabel: role === "assistant" ? "AI" : "ME",
-          };
-        }
-
-        function render(next) {
-          responses = next;
-          chat.responses = responses;
-        }
-
-        render([
-          createTextResponse(
-            "a-1",
-            "assistant",
-            "Welcome! Ask about our collection, genres, or recommendations."
-          ),
-        ]);
-
-        chat.addEventListener("messageSubmit", (event) => {
-          const prompt = String(event.detail || "").trim();
-          if (!prompt) {
-            return;
-          }
-
-          const next = [...responses, createTextResponse(crypto.randomUUID(), "user", prompt)];
-          render(next);
-
-          chat.status = "loading";
-          chat.streamingAssistantContent = "";
-
-          const fullAnswer = `You asked: "${prompt}". This is a mock assistant response using the new Responses -> Blocks architecture.`;
-          let cursor = 0;
-
-          const streamTimer = setInterval(() => {
-            cursor += 5;
-            chat.streamingAssistantContent = fullAnswer.slice(0, cursor);
-
-            if (cursor >= fullAnswer.length) {
-              clearInterval(streamTimer);
-              chat.streamingAssistantContent = "";
-              chat.status = "idle";
-              render([...next, createTextResponse(crypto.randomUUID(), "assistant", fullAnswer)]);
-            }
-          }, 28);
+      if (themeToggle) {
+        themeToggle.checked = body.classList.contains('dark');
+        themeToggle.addEventListener('skChange', (event) => {
+          const isDark = Boolean(event.detail);
+          body.classList.toggle('dark', isDark);
+          body.classList.toggle('light', !isDark);
         });
+      }
 
-        chat.addEventListener("suggestionSelect", (event) => {
-          const suggestion = event.detail;
-          if (!suggestion || !suggestion.label) {
-            return;
-          }
-
-          chat.dispatchEvent(
-            new CustomEvent("messageSubmit", {
-              detail: suggestion.label,
-              bubbles: true,
-              composed: true,
-            })
-          );
+      if (openSelectionDrawer && selectionDrawer) {
+        openSelectionDrawer.addEventListener('click', () => {
+          selectionDrawer.open = true;
         });
-      });
+      }
+
+      if (openMobileDrawer && mobileDrawer) {
+        openMobileDrawer.addEventListener('click', () => {
+          mobileDrawer.open = true;
+        });
+      }
     </script>
   </body>
 </html>

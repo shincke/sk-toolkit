@@ -1,0 +1,64 @@
+{
+  "name": "sk-heading",
+  "tag": "sk-heading",
+  "category": "typography",
+  "purpose": "Semantic heading component for page, section, subsection, and editorial display headings.",
+  "variants": {
+    "size": [
+      "display",
+      "lg",
+      "md",
+      "sm"
+    ],
+    "align": [
+      "left",
+      "center"
+    ]
+  },
+  "properties": {
+    "size": {
+      "type": "'display' | 'lg' | 'md' | 'sm'",
+      "default": "md"
+    },
+    "align": {
+      "type": "'left' | 'center'",
+      "default": "left"
+    }
+  },
+  "slots": {
+    "default": "Heading content"
+  },
+  "events": [],
+  "states": [
+    "default"
+  ],
+  "accessibility": {
+    "keyboardAccessible": false,
+    "visibleFocusState": false,
+    "accessibleNameRequired": false,
+    "semanticMapping": {
+      "display": "h1",
+      "lg": "h1",
+      "md": "h2",
+      "sm": "h3"
+    }
+  },
+  "usage": {
+    "do": [
+      "Use display for prominent editorial or hero headings.",
+      "Use lg for primary page headings.",
+      "Use md for major section headings.",
+      "Use sm for subsection headings.",
+      "Maintain a logical heading hierarchy."
+    ],
+    "dont": [
+      "Do not use headings only to make text visually larger.",
+      "Do not use display repeatedly within the same page.",
+      "Do not skip heading levels without a structural reason."
+    ]
+  },
+  "code": {
+    "tag": "sk-heading",
+    "example": "<sk-heading size=\"display\">Japanese Vinyl Culture</sk-heading>"
+  }
+}

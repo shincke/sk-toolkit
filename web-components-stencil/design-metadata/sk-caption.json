@@ -1,0 +1,46 @@
+{
+  "name": "sk-caption",
+  "tag": "sk-caption",
+  "category": "typography",
+  "purpose": "Small supporting text for labels, metadata, annotations, and secondary information.",
+  "variants": {
+    "align": [
+      "left",
+      "center"
+    ]
+  },
+  "properties": {
+    "align": {
+      "type": "'left' | 'center'",
+      "default": "left"
+    }
+  },
+  "slots": {
+    "default": "Caption content"
+  },
+  "events": [],
+  "states": [
+    "default"
+  ],
+  "accessibility": {
+    "keyboardAccessible": false,
+    "visibleFocusState": false,
+    "accessibleNameRequired": false
+  },
+  "usage": {
+    "do": [
+      "Use for metadata, annotations, labels, dates, and supporting information.",
+      "Use the monospace caption typography defined by the design system.",
+      "Allow the component to adapt its typography responsively."
+    ],
+    "dont": [
+      "Do not use for body paragraphs.",
+      "Do not use for headings.",
+      "Do not use as a replacement for primary content."
+    ]
+  },
+  "code": {
+    "tag": "sk-caption",
+    "example": "<sk-caption>Tokyo · 1978 · Japan</sk-caption>"
+  }
+}

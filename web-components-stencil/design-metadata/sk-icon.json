@@ -1,0 +1,84 @@
+{
+  "name": "sk-icon",
+  "tag": "sk-icon",
+  "category": "visual",
+  "description": "Scalable SVG icon component with support for 13 common icons",
+  "variants": {
+    "name": [
+      "arrow",
+      "plus",
+      "close",
+      "menu",
+      "search",
+      "chevron",
+      "check",
+      "external",
+      "moon",
+      "sun",
+      "mail",
+      "github",
+      "instagram"
+    ],
+    "size": ["16", "24", "32", "48"],
+    "dir": ["down", "up", "left", "right"]
+  },
+  "properties": {
+    "name": {
+      "type": "IconName",
+      "default": "arrow",
+      "description": "The name of the icon to display"
+    },
+    "size": {
+      "type": "number",
+      "default": "16",
+      "description": "The size of the icon in pixels"
+    },
+    "dir": {
+      "type": "ChevronDirection",
+      "default": "down",
+      "description": "Direction for chevron icon (only used when name is 'chevron')"
+    },
+    "ariaLabel": {
+      "type": "string",
+      "description": "Optional aria-label for accessibility"
+    }
+  },
+  "slots": {},
+  "events": [],
+  "states": ["default"],
+  "accessibility": {
+    "keyboardAccessible": false,
+    "visibleFocusState": false,
+    "accessibleNameRequired": true,
+    "inheritsColor": true,
+    "currentColorSupport": true,
+    "roleByDefault": "presentation",
+    "roleWhenLabeled": "img"
+  },
+  "usage": {
+    "basic": "<sk-icon name=\"arrow\" size=\"16\"></sk-icon>",
+    "withLabel": "<sk-icon name=\"search\" aria-label=\"Search\"></sk-icon>",
+    "chevronVariations": "<sk-icon name=\"chevron\" dir=\"left\"></sk-icon>",
+    "sizing": "<sk-icon name=\"plus\" size=\"24\"></sk-icon>",
+    "do": [
+      "Always provide aria-label on icon-only controls",
+      "Use 16px for default inline icons",
+      "Use larger sizes (24-32px) for prominent icons"
+    ],
+    "dont": [
+      "Do not use icons as the only affordance without labels",
+      "Do not exceed 48px in most UIs",
+      "Do not hardcode colors; let icons inherit from text color"
+    ]
+  },
+  "code": {
+    "tag": "sk-icon",
+    "example": "<sk-icon name=\"search\" size=\"16\" aria-label=\"Search\"></sk-icon>"
+  },
+  "notes": "Icons inherit their color from the text color (currentColor). Use CSS color property to style icons. The chevron icon supports four directional variants via the 'dir' prop.",
+  "themeTokens": {
+    "color": "currentColor (inherits from text)",
+    "strokeWidth": "1.5px (hardcoded)"
+  },
+  "tags": ["icon", "svg", "graphics", "ui"]
+}

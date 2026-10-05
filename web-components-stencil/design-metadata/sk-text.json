@@ -1,0 +1,56 @@
+{
+  "name": "sk-text",
+  "tag": "sk-text",
+  "category": "typography",
+  "purpose": "General-purpose text component for body content, supporting copy, and emphasized introductory text.",
+  "variants": {
+    "size": [
+      "lg",
+      "md",
+      "sm"
+    ],
+    "align": [
+      "left",
+      "center"
+    ]
+  },
+  "properties": {
+    "size": {
+      "type": "'lg' | 'md' | 'sm'",
+      "default": "md"
+    },
+    "align": {
+      "type": "'left' | 'center'",
+      "default": "left"
+    }
+  },
+  "slots": {
+    "default": "Text content"
+  },
+  "events": [],
+  "states": [
+    "default"
+  ],
+  "accessibility": {
+    "keyboardAccessible": false,
+    "visibleFocusState": false,
+    "accessibleNameRequired": false
+  },
+  "usage": {
+    "do": [
+      "Use lg for lead or emphasized introductory text.",
+      "Use md for standard body content.",
+      "Use sm for supporting or secondary body text.",
+      "Allow typography to adapt responsively according to the design tokens."
+    ],
+    "dont": [
+      "Do not use for headings.",
+      "Do not use as a replacement for captions or metadata.",
+      "Do not use text size to create semantic heading hierarchy."
+    ]
+  },
+  "code": {
+    "tag": "sk-text",
+    "example": "<sk-text size=\"md\">A Japanese music archive exploring sound, design and culture.</sk-text>"
+  }
+}

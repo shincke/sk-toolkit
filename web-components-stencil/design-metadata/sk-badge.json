@@ -1,0 +1,65 @@
+{
+  "name": "sk-badge",
+  "tag": "sk-badge",
+  "category": "display",
+  "purpose": "Status label, category chip, or AI suggestion tag.",
+  "variants": {
+    "variant": [
+      "status",
+      "filled",
+      "category",
+      "ai-chip"
+    ],
+    "color": [
+      "success",
+      "warning",
+      "error",
+      "accent",
+      "secondary",
+      "default"
+    ]
+  },
+  "properties": {
+    "variant": {
+      "type": "'status' | 'filled' | 'category' | 'ai-chip'",
+      "default": "status"
+    },
+    "color": {
+      "type": "string",
+      "default": "default"
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "slots": {
+    "default": "Badge text content"
+  },
+  "events": [
+    "skClick"
+  ],
+  "states": [
+    "default",
+    "hover"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": false
+  },
+  "usage": {
+    "do": [
+      "Use status variant for content state.",
+      "Use ai-chip variant for AI-generated suggestions."
+    ],
+    "dont": [
+      "Do not use color as the only differentiator.",
+      "Do not stack more than 6 badges inline."
+    ]
+  },
+  "code": {
+    "tag": "sk-badge",
+    "example": "<sk-badge variant=\"status\" color=\"success\" label=\"Published\"></sk-badge>"
+  }
+}

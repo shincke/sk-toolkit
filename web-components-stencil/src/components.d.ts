@@ -5,67 +5,45 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionBlock, AiChatLayout, AiChatStatus, AiChatTextConfig, ChatResponse, CitationBlock, MarkdownBlock, ProductBlock, Suggestion, TextBlock, VideoBlock } from "./components/ai-chat/ai-chat.types";
-export { ActionBlock, AiChatLayout, AiChatStatus, AiChatTextConfig, ChatResponse, CitationBlock, MarkdownBlock, ProductBlock, Suggestion, TextBlock, VideoBlock } from "./components/ai-chat/ai-chat.types";
+import { ChevronDirection, IconName } from "./utils/icons";
+export { ChevronDirection, IconName } from "./utils/icons";
 export namespace Components {
-    interface SkAiChat {
+    interface SkBadge {
         /**
-          * @default "full"
+          * @default 'default'
          */
-        "layout": AiChatLayout;
+        "color": 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
         /**
-          * @default []
+          * @default ''
          */
-        "responses": ChatResponse[];
-        "showSuggestions"?: boolean;
+        "label": string;
         /**
-          * @default "idle"
+          * @default 'status'
          */
-        "status": AiChatStatus;
-        /**
-          * @default ""
-         */
-        "streamingAssistantContent": string;
-        /**
-          * @default [     { id: "1", label: "Create a summary from notes" },     { id: "2", label: "Draft a release checklist" },     { id: "3", label: "Explain this API surface" },   ]
-         */
-        "suggestions": Suggestion[];
-        /**
-          * @default {}
-         */
-        "text": Partial<AiChatTextConfig>;
-    }
-    interface SkBlockActions {
-        "block"?: ActionBlock;
-    }
-    interface SkBlockCitation {
-        "block"?: CitationBlock;
-    }
-    interface SkBlockMarkdown {
-        "block"?: MarkdownBlock;
-    }
-    interface SkBlockProduct {
-        "block"?: ProductBlock;
-    }
-    interface SkBlockText {
-        "block"?: TextBlock;
-    }
-    interface SkBlockVideo {
-        "block"?: VideoBlock;
+        "variant": 'status' | 'filled' | 'category' | 'ai-chip';
     }
     interface SkButton {
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
         "disabled": boolean;
         /**
-          * @default 'Button'
+          * @default false
          */
-        "label": string;
+        "fullWidth": boolean;
         /**
-          * @default 'm'
+          * @default false
          */
-        "size": 's' | 'm' | 'l';
+        "iconOnly": boolean;
+        /**
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
         /**
           * @default 'button'
          */
@@ -73,206 +51,290 @@ export namespace Components {
         /**
           * @default 'primary'
          */
-        "ui": 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
+        "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
     }
-    interface SkChatEmpty {
+    interface SkCaption {
         /**
-          * @default "Ask a question below or choose one of the suggested prompts."
+          * @default 'left'
          */
-        "description": string;
-        /**
-          * @default "Start a conversation"
-         */
-        "title": string;
+        "align": 'left' | 'center';
     }
-    interface SkChatHeader {
+    interface SkCard {
+        "accessibleLabel"?: string;
         /**
-          * @default "AI Chat"
+          * @default ''
          */
-        "header": string;
+        "cardTitle": string;
         /**
-          * @default ""
+          * @default ''
          */
-        "subheader": string;
+        "imageAlt": string;
+        /**
+          * @default ''
+         */
+        "imageSrc": string;
+        /**
+          * @default false
+         */
+        "selected": boolean;
+        /**
+          * @default ''
+         */
+        "subtitle": string;
+        /**
+          * @default 'default'
+         */
+        "variant": 'default' | 'image' | 'selected';
     }
-    interface SkChatResponse {
-        "response"?: ChatResponse;
+    interface SkDrawer {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "drawerTitle": string;
+        /**
+          * @default false
+         */
+        "isMobile": boolean;
+        /**
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * @default 'selection'
+         */
+        "type": 'selection' | 'profile-logged-in' | 'profile-logged-out';
+        /**
+          * @default 400
+         */
+        "width": number | string;
     }
-    interface SkChatSuggestions {
+    interface SkHeading {
+        /**
+          * @default 'left'
+         */
+        "align": 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size": 'display' | 'lg' | 'md' | 'sm';
+    }
+    /**
+     * sk-icon: Scalable SVG icon component
+     * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+     * @example <sk-icon name="arrow" size="24"></sk-icon>
+     * <sk-icon name="chevron" dir="left"></sk-icon>
+     */
+    interface SkIcon {
+        /**
+          * Optional aria-label for accessibility
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Direction for chevron icon (down, up, left, right) Only used when name is 'chevron'
+          * @default 'down'
+         */
+        "direction": ChevronDirection;
+        /**
+          * The name of the icon to display
+          * @default 'arrow'
+         */
+        "name": IconName;
+        /**
+          * The size of the icon in pixels
+          * @default 16
+         */
+        "size": number;
+    }
+    interface SkInput {
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
         "disabled": boolean;
         /**
-          * @default "Suggested prompts"
+          * @default false
+         */
+        "error": string | boolean;
+        /**
+          * @default ''
+         */
+        "hint": string;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default ''
+         */
+        "placeholder": string;
+        /**
+          * @default 'text'
+         */
+        "type": 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url';
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
+    interface SkLoading {
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default 40
+         */
+        "size": 14 | 20 | 28 | 40;
+    }
+    interface SkRecordCard {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "artist": string;
+        /**
+          * @default ''
+         */
+        "condition": 'VERY GOOD' | 'GOOD' | 'RARE' | 'NM' | 'VG' | 'VG+' | 'G' | '';
+        /**
+          * @default ''
+         */
+        "genre": string;
+        /**
+          * @default ''
+         */
+        "imageAlt": string;
+        /**
+          * @default ''
+         */
+        "imageSrc": string;
+        /**
+          * @default true
+         */
+        "inStock": boolean;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default 0
+         */
+        "price": number;
+        /**
+          * @default ''
+         */
+        "recordTitle": string;
+        /**
+          * @default 'grid'
+         */
+        "variant": 'list' | 'grid' | 'detail';
+        /**
+          * @default ''
+         */
+        "year": string;
+    }
+    interface SkSelect {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default ''
          */
         "label": string;
         /**
           * @default []
          */
-        "suggestions": Suggestion[];
+        "options": string[] | string;
+        /**
+          * @default 'Select...'
+         */
+        "placeholder": string;
+        /**
+          * @default null
+         */
+        "value": string | null;
     }
-    interface SkInput {
+    interface SkSkeleton {
+        /**
+          * @default 'text-block'
+         */
+        "variant": 'grid' | 'list' | 'text-block';
+        /**
+          * @default '100%'
+         */
+        "width": string | number;
+    }
+    interface SkText {
+        /**
+          * @default 'left'
+         */
+        "align": 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size": 'lg' | 'md' | 'sm';
+    }
+    interface SkToggle {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "checked": boolean;
         /**
           * @default false
          */
         "disabled": boolean;
-        /**
-          * @default false
-         */
-        "inputButtonDisabled": boolean;
-        /**
-          * @default "Send"
-         */
-        "inputButtonLabel": string;
-        /**
-          * @default "Ask anything..."
-         */
-        "inputPlaceholder": string;
-    }
-    interface SkLoading {
-        /**
-          * @default false
-         */
-        "active": boolean;
-        /**
-          * @default "Loading"
-         */
-        "label": string;
-    }
-    interface SkMessage {
-        "avatarLabel"?: string;
-        /**
-          * @default ""
-         */
-        "content": string;
-        /**
-          * @default "assistant"
-         */
-        "messageRole": MessageRole;
-        "timestamp"?: string;
-    }
-    interface SkSideDrawer {
-        "header": string;
-        "open": boolean;
-    }
-    interface SkSimpleStage {
-        /**
-          * @default 'Learn more'
-         */
-        "ctaLabel": string;
-        /**
-          * @default 'Simple stage description for a teaser section.'
-         */
-        "description": string;
-        /**
-          * @default 'Simple Stage Title'
-         */
-        "heading": string;
-        /**
-          * @default '78vh'
-         */
-        "maxHeight": string;
-        /**
-          * @default 'Stage teaser media'
-         */
-        "mediaAlt": string;
-        "mediaSrc": string;
-        /**
-          * @default 'image'
-         */
-        "mediaType": 'image' | 'video';
-        /**
-          * @default '55vh'
-         */
-        "minHeight": string;
-        "poster": string;
-    }
-    interface SkTypingIndicator {
+        "label"?: string;
     }
 }
-export interface SkAiChatCustomEvent<T> extends CustomEvent<T> {
+export interface SkBadgeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSkAiChatElement;
+    target: HTMLSkBadgeElement;
 }
-export interface SkBlockActionsCustomEvent<T> extends CustomEvent<T> {
+export interface SkCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSkBlockActionsElement;
+    target: HTMLSkCardElement;
 }
-export interface SkChatSuggestionsCustomEvent<T> extends CustomEvent<T> {
+export interface SkDrawerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSkChatSuggestionsElement;
+    target: HTMLSkDrawerElement;
 }
 export interface SkInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkInputElement;
 }
+export interface SkRecordCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkRecordCardElement;
+}
+export interface SkSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkSelectElement;
+}
+export interface SkToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkToggleElement;
+}
 declare global {
-    interface HTMLSkAiChatElementEventMap {
-        "suggestionSelect": Suggestion;
-        "suggestionClick": string;
-        "messageSubmit": string;
+    interface HTMLSkBadgeElementEventMap {
+        "skClick": MouseEvent;
     }
-    interface HTMLSkAiChatElement extends Components.SkAiChat, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLSkAiChatElementEventMap>(type: K, listener: (this: HTMLSkAiChatElement, ev: SkAiChatCustomEvent<HTMLSkAiChatElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+    interface HTMLSkBadgeElement extends Components.SkBadge, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLSkAiChatElementEventMap>(type: K, listener: (this: HTMLSkAiChatElement, ev: SkAiChatCustomEvent<HTMLSkAiChatElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
-    var HTMLSkAiChatElement: {
-        prototype: HTMLSkAiChatElement;
-        new (): HTMLSkAiChatElement;
-    };
-    interface HTMLSkBlockActionsElementEventMap {
-        "actionBlockSelect": string;
-    }
-    interface HTMLSkBlockActionsElement extends Components.SkBlockActions, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLSkBlockActionsElementEventMap>(type: K, listener: (this: HTMLSkBlockActionsElement, ev: SkBlockActionsCustomEvent<HTMLSkBlockActionsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLSkBlockActionsElementEventMap>(type: K, listener: (this: HTMLSkBlockActionsElement, ev: SkBlockActionsCustomEvent<HTMLSkBlockActionsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLSkBlockActionsElement: {
-        prototype: HTMLSkBlockActionsElement;
-        new (): HTMLSkBlockActionsElement;
-    };
-    interface HTMLSkBlockCitationElement extends Components.SkBlockCitation, HTMLStencilElement {
-    }
-    var HTMLSkBlockCitationElement: {
-        prototype: HTMLSkBlockCitationElement;
-        new (): HTMLSkBlockCitationElement;
-    };
-    interface HTMLSkBlockMarkdownElement extends Components.SkBlockMarkdown, HTMLStencilElement {
-    }
-    var HTMLSkBlockMarkdownElement: {
-        prototype: HTMLSkBlockMarkdownElement;
-        new (): HTMLSkBlockMarkdownElement;
-    };
-    interface HTMLSkBlockProductElement extends Components.SkBlockProduct, HTMLStencilElement {
-    }
-    var HTMLSkBlockProductElement: {
-        prototype: HTMLSkBlockProductElement;
-        new (): HTMLSkBlockProductElement;
-    };
-    interface HTMLSkBlockTextElement extends Components.SkBlockText, HTMLStencilElement {
-    }
-    var HTMLSkBlockTextElement: {
-        prototype: HTMLSkBlockTextElement;
-        new (): HTMLSkBlockTextElement;
-    };
-    interface HTMLSkBlockVideoElement extends Components.SkBlockVideo, HTMLStencilElement {
-    }
-    var HTMLSkBlockVideoElement: {
-        prototype: HTMLSkBlockVideoElement;
-        new (): HTMLSkBlockVideoElement;
+    var HTMLSkBadgeElement: {
+        prototype: HTMLSkBadgeElement;
+        new (): HTMLSkBadgeElement;
     };
     interface HTMLSkButtonElement extends Components.SkButton, HTMLStencilElement {
     }
@@ -280,44 +342,69 @@ declare global {
         prototype: HTMLSkButtonElement;
         new (): HTMLSkButtonElement;
     };
-    interface HTMLSkChatEmptyElement extends Components.SkChatEmpty, HTMLStencilElement {
+    interface HTMLSkCaptionElement extends Components.SkCaption, HTMLStencilElement {
     }
-    var HTMLSkChatEmptyElement: {
-        prototype: HTMLSkChatEmptyElement;
-        new (): HTMLSkChatEmptyElement;
+    var HTMLSkCaptionElement: {
+        prototype: HTMLSkCaptionElement;
+        new (): HTMLSkCaptionElement;
     };
-    interface HTMLSkChatHeaderElement extends Components.SkChatHeader, HTMLStencilElement {
+    interface HTMLSkCardElementEventMap {
+        "skClick": MouseEvent | KeyboardEvent;
     }
-    var HTMLSkChatHeaderElement: {
-        prototype: HTMLSkChatHeaderElement;
-        new (): HTMLSkChatHeaderElement;
-    };
-    interface HTMLSkChatResponseElement extends Components.SkChatResponse, HTMLStencilElement {
-    }
-    var HTMLSkChatResponseElement: {
-        prototype: HTMLSkChatResponseElement;
-        new (): HTMLSkChatResponseElement;
-    };
-    interface HTMLSkChatSuggestionsElementEventMap {
-        "suggestionSelect": Suggestion;
-        "suggestionClick": string;
-    }
-    interface HTMLSkChatSuggestionsElement extends Components.SkChatSuggestions, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLSkChatSuggestionsElementEventMap>(type: K, listener: (this: HTMLSkChatSuggestionsElement, ev: SkChatSuggestionsCustomEvent<HTMLSkChatSuggestionsElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+    interface HTMLSkCardElement extends Components.SkCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkCardElementEventMap>(type: K, listener: (this: HTMLSkCardElement, ev: SkCardCustomEvent<HTMLSkCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLSkChatSuggestionsElementEventMap>(type: K, listener: (this: HTMLSkChatSuggestionsElement, ev: SkChatSuggestionsCustomEvent<HTMLSkChatSuggestionsElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkCardElementEventMap>(type: K, listener: (this: HTMLSkCardElement, ev: SkCardCustomEvent<HTMLSkCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
-    var HTMLSkChatSuggestionsElement: {
-        prototype: HTMLSkChatSuggestionsElement;
-        new (): HTMLSkChatSuggestionsElement;
+    var HTMLSkCardElement: {
+        prototype: HTMLSkCardElement;
+        new (): HTMLSkCardElement;
+    };
+    interface HTMLSkDrawerElementEventMap {
+        "skClose": void;
+    }
+    interface HTMLSkDrawerElement extends Components.SkDrawer, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkDrawerElementEventMap>(type: K, listener: (this: HTMLSkDrawerElement, ev: SkDrawerCustomEvent<HTMLSkDrawerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkDrawerElementEventMap>(type: K, listener: (this: HTMLSkDrawerElement, ev: SkDrawerCustomEvent<HTMLSkDrawerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkDrawerElement: {
+        prototype: HTMLSkDrawerElement;
+        new (): HTMLSkDrawerElement;
+    };
+    interface HTMLSkHeadingElement extends Components.SkHeading, HTMLStencilElement {
+    }
+    var HTMLSkHeadingElement: {
+        prototype: HTMLSkHeadingElement;
+        new (): HTMLSkHeadingElement;
+    };
+    /**
+     * sk-icon: Scalable SVG icon component
+     * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+     * @example <sk-icon name="arrow" size="24"></sk-icon>
+     * <sk-icon name="chevron" dir="left"></sk-icon>
+     */
+    interface HTMLSkIconElement extends Components.SkIcon, HTMLStencilElement {
+    }
+    var HTMLSkIconElement: {
+        prototype: HTMLSkIconElement;
+        new (): HTMLSkIconElement;
     };
     interface HTMLSkInputElementEventMap {
-        "messageSubmit": string;
+        "skChange": string;
+        "skInput": string;
+        "skBlur": string;
+        "skFocus": string;
     }
     interface HTMLSkInputElement extends Components.SkInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLSkInputElementEventMap>(type: K, listener: (this: HTMLSkInputElement, ev: SkInputCustomEvent<HTMLSkInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -339,114 +426,124 @@ declare global {
         prototype: HTMLSkLoadingElement;
         new (): HTMLSkLoadingElement;
     };
-    interface HTMLSkMessageElement extends Components.SkMessage, HTMLStencilElement {
+    interface HTMLSkRecordCardElementEventMap {
+        "skAddToSelection": MouseEvent | KeyboardEvent;
     }
-    var HTMLSkMessageElement: {
-        prototype: HTMLSkMessageElement;
-        new (): HTMLSkMessageElement;
+    interface HTMLSkRecordCardElement extends Components.SkRecordCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkRecordCardElementEventMap>(type: K, listener: (this: HTMLSkRecordCardElement, ev: SkRecordCardCustomEvent<HTMLSkRecordCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkRecordCardElementEventMap>(type: K, listener: (this: HTMLSkRecordCardElement, ev: SkRecordCardCustomEvent<HTMLSkRecordCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkRecordCardElement: {
+        prototype: HTMLSkRecordCardElement;
+        new (): HTMLSkRecordCardElement;
     };
-    interface HTMLSkSideDrawerElement extends Components.SkSideDrawer, HTMLStencilElement {
+    interface HTMLSkSelectElementEventMap {
+        "skChange": string | null;
     }
-    var HTMLSkSideDrawerElement: {
-        prototype: HTMLSkSideDrawerElement;
-        new (): HTMLSkSideDrawerElement;
+    interface HTMLSkSelectElement extends Components.SkSelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkSelectElementEventMap>(type: K, listener: (this: HTMLSkSelectElement, ev: SkSelectCustomEvent<HTMLSkSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkSelectElementEventMap>(type: K, listener: (this: HTMLSkSelectElement, ev: SkSelectCustomEvent<HTMLSkSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkSelectElement: {
+        prototype: HTMLSkSelectElement;
+        new (): HTMLSkSelectElement;
     };
-    interface HTMLSkSimpleStageElement extends Components.SkSimpleStage, HTMLStencilElement {
+    interface HTMLSkSkeletonElement extends Components.SkSkeleton, HTMLStencilElement {
     }
-    var HTMLSkSimpleStageElement: {
-        prototype: HTMLSkSimpleStageElement;
-        new (): HTMLSkSimpleStageElement;
+    var HTMLSkSkeletonElement: {
+        prototype: HTMLSkSkeletonElement;
+        new (): HTMLSkSkeletonElement;
     };
-    interface HTMLSkTypingIndicatorElement extends Components.SkTypingIndicator, HTMLStencilElement {
+    interface HTMLSkTextElement extends Components.SkText, HTMLStencilElement {
     }
-    var HTMLSkTypingIndicatorElement: {
-        prototype: HTMLSkTypingIndicatorElement;
-        new (): HTMLSkTypingIndicatorElement;
+    var HTMLSkTextElement: {
+        prototype: HTMLSkTextElement;
+        new (): HTMLSkTextElement;
+    };
+    interface HTMLSkToggleElementEventMap {
+        "skChange": boolean;
+    }
+    interface HTMLSkToggleElement extends Components.SkToggle, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkToggleElementEventMap>(type: K, listener: (this: HTMLSkToggleElement, ev: SkToggleCustomEvent<HTMLSkToggleElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkToggleElementEventMap>(type: K, listener: (this: HTMLSkToggleElement, ev: SkToggleCustomEvent<HTMLSkToggleElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkToggleElement: {
+        prototype: HTMLSkToggleElement;
+        new (): HTMLSkToggleElement;
     };
     interface HTMLElementTagNameMap {
-        "sk-ai-chat": HTMLSkAiChatElement;
-        "sk-block-actions": HTMLSkBlockActionsElement;
-        "sk-block-citation": HTMLSkBlockCitationElement;
-        "sk-block-markdown": HTMLSkBlockMarkdownElement;
-        "sk-block-product": HTMLSkBlockProductElement;
-        "sk-block-text": HTMLSkBlockTextElement;
-        "sk-block-video": HTMLSkBlockVideoElement;
+        "sk-badge": HTMLSkBadgeElement;
         "sk-button": HTMLSkButtonElement;
-        "sk-chat-empty": HTMLSkChatEmptyElement;
-        "sk-chat-header": HTMLSkChatHeaderElement;
-        "sk-chat-response": HTMLSkChatResponseElement;
-        "sk-chat-suggestions": HTMLSkChatSuggestionsElement;
+        "sk-caption": HTMLSkCaptionElement;
+        "sk-card": HTMLSkCardElement;
+        "sk-drawer": HTMLSkDrawerElement;
+        "sk-heading": HTMLSkHeadingElement;
+        "sk-icon": HTMLSkIconElement;
         "sk-input": HTMLSkInputElement;
         "sk-loading": HTMLSkLoadingElement;
-        "sk-message": HTMLSkMessageElement;
-        "sk-side-drawer": HTMLSkSideDrawerElement;
-        "sk-simple-stage": HTMLSkSimpleStageElement;
-        "sk-typing-indicator": HTMLSkTypingIndicatorElement;
+        "sk-record-card": HTMLSkRecordCardElement;
+        "sk-select": HTMLSkSelectElement;
+        "sk-skeleton": HTMLSkSkeletonElement;
+        "sk-text": HTMLSkTextElement;
+        "sk-toggle": HTMLSkToggleElement;
     }
 }
 declare namespace LocalJSX {
-    interface SkAiChat {
+    interface SkBadge {
         /**
-          * @default "full"
+          * @default 'default'
          */
-        "layout"?: AiChatLayout;
-        "onMessageSubmit"?: (event: SkAiChatCustomEvent<string>) => void;
-        "onSuggestionClick"?: (event: SkAiChatCustomEvent<string>) => void;
-        "onSuggestionSelect"?: (event: SkAiChatCustomEvent<Suggestion>) => void;
+        "color"?: 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
         /**
-          * @default []
+          * @default ''
          */
-        "responses"?: ChatResponse[];
-        "showSuggestions"?: boolean;
+        "label"?: string;
+        "onSkClick"?: (event: SkBadgeCustomEvent<MouseEvent>) => void;
         /**
-          * @default "idle"
+          * @default 'status'
          */
-        "status"?: AiChatStatus;
-        /**
-          * @default ""
-         */
-        "streamingAssistantContent"?: string;
-        /**
-          * @default [     { id: "1", label: "Create a summary from notes" },     { id: "2", label: "Draft a release checklist" },     { id: "3", label: "Explain this API surface" },   ]
-         */
-        "suggestions"?: Suggestion[];
-        /**
-          * @default {}
-         */
-        "text"?: Partial<AiChatTextConfig>;
-    }
-    interface SkBlockActions {
-        "block"?: ActionBlock;
-        "onActionBlockSelect"?: (event: SkBlockActionsCustomEvent<string>) => void;
-    }
-    interface SkBlockCitation {
-        "block"?: CitationBlock;
-    }
-    interface SkBlockMarkdown {
-        "block"?: MarkdownBlock;
-    }
-    interface SkBlockProduct {
-        "block"?: ProductBlock;
-    }
-    interface SkBlockText {
-        "block"?: TextBlock;
-    }
-    interface SkBlockVideo {
-        "block"?: VideoBlock;
+        "variant"?: 'status' | 'filled' | 'category' | 'ai-chip';
     }
     interface SkButton {
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
         "disabled"?: boolean;
         /**
-          * @default 'Button'
+          * @default false
          */
-        "label"?: string;
+        "fullWidth"?: boolean;
         /**
-          * @default 'm'
+          * @default false
          */
-        "size"?: 's' | 'm' | 'l';
+        "iconOnly"?: boolean;
+        /**
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
         /**
           * @default 'button'
          */
@@ -454,48 +551,105 @@ declare namespace LocalJSX {
         /**
           * @default 'primary'
          */
-        "ui"?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
+        "variant"?: 'primary' | 'secondary' | 'ghost' | 'destructive';
     }
-    interface SkChatEmpty {
+    interface SkCaption {
         /**
-          * @default "Ask a question below or choose one of the suggested prompts."
+          * @default 'left'
          */
-        "description"?: string;
-        /**
-          * @default "Start a conversation"
-         */
-        "title"?: string;
+        "align"?: 'left' | 'center';
     }
-    interface SkChatHeader {
+    interface SkCard {
+        "accessibleLabel"?: string;
         /**
-          * @default "AI Chat"
+          * @default ''
          */
-        "header"?: string;
+        "cardTitle"?: string;
         /**
-          * @default ""
+          * @default ''
          */
-        "subheader"?: string;
-    }
-    interface SkChatResponse {
-        "response"?: ChatResponse;
-    }
-    interface SkChatSuggestions {
+        "imageAlt"?: string;
+        /**
+          * @default ''
+         */
+        "imageSrc"?: string;
+        "onSkClick"?: (event: SkCardCustomEvent<MouseEvent | KeyboardEvent>) => void;
         /**
           * @default false
          */
-        "disabled"?: boolean;
+        "selected"?: boolean;
         /**
-          * @default "Suggested prompts"
+          * @default ''
          */
-        "label"?: string;
-        "onSuggestionClick"?: (event: SkChatSuggestionsCustomEvent<string>) => void;
-        "onSuggestionSelect"?: (event: SkChatSuggestionsCustomEvent<Suggestion>) => void;
+        "subtitle"?: string;
         /**
-          * @default []
+          * @default 'default'
          */
-        "suggestions"?: Suggestion[];
+        "variant"?: 'default' | 'image' | 'selected';
+    }
+    interface SkDrawer {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "drawerTitle"?: string;
+        /**
+          * @default false
+         */
+        "isMobile"?: boolean;
+        "onSkClose"?: (event: SkDrawerCustomEvent<void>) => void;
+        /**
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * @default 'selection'
+         */
+        "type"?: 'selection' | 'profile-logged-in' | 'profile-logged-out';
+        /**
+          * @default 400
+         */
+        "width"?: number | string;
+    }
+    interface SkHeading {
+        /**
+          * @default 'left'
+         */
+        "align"?: 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size"?: 'display' | 'lg' | 'md' | 'sm';
+    }
+    /**
+     * sk-icon: Scalable SVG icon component
+     * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+     * @example <sk-icon name="arrow" size="24"></sk-icon>
+     * <sk-icon name="chevron" dir="left"></sk-icon>
+     */
+    interface SkIcon {
+        /**
+          * Optional aria-label for accessibility
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Direction for chevron icon (down, up, left, right) Only used when name is 'chevron'
+          * @default 'down'
+         */
+        "direction"?: ChevronDirection;
+        /**
+          * The name of the icon to display
+          * @default 'arrow'
+         */
+        "name"?: IconName;
+        /**
+          * The size of the icon in pixels
+          * @default 16
+         */
+        "size"?: number;
     }
     interface SkInput {
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
@@ -503,178 +657,285 @@ declare namespace LocalJSX {
         /**
           * @default false
          */
-        "inputButtonDisabled"?: boolean;
+        "error"?: string | boolean;
         /**
-          * @default "Send"
+          * @default ''
          */
-        "inputButtonLabel"?: string;
+        "hint"?: string;
         /**
-          * @default "Ask anything..."
+          * @default ''
          */
-        "inputPlaceholder"?: string;
-        "onMessageSubmit"?: (event: SkInputCustomEvent<string>) => void;
+        "label"?: string;
+        "onSkBlur"?: (event: SkInputCustomEvent<string>) => void;
+        "onSkChange"?: (event: SkInputCustomEvent<string>) => void;
+        "onSkFocus"?: (event: SkInputCustomEvent<string>) => void;
+        "onSkInput"?: (event: SkInputCustomEvent<string>) => void;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * @default 'text'
+         */
+        "type"?: 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url';
+        /**
+          * @default ''
+         */
+        "value"?: string;
     }
     interface SkLoading {
         /**
-          * @default false
-         */
-        "active"?: boolean;
-        /**
-          * @default "Loading"
+          * @default ''
          */
         "label"?: string;
+        /**
+          * @default 40
+         */
+        "size"?: 14 | 20 | 28 | 40;
     }
-    interface SkMessage {
-        "avatarLabel"?: string;
+    interface SkRecordCard {
+        "accessibleLabel"?: string;
         /**
-          * @default ""
+          * @default ''
          */
-        "content"?: string;
+        "artist"?: string;
         /**
-          * @default "assistant"
+          * @default ''
          */
-        "messageRole"?: MessageRole;
-        "timestamp"?: string;
+        "condition"?: 'VERY GOOD' | 'GOOD' | 'RARE' | 'NM' | 'VG' | 'VG+' | 'G' | '';
+        /**
+          * @default ''
+         */
+        "genre"?: string;
+        /**
+          * @default ''
+         */
+        "imageAlt"?: string;
+        /**
+          * @default ''
+         */
+        "imageSrc"?: string;
+        /**
+          * @default true
+         */
+        "inStock"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onSkAddToSelection"?: (event: SkRecordCardCustomEvent<MouseEvent | KeyboardEvent>) => void;
+        /**
+          * @default 0
+         */
+        "price"?: number;
+        /**
+          * @default ''
+         */
+        "recordTitle"?: string;
+        /**
+          * @default 'grid'
+         */
+        "variant"?: 'list' | 'grid' | 'detail';
+        /**
+          * @default ''
+         */
+        "year"?: string;
     }
-    interface SkSideDrawer {
-        "header"?: string;
-        "open"?: boolean;
+    interface SkSelect {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onSkChange"?: (event: SkSelectCustomEvent<string | null>) => void;
+        /**
+          * @default []
+         */
+        "options"?: string[] | string;
+        /**
+          * @default 'Select...'
+         */
+        "placeholder"?: string;
+        /**
+          * @default null
+         */
+        "value"?: string | null;
     }
-    interface SkSimpleStage {
+    interface SkSkeleton {
         /**
-          * @default 'Learn more'
+          * @default 'text-block'
          */
-        "ctaLabel"?: string;
+        "variant"?: 'grid' | 'list' | 'text-block';
         /**
-          * @default 'Simple stage description for a teaser section.'
+          * @default '100%'
          */
-        "description"?: string;
-        /**
-          * @default 'Simple Stage Title'
-         */
-        "heading"?: string;
-        /**
-          * @default '78vh'
-         */
-        "maxHeight"?: string;
-        /**
-          * @default 'Stage teaser media'
-         */
-        "mediaAlt"?: string;
-        "mediaSrc"?: string;
-        /**
-          * @default 'image'
-         */
-        "mediaType"?: 'image' | 'video';
-        /**
-          * @default '55vh'
-         */
-        "minHeight"?: string;
-        "poster"?: string;
+        "width"?: string | number;
     }
-    interface SkTypingIndicator {
+    interface SkText {
+        /**
+          * @default 'left'
+         */
+        "align"?: 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size"?: 'lg' | 'md' | 'sm';
+    }
+    interface SkToggle {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "checked"?: boolean;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        "label"?: string;
+        "onSkChange"?: (event: SkToggleCustomEvent<boolean>) => void;
     }
 
-    interface SkAiChatAttributes {
-        "status": AiChatStatus;
-        "layout": AiChatLayout;
-        "streamingAssistantContent": string;
-        "showSuggestions": boolean;
+    interface SkBadgeAttributes {
+        "variant": 'status' | 'filled' | 'category' | 'ai-chip';
+        "color": 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
+        "label": string;
     }
     interface SkButtonAttributes {
-        "size": 's' | 'm' | 'l';
-        "label": string;
+        "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
+        "size": 'sm' | 'md' | 'lg';
+        "disabled": boolean;
+        "loading": boolean;
+        "fullWidth": boolean;
+        "iconOnly": boolean;
         "type": 'button' | 'submit' | 'reset';
-        "ui": 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'link';
-        "disabled": boolean;
+        "accessibleLabel": string;
     }
-    interface SkChatEmptyAttributes {
-        "title": string;
-        "description": string;
+    interface SkCaptionAttributes {
+        "align": 'left' | 'center';
     }
-    interface SkChatHeaderAttributes {
-        "header": string;
-        "subheader": string;
+    interface SkCardAttributes {
+        "cardTitle": string;
+        "subtitle": string;
+        "imageSrc": string;
+        "imageAlt": string;
+        "variant": 'default' | 'image' | 'selected';
+        "selected": boolean;
+        "accessibleLabel": string;
     }
-    interface SkChatSuggestionsAttributes {
-        "label": string;
-        "disabled": boolean;
+    interface SkDrawerAttributes {
+        "open": boolean;
+        "drawerTitle": string;
+        "width": string;
+        "type": 'selection' | 'profile-logged-in' | 'profile-logged-out';
+        "isMobile": boolean;
+        "accessibleLabel": string;
+    }
+    interface SkHeadingAttributes {
+        "size": 'display' | 'lg' | 'md' | 'sm';
+        "align": 'left' | 'center';
+    }
+    interface SkIconAttributes {
+        "name": IconName;
+        "size": number;
+        "direction": ChevronDirection;
+        "accessibleLabel": string;
     }
     interface SkInputAttributes {
-        "inputPlaceholder": string;
-        "inputButtonLabel": string;
-        "inputButtonDisabled": boolean;
+        "value": string;
+        "placeholder": string;
         "disabled": boolean;
+        "type": 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url';
+        "label": string;
+        "hint": string;
+        "error": string;
+        "accessibleLabel": string;
     }
     interface SkLoadingAttributes {
-        "active": boolean;
+        "size": 14 | 20 | 28 | 40;
         "label": string;
     }
-    interface SkMessageAttributes {
-        "messageRole": MessageRole;
-        "content": string;
-        "timestamp": string;
-        "avatarLabel": string;
+    interface SkRecordCardAttributes {
+        "variant": 'list' | 'grid' | 'detail';
+        "recordTitle": string;
+        "artist": string;
+        "year": string;
+        "label": string;
+        "genre": string;
+        "condition": 'VERY GOOD' | 'GOOD' | 'RARE' | 'NM' | 'VG' | 'VG+' | 'G' | '';
+        "price": number;
+        "imageSrc": string;
+        "imageAlt": string;
+        "inStock": boolean;
+        "accessibleLabel": string;
     }
-    interface SkSideDrawerAttributes {
-        "header": string;
-        "open": boolean;
+    interface SkSelectAttributes {
+        "options": string[] | string;
+        "value": string | null;
+        "label": string;
+        "placeholder": string;
+        "disabled": boolean;
+        "accessibleLabel": string;
     }
-    interface SkSimpleStageAttributes {
-        "heading": string;
-        "description": string;
-        "ctaLabel": string;
-        "mediaType": 'image' | 'video';
-        "mediaSrc": string;
-        "poster": string;
-        "mediaAlt": string;
-        "minHeight": string;
-        "maxHeight": string;
+    interface SkSkeletonAttributes {
+        "width": string;
+        "variant": 'grid' | 'list' | 'text-block';
+    }
+    interface SkTextAttributes {
+        "size": 'lg' | 'md' | 'sm';
+        "align": 'left' | 'center';
+    }
+    interface SkToggleAttributes {
+        "checked": boolean;
+        "disabled": boolean;
+        "label": string;
+        "accessibleLabel": string;
     }
 
     interface IntrinsicElements {
-        "sk-ai-chat": Omit<SkAiChat, keyof SkAiChatAttributes> & { [K in keyof SkAiChat & keyof SkAiChatAttributes]?: SkAiChat[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `attr:${K}`]?: SkAiChatAttributes[K] } & { [K in keyof SkAiChat & keyof SkAiChatAttributes as `prop:${K}`]?: SkAiChat[K] };
-        "sk-block-actions": SkBlockActions;
-        "sk-block-citation": SkBlockCitation;
-        "sk-block-markdown": SkBlockMarkdown;
-        "sk-block-product": SkBlockProduct;
-        "sk-block-text": SkBlockText;
-        "sk-block-video": SkBlockVideo;
+        "sk-badge": Omit<SkBadge, keyof SkBadgeAttributes> & { [K in keyof SkBadge & keyof SkBadgeAttributes]?: SkBadge[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `attr:${K}`]?: SkBadgeAttributes[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `prop:${K}`]?: SkBadge[K] };
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
-        "sk-chat-empty": Omit<SkChatEmpty, keyof SkChatEmptyAttributes> & { [K in keyof SkChatEmpty & keyof SkChatEmptyAttributes]?: SkChatEmpty[K] } & { [K in keyof SkChatEmpty & keyof SkChatEmptyAttributes as `attr:${K}`]?: SkChatEmptyAttributes[K] } & { [K in keyof SkChatEmpty & keyof SkChatEmptyAttributes as `prop:${K}`]?: SkChatEmpty[K] };
-        "sk-chat-header": Omit<SkChatHeader, keyof SkChatHeaderAttributes> & { [K in keyof SkChatHeader & keyof SkChatHeaderAttributes]?: SkChatHeader[K] } & { [K in keyof SkChatHeader & keyof SkChatHeaderAttributes as `attr:${K}`]?: SkChatHeaderAttributes[K] } & { [K in keyof SkChatHeader & keyof SkChatHeaderAttributes as `prop:${K}`]?: SkChatHeader[K] };
-        "sk-chat-response": SkChatResponse;
-        "sk-chat-suggestions": Omit<SkChatSuggestions, keyof SkChatSuggestionsAttributes> & { [K in keyof SkChatSuggestions & keyof SkChatSuggestionsAttributes]?: SkChatSuggestions[K] } & { [K in keyof SkChatSuggestions & keyof SkChatSuggestionsAttributes as `attr:${K}`]?: SkChatSuggestionsAttributes[K] } & { [K in keyof SkChatSuggestions & keyof SkChatSuggestionsAttributes as `prop:${K}`]?: SkChatSuggestions[K] };
+        "sk-caption": Omit<SkCaption, keyof SkCaptionAttributes> & { [K in keyof SkCaption & keyof SkCaptionAttributes]?: SkCaption[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `attr:${K}`]?: SkCaptionAttributes[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `prop:${K}`]?: SkCaption[K] };
+        "sk-card": Omit<SkCard, keyof SkCardAttributes> & { [K in keyof SkCard & keyof SkCardAttributes]?: SkCard[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `attr:${K}`]?: SkCardAttributes[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `prop:${K}`]?: SkCard[K] };
+        "sk-drawer": Omit<SkDrawer, keyof SkDrawerAttributes> & { [K in keyof SkDrawer & keyof SkDrawerAttributes]?: SkDrawer[K] } & { [K in keyof SkDrawer & keyof SkDrawerAttributes as `attr:${K}`]?: SkDrawerAttributes[K] } & { [K in keyof SkDrawer & keyof SkDrawerAttributes as `prop:${K}`]?: SkDrawer[K] };
+        "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
+        "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
         "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
         "sk-loading": Omit<SkLoading, keyof SkLoadingAttributes> & { [K in keyof SkLoading & keyof SkLoadingAttributes]?: SkLoading[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `attr:${K}`]?: SkLoadingAttributes[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `prop:${K}`]?: SkLoading[K] };
-        "sk-message": Omit<SkMessage, keyof SkMessageAttributes> & { [K in keyof SkMessage & keyof SkMessageAttributes]?: SkMessage[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `attr:${K}`]?: SkMessageAttributes[K] } & { [K in keyof SkMessage & keyof SkMessageAttributes as `prop:${K}`]?: SkMessage[K] };
-        "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
-        "sk-simple-stage": Omit<SkSimpleStage, keyof SkSimpleStageAttributes> & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes]?: SkSimpleStage[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `attr:${K}`]?: SkSimpleStageAttributes[K] } & { [K in keyof SkSimpleStage & keyof SkSimpleStageAttributes as `prop:${K}`]?: SkSimpleStage[K] };
-        "sk-typing-indicator": SkTypingIndicator;
+        "sk-record-card": Omit<SkRecordCard, keyof SkRecordCardAttributes> & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes]?: SkRecordCard[K] } & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes as `attr:${K}`]?: SkRecordCardAttributes[K] } & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes as `prop:${K}`]?: SkRecordCard[K] };
+        "sk-select": Omit<SkSelect, keyof SkSelectAttributes> & { [K in keyof SkSelect & keyof SkSelectAttributes]?: SkSelect[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `attr:${K}`]?: SkSelectAttributes[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `prop:${K}`]?: SkSelect[K] };
+        "sk-skeleton": Omit<SkSkeleton, keyof SkSkeletonAttributes> & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes]?: SkSkeleton[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `attr:${K}`]?: SkSkeletonAttributes[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `prop:${K}`]?: SkSkeleton[K] };
+        "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
+        "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "sk-ai-chat": LocalJSX.IntrinsicElements["sk-ai-chat"] & JSXBase.HTMLAttributes<HTMLSkAiChatElement>;
-            "sk-block-actions": LocalJSX.IntrinsicElements["sk-block-actions"] & JSXBase.HTMLAttributes<HTMLSkBlockActionsElement>;
-            "sk-block-citation": LocalJSX.IntrinsicElements["sk-block-citation"] & JSXBase.HTMLAttributes<HTMLSkBlockCitationElement>;
-            "sk-block-markdown": LocalJSX.IntrinsicElements["sk-block-markdown"] & JSXBase.HTMLAttributes<HTMLSkBlockMarkdownElement>;
-            "sk-block-product": LocalJSX.IntrinsicElements["sk-block-product"] & JSXBase.HTMLAttributes<HTMLSkBlockProductElement>;
-            "sk-block-text": LocalJSX.IntrinsicElements["sk-block-text"] & JSXBase.HTMLAttributes<HTMLSkBlockTextElement>;
-            "sk-block-video": LocalJSX.IntrinsicElements["sk-block-video"] & JSXBase.HTMLAttributes<HTMLSkBlockVideoElement>;
+            "sk-badge": LocalJSX.IntrinsicElements["sk-badge"] & JSXBase.HTMLAttributes<HTMLSkBadgeElement>;
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
-            "sk-chat-empty": LocalJSX.IntrinsicElements["sk-chat-empty"] & JSXBase.HTMLAttributes<HTMLSkChatEmptyElement>;
-            "sk-chat-header": LocalJSX.IntrinsicElements["sk-chat-header"] & JSXBase.HTMLAttributes<HTMLSkChatHeaderElement>;
-            "sk-chat-response": LocalJSX.IntrinsicElements["sk-chat-response"] & JSXBase.HTMLAttributes<HTMLSkChatResponseElement>;
-            "sk-chat-suggestions": LocalJSX.IntrinsicElements["sk-chat-suggestions"] & JSXBase.HTMLAttributes<HTMLSkChatSuggestionsElement>;
+            "sk-caption": LocalJSX.IntrinsicElements["sk-caption"] & JSXBase.HTMLAttributes<HTMLSkCaptionElement>;
+            "sk-card": LocalJSX.IntrinsicElements["sk-card"] & JSXBase.HTMLAttributes<HTMLSkCardElement>;
+            "sk-drawer": LocalJSX.IntrinsicElements["sk-drawer"] & JSXBase.HTMLAttributes<HTMLSkDrawerElement>;
+            "sk-heading": LocalJSX.IntrinsicElements["sk-heading"] & JSXBase.HTMLAttributes<HTMLSkHeadingElement>;
+            /**
+             * sk-icon: Scalable SVG icon component
+             * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+             * @example <sk-icon name="arrow" size="24"></sk-icon>
+             * <sk-icon name="chevron" dir="left"></sk-icon>
+             */
+            "sk-icon": LocalJSX.IntrinsicElements["sk-icon"] & JSXBase.HTMLAttributes<HTMLSkIconElement>;
             "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
             "sk-loading": LocalJSX.IntrinsicElements["sk-loading"] & JSXBase.HTMLAttributes<HTMLSkLoadingElement>;
-            "sk-message": LocalJSX.IntrinsicElements["sk-message"] & JSXBase.HTMLAttributes<HTMLSkMessageElement>;
-            "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
-            "sk-simple-stage": LocalJSX.IntrinsicElements["sk-simple-stage"] & JSXBase.HTMLAttributes<HTMLSkSimpleStageElement>;
-            "sk-typing-indicator": LocalJSX.IntrinsicElements["sk-typing-indicator"] & JSXBase.HTMLAttributes<HTMLSkTypingIndicatorElement>;
+            "sk-record-card": LocalJSX.IntrinsicElements["sk-record-card"] & JSXBase.HTMLAttributes<HTMLSkRecordCardElement>;
+            "sk-select": LocalJSX.IntrinsicElements["sk-select"] & JSXBase.HTMLAttributes<HTMLSkSelectElement>;
+            "sk-skeleton": LocalJSX.IntrinsicElements["sk-skeleton"] & JSXBase.HTMLAttributes<HTMLSkSkeletonElement>;
+            "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;
+            "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;
         }
     }
 }

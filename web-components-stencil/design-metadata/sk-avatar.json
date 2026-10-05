@@ -1,0 +1,70 @@
+{
+  "name": "sk-avatar",
+  "category": "navigation",
+  "purpose": "User profile avatar with dropdown panel showing account info and actions.",
+  "variants": {
+    "size": [
+      "sm",
+      "md",
+      "lg"
+    ],
+    "state": [
+      "default",
+      "open"
+    ]
+  },
+  "properties": {
+    "initials": {
+      "type": "string",
+      "default": ""
+    },
+    "imageSrc": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "email": {
+      "type": "string",
+      "default": ""
+    },
+    "size": {
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md"
+    }
+  },
+  "slots": {
+    "actions": "Profile dropdown action items"
+  },
+  "events": [
+    "katSignOut",
+    "katProfileEdit"
+  ],
+  "states": [
+    "default",
+    "hover",
+    "open",
+    "focus"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": true
+  },
+  "usage": {
+    "do": [
+      "Always show initials as fallback when no image.",
+      "Position dropdown to avoid viewport overflow."
+    ],
+    "dont": [
+      "Do not use profile avatar without authentication context.",
+      "Do not place inline in content."
+    ]
+  },
+  "code": {
+    "tag": "sk-avatar",
+    "example": "<sk-avatar initials=\"KQ\" name=\"Kaqui User\" email=\"user@kaqui.jp\"></sk-avatar>"
+  }
+}

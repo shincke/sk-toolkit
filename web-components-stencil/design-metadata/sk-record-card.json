@@ -1,0 +1,78 @@
+{
+  "name": "sk-record-card",
+  "category": "display",
+  "purpose": "Music record listing card with list, grid, and detail display variants.",
+  "variants": {
+    "variant": [
+      "list",
+      "grid",
+      "detail"
+    ]
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "artist": {
+      "type": "string",
+      "default": ""
+    },
+    "year": {
+      "type": "string",
+      "default": ""
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "genre": {
+      "type": "string",
+      "default": ""
+    },
+    "condition": {
+      "type": "string",
+      "default": ""
+    },
+    "price": {
+      "type": "number",
+      "default": 0
+    },
+    "imageSrc": {
+      "type": "string",
+      "default": ""
+    },
+    "inStock": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "slots": {},
+  "events": [
+    "skAddToSelection"
+  ],
+  "states": [
+    "default",
+    "hover",
+    "out-of-stock"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": true
+  },
+  "usage": {
+    "do": [
+      "Use grid variant in catalog listings.",
+      "Use detail variant on single-record pages."
+    ],
+    "dont": [
+      "Do not omit artist and title.",
+      "Do not use list variant in grid layouts."
+    ]
+  },
+  "code": {
+    "tag": "sk-record-card",
+    "example": "<sk-record-card variant=\"grid\" title=\"Watering a Flower\" artist=\"Haruomi Hosono\" price=\"32\" label=\"LP\" year=\"1984\"></sk-record-card>"
+  }
+}

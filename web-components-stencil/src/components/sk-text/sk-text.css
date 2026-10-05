@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+.text {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.text-lg {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.text-md {
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.text-sm {
+  font-size: 0.75rem;
+  line-height: 1.6;
+}

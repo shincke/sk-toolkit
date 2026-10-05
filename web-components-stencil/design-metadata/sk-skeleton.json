@@ -1,0 +1,53 @@
+{
+  "name": "sk-skeleton",
+  "category": "feedback",
+  "purpose": "Animated placeholder that represents the structure of content while it is loading.",
+  "variants": {
+    "variant": [
+      "grid",
+      "list",
+      "text-block"
+    ]
+  },
+  "properties": {
+    "variant": {
+      "type": "'grid' | 'list' | 'text-block'",
+      "default": "text-block"
+    }
+  },
+  "slots": {},
+  "events": [],
+  "states": [
+    "loading"
+  ],
+  "accessibility": {
+    "keyboardAccessible": false,
+    "visibleFocusState": false,
+    "accessibleNameRequired": false,
+    "ariaBusy": true
+  },
+  "usage": {
+    "do": [
+      "Use grid to represent card-based content collections.",
+      "Use list to represent vertically arranged content items.",
+      "Use text-block to represent paragraphs or editorial text while loading.",
+      "Render multiple skeleton instances from the parent layout instead of expecting a component-level item count.",
+      "Match the skeleton structure to the content it replaces.",
+      "Use skeletons to preserve the layout and reduce layout shift."
+    ],
+    "dont": [
+      "Do not show skeleton and loaded content simultaneously.",
+      "Do not use skeletons as a permanent visual element.",
+      "Do not use a skeleton when content loads instantly.",
+      "Do not animate more than 3 skeleton instances simultaneously."
+    ]
+  },
+  "code": {
+    "tag": "sk-skeleton",
+    "examples": {
+      "grid": "<sk-skeleton variant=\"grid\"></sk-skeleton>",
+      "list": "<sk-skeleton variant=\"list\"></sk-skeleton>",
+      "text-block": "<sk-skeleton variant=\"text-block\"></sk-skeleton>"
+    }
+  }
+}

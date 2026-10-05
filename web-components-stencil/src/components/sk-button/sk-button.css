@@ -1,0 +1,178 @@
+:host {
+  display: inline-block;
+  font-family: var(--font-sans);
+}
+
+:host([full-width]) {
+  display: block;
+  width: 100%;
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  min-width: max-content;
+  padding: 0 var(--space-24);
+  border: var(--border-hairline) solid transparent;
+  border-radius: var(--radius-none);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.button.is-full-width {
+  width: 100%;
+}
+
+.button.is-icon-only {
+  padding: 0;
+  aspect-ratio: 1 / 1;
+}
+
+.button.is-icon-only .content {
+  gap: 0;
+}
+
+.content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+}
+
+.icon,
+.label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon:empty {
+  display: none;
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.size-sm {
+  min-height: 34px;
+  padding-inline: var(--space-24);
+  font-size: 0.875rem;
+}
+
+.size-md {
+  min-height: 40px;
+  padding-inline: var(--space-24);
+  font-size: 1rem;
+}
+
+.size-lg {
+  min-height: 48px;
+  padding-inline: var(--space-32);
+  font-size: 1.125rem;
+}
+
+.size-sm.is-icon-only {
+  width: 34px;
+  min-width: 34px;
+}
+
+.size-md.is-icon-only {
+  width: 40px;
+  min-width: 40px;
+}
+
+.size-lg.is-icon-only {
+  width: 48px;
+  min-width: 48px;
+}
+
+.variant-primary {
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  border-color: var(--color-border);
+}
+
+.variant-primary:hover:not(:disabled),
+.variant-primary:active:not(:disabled) {
+  background: var(--color-primary-hover);
+  color: var(--color-primary-fg);
+  border-color: var(--color-border);
+}
+
+.variant-secondary {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.variant-secondary:hover:not(:disabled),
+.variant-secondary:active:not(:disabled) {
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  border-color: var(--color-border);
+}
+
+.variant-ghost {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: transparent;
+}
+
+.variant-ghost:hover:not(:disabled),
+.variant-ghost:active:not(:disabled) {
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+}
+
+.variant-destructive {
+  background: transparent;
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.variant-destructive:hover:not(:disabled),
+.variant-destructive:active:not(:disabled) {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+  border-color: var(--color-error);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 var(--border-strong) var(--color-focus);
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.is-loading .content {
+  opacity: 0;
+}
+
+.button sk-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

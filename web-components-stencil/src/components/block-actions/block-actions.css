@@ -1,9 +1,0 @@
-:host {
-  display: block;
-}
-
-.block-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--ai-chat-space-xs, 0.5rem);
-}

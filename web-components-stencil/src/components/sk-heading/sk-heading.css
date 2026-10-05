@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.heading {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.heading-display {
+  font-size: clamp(2.25rem, 1.9rem + 1.8vw, 3.25rem);
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+.heading-lg {
+  font-size: clamp(1.625rem, 1.4rem + 1.1vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.heading-md {
+  font-size: clamp(1.25rem, 1.14rem + 0.45vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.heading-sm {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
