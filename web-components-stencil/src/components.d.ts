@@ -9,7 +9,7 @@ import { ChevronDirection, IconName } from "./utils/icons";
 export { ChevronDirection, IconName } from "./utils/icons";
 export namespace Components {
     interface SkButton {
-        "ariaLabel"?: string;
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
@@ -39,6 +39,22 @@ export namespace Components {
          */
         "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
     }
+    interface SkCaption {
+        /**
+          * @default 'left'
+         */
+        "align": 'left' | 'center';
+    }
+    interface SkHeading {
+        /**
+          * @default 'left'
+         */
+        "align": 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size": 'display' | 'lg' | 'md' | 'sm';
+    }
     /**
      * sk-icon: Scalable SVG icon component
      * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
@@ -49,12 +65,12 @@ export namespace Components {
         /**
           * Optional aria-label for accessibility
          */
-        "ariaLabel"?: string;
+        "accessibleLabel"?: string;
         /**
           * Direction for chevron icon (down, up, left, right) Only used when name is 'chevron'
           * @default 'down'
          */
-        "dir": ChevronDirection;
+        "direction": ChevronDirection;
         /**
           * The name of the icon to display
           * @default 'arrow'
@@ -70,8 +86,18 @@ export namespace Components {
         "header": string;
         "open": boolean;
     }
+    interface SkText {
+        /**
+          * @default 'left'
+         */
+        "align": 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size": 'lg' | 'md' | 'sm';
+    }
     interface SkToggle {
-        "ariaLabel"?: string;
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
@@ -94,6 +120,18 @@ declare global {
         prototype: HTMLSkButtonElement;
         new (): HTMLSkButtonElement;
     };
+    interface HTMLSkCaptionElement extends Components.SkCaption, HTMLStencilElement {
+    }
+    var HTMLSkCaptionElement: {
+        prototype: HTMLSkCaptionElement;
+        new (): HTMLSkCaptionElement;
+    };
+    interface HTMLSkHeadingElement extends Components.SkHeading, HTMLStencilElement {
+    }
+    var HTMLSkHeadingElement: {
+        prototype: HTMLSkHeadingElement;
+        new (): HTMLSkHeadingElement;
+    };
     /**
      * sk-icon: Scalable SVG icon component
      * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
@@ -111,6 +149,12 @@ declare global {
     var HTMLSkSideDrawerElement: {
         prototype: HTMLSkSideDrawerElement;
         new (): HTMLSkSideDrawerElement;
+    };
+    interface HTMLSkTextElement extends Components.SkText, HTMLStencilElement {
+    }
+    var HTMLSkTextElement: {
+        prototype: HTMLSkTextElement;
+        new (): HTMLSkTextElement;
     };
     interface HTMLSkToggleElementEventMap {
         "skChange": boolean;
@@ -131,14 +175,17 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "sk-button": HTMLSkButtonElement;
+        "sk-caption": HTMLSkCaptionElement;
+        "sk-heading": HTMLSkHeadingElement;
         "sk-icon": HTMLSkIconElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
+        "sk-text": HTMLSkTextElement;
         "sk-toggle": HTMLSkToggleElement;
     }
 }
 declare namespace LocalJSX {
     interface SkButton {
-        "ariaLabel"?: string;
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
@@ -168,6 +215,22 @@ declare namespace LocalJSX {
          */
         "variant"?: 'primary' | 'secondary' | 'ghost' | 'destructive';
     }
+    interface SkCaption {
+        /**
+          * @default 'left'
+         */
+        "align"?: 'left' | 'center';
+    }
+    interface SkHeading {
+        /**
+          * @default 'left'
+         */
+        "align"?: 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size"?: 'display' | 'lg' | 'md' | 'sm';
+    }
     /**
      * sk-icon: Scalable SVG icon component
      * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
@@ -178,12 +241,12 @@ declare namespace LocalJSX {
         /**
           * Optional aria-label for accessibility
          */
-        "ariaLabel"?: string;
+        "accessibleLabel"?: string;
         /**
           * Direction for chevron icon (down, up, left, right) Only used when name is 'chevron'
           * @default 'down'
          */
-        "dir"?: ChevronDirection;
+        "direction"?: ChevronDirection;
         /**
           * The name of the icon to display
           * @default 'arrow'
@@ -199,8 +262,18 @@ declare namespace LocalJSX {
         "header"?: string;
         "open"?: boolean;
     }
+    interface SkText {
+        /**
+          * @default 'left'
+         */
+        "align"?: 'left' | 'center';
+        /**
+          * @default 'md'
+         */
+        "size"?: 'lg' | 'md' | 'sm';
+    }
     interface SkToggle {
-        "ariaLabel"?: string;
+        "accessibleLabel"?: string;
         /**
           * @default false
          */
@@ -221,29 +294,43 @@ declare namespace LocalJSX {
         "fullWidth": boolean;
         "iconOnly": boolean;
         "type": 'button' | 'submit' | 'reset';
-        "ariaLabel": string;
+        "accessibleLabel": string;
+    }
+    interface SkCaptionAttributes {
+        "align": 'left' | 'center';
+    }
+    interface SkHeadingAttributes {
+        "size": 'display' | 'lg' | 'md' | 'sm';
+        "align": 'left' | 'center';
     }
     interface SkIconAttributes {
         "name": IconName;
         "size": number;
-        "dir": ChevronDirection;
-        "ariaLabel": string;
+        "direction": ChevronDirection;
+        "accessibleLabel": string;
     }
     interface SkSideDrawerAttributes {
         "header": string;
         "open": boolean;
     }
+    interface SkTextAttributes {
+        "size": 'lg' | 'md' | 'sm';
+        "align": 'left' | 'center';
+    }
     interface SkToggleAttributes {
         "checked": boolean;
         "disabled": boolean;
         "label": string;
-        "ariaLabel": string;
+        "accessibleLabel": string;
     }
 
     interface IntrinsicElements {
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
+        "sk-caption": Omit<SkCaption, keyof SkCaptionAttributes> & { [K in keyof SkCaption & keyof SkCaptionAttributes]?: SkCaption[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `attr:${K}`]?: SkCaptionAttributes[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `prop:${K}`]?: SkCaption[K] };
+        "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
         "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
+        "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
         "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
     }
 }
@@ -252,6 +339,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
+            "sk-caption": LocalJSX.IntrinsicElements["sk-caption"] & JSXBase.HTMLAttributes<HTMLSkCaptionElement>;
+            "sk-heading": LocalJSX.IntrinsicElements["sk-heading"] & JSXBase.HTMLAttributes<HTMLSkHeadingElement>;
             /**
              * sk-icon: Scalable SVG icon component
              * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
@@ -260,6 +349,7 @@ declare module "@stencil/core" {
              */
             "sk-icon": LocalJSX.IntrinsicElements["sk-icon"] & JSXBase.HTMLAttributes<HTMLSkIconElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
+            "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;
             "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;
         }
     }

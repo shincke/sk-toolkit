@@ -30,15 +30,15 @@ export class SkIcon {
    * Direction for chevron icon (down, up, left, right)
    * Only used when name is 'chevron'
    */
-  @Prop({ reflect: true }) dir: ChevronDirection = 'down';
+  @Prop({ reflect: true, attribute: 'dir' }) direction: ChevronDirection = 'down';
 
   /**
    * Optional aria-label for accessibility
    */
-  @Prop() ariaLabel?: string;
+  @Prop({ attribute: 'aria-label' }) accessibleLabel?: string;
 
   render() {
-    const icon = getIcon(this.name, this.dir);
+    const icon = getIcon(this.name, this.direction);
 
     if (!icon) {
       console.warn(`sk-icon: Icon "${this.name}" not found`);
@@ -54,10 +54,10 @@ export class SkIcon {
         stroke="currentColor"
         stroke-width="1.5"
         class="icon"
-        aria-label={this.ariaLabel}
-        role={this.ariaLabel ? 'img' : 'presentation'}
+        aria-label={this.accessibleLabel}
+        role={this.accessibleLabel ? 'img' : 'presentation'}
       >
-        {icon.render(this.dir)}
+        {icon.render(this.direction)}
       </svg>
     );
   }

@@ -1,33 +1,36 @@
 {
-  "name": "kaqui-typography",
-  "category": "foundations",
-  "purpose": "Three-font system: display serif, UI sans-serif, monospace caption.",
+  "name": "sk-text",
+  "tag": "sk-text",
+  "category": "typography",
+  "purpose": "General-purpose text component for body content, supporting copy, and emphasized introductory text.",
   "variants": {
-    "scale": [
-      "display",
-      "headline",
-      "title",
-      "body",
-      "caption"
+    "size": [
+      "lg",
+      "md",
+      "sm"
+    ],
+    "align": [
+      "left",
+      "center"
     ]
   },
   "properties": {
-    "--font-display": {
-      "type": "string",
-      "value": "'Noto Serif JP', serif"
+    "size": {
+      "type": "'lg' | 'md' | 'sm'",
+      "default": "md"
     },
-    "--font-sans": {
-      "type": "string",
-      "value": "'Inter', sans-serif"
-    },
-    "--font-mono": {
-      "type": "string",
-      "value": "'Space Mono', monospace"
+    "align": {
+      "type": "'left' | 'center'",
+      "default": "left"
     }
   },
-  "slots": {},
+  "slots": {
+    "default": "Text content"
+  },
   "events": [],
-  "states": [],
+  "states": [
+    "default"
+  ],
   "accessibility": {
     "keyboardAccessible": false,
     "visibleFocusState": false,
@@ -35,16 +38,19 @@
   },
   "usage": {
     "do": [
-      "Use Noto Serif JP for display/editorial headings.",
-      "Use Space Mono for labels, captions, and metadata."
+      "Use lg for lead or emphasized introductory text.",
+      "Use md for standard body content.",
+      "Use sm for supporting or secondary body text.",
+      "Allow typography to adapt responsively according to the design tokens."
     ],
     "dont": [
-      "Do not use display font for body copy.",
-      "Do not use sans-serif for captions."
+      "Do not use for headings.",
+      "Do not use as a replacement for captions or metadata.",
+      "Do not use text size to create semantic heading hierarchy."
     ]
   },
   "code": {
-    "tag": "n/a",
-    "example": "font-family: var(--font-display); /* display */\nfont-family: var(--font-sans);    /* UI */\nfont-family: var(--font-mono);    /* captions */"
+    "tag": "sk-text",
+    "example": "<sk-text size=\"md\">A Japanese music archive exploring sound, design and culture.</sk-text>"
   }
 }

@@ -88,9 +88,5 @@
 }
 
 .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  --color-text-secondary: var(--color-text-secondary);
 }

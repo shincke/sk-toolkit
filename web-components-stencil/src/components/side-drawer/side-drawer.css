@@ -27,10 +27,8 @@ header {
   position: relative;
 }
 
-header h1 {
-  font-size: 1.5rem;
-  color: inherit;
-  margin: 0;
+header sk-heading {
+  --color-text-primary: var(--color-secondary-fg);
 }
 
 header button {
@@ -38,11 +36,17 @@ header button {
   right: 0;
   top: 0;
   padding: var(--space-16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: inherit;
-  font-size: 1.5rem;
   border: none;
   background: transparent;
   cursor: pointer;
+}
+
+header button sk-icon {
+  color: inherit;
 }
 
 header button:focus {
@@ -63,6 +67,9 @@ header button:focus-visible,
 
 #tabs button {
   width: 30%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-surface-elevated);
   color: var(--color-text-primary);
   text-align: center;
@@ -79,6 +86,10 @@ header button:focus-visible,
   color: var(--color-accent-fg);
 }
 
+#tabs button sk-caption {
+  --color-text-secondary: currentColor;
+}
+
 #tabs button:focus {
   outline: none;
 }
@@ -86,4 +97,23 @@ header button:focus-visible,
 #contact-information {
   padding: 0 var(--space-16);
   color: var(--color-text-primary);
+}
+
+#contact-information sk-heading,
+#contact-information sk-text,
+#contact-information sk-caption {
+  display: block;
+}
+
+#contact-information sk-text {
+  margin-top: var(--space-8);
+}
+
+#contact-information ul {
+  margin: var(--space-16) 0 0;
+  padding-left: var(--space-24);
+}
+
+#contact-information li + li {
+  margin-top: var(--space-8);
 }

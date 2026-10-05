@@ -27,11 +27,15 @@ export class SideDrawer {
     if (this.showContactInfo) {
       mainContent = (
         <div id="contact-information">
-          <h2>Contact Information</h2>
-          <p>You can reach us via phone or email.</p>
+          <sk-heading size="sm">Contact Information</sk-heading>
+          <sk-text size="md">You can reach us via phone or email.</sk-text>
           <ul>
-            <li>Phone: 123-456-7890</li>
-            <li>Email: something@something.pt</li>
+            <li>
+              <sk-caption>Phone: 123-456-7890</sk-caption>
+            </li>
+            <li>
+              <sk-caption>Email: something@something.pt</sk-caption>
+            </li>
           </ul>
         </div>
       );
@@ -40,13 +44,19 @@ export class SideDrawer {
     return (
       <aside class="side-drawer">
         <header>
-          <h1>{this.header}</h1>
+          <sk-heading size="md">{this.header}</sk-heading>
           {/* binding is necessary, so onClick refers to the class */}
-          <button onClick={this.onCloseDrawer.bind(this)}>X</button>
+          <button onClick={this.onCloseDrawer.bind(this)} aria-label="Close drawer">
+            <sk-icon name="close" size={20} aria-label={undefined} />
+          </button>
         </header>
         <section id="tabs">
-          <button onClick={this.onContentChange.bind(this, 'nav')} class="active">Navigation</button>
-          <button onClick={this.onContentChange.bind(this, 'contact')}>Contact</button>
+          <button onClick={this.onContentChange.bind(this, 'nav')} class="active">
+            <sk-caption>Navigation</sk-caption>
+          </button>
+          <button onClick={this.onContentChange.bind(this, 'contact')}>
+            <sk-caption>Contact</sk-caption>
+          </button>
         </section>
         <main>
           {mainContent}

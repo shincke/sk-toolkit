@@ -9,7 +9,7 @@ export class SkToggle {
   @Prop({ mutable: true, reflect: true }) checked = false;
   @Prop({ reflect: true }) disabled = false;
   @Prop() label?: string;
-  @Prop({ attribute: 'aria-label' }) ariaLabel?: string;
+  @Prop({ attribute: 'aria-label' }) accessibleLabel?: string;
 
   @Event() skChange!: EventEmitter<boolean>;
 
@@ -23,8 +23,8 @@ export class SkToggle {
   };
 
   private getAccessibleLabel() {
-    if (this.ariaLabel) {
-      return this.ariaLabel;
+    if (this.accessibleLabel) {
+      return this.accessibleLabel;
     }
 
     if (this.label) {
@@ -56,7 +56,9 @@ export class SkToggle {
             </span>
           </span>
 
-          {this.label ? <span class="label">{this.label}</span> : null}
+          {this.label ? (
+            <sk-caption class="label">{this.label}</sk-caption>
+          ) : null}
         </button>
       </Host>
     );

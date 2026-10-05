@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property    | Attribute    | Description | Type      | Default     |
-| ----------- | ------------ | ----------- | --------- | ----------- |
-| `ariaLabel` | `aria-label` |             | `string`  | `undefined` |
-| `checked`   | `checked`    |             | `boolean` | `false`     |
-| `disabled`  | `disabled`   |             | `boolean` | `false`     |
-| `label`     | `label`      |             | `string`  | `undefined` |
+| Property          | Attribute    | Description | Type      | Default     |
+| ----------------- | ------------ | ----------- | --------- | ----------- |
+| `accessibleLabel` | `aria-label` |             | `string`  | `undefined` |
+| `checked`         | `checked`    |             | `boolean` | `false`     |
+| `disabled`        | `disabled`   |             | `boolean` | `false`     |
+| `label`           | `label`      |             | `string`  | `undefined` |
 
 
 ## Events
@@ -27,11 +27,13 @@
 ### Depends on
 
 - [sk-icon](../sk-icon)
+- [sk-caption](../sk-caption)
 
 ### Graph
 ```mermaid
 graph TD;
   sk-toggle --> sk-icon
+  sk-toggle --> sk-caption
   style sk-toggle fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

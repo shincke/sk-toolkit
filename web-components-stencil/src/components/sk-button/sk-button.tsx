@@ -14,7 +14,7 @@ export class SkButton {
   @Prop({ reflect: true, attribute: 'icon-only' }) iconOnly = false;
 
   @Prop() type: 'button' | 'submit' | 'reset' = 'button';
-  @Prop({ attribute: 'aria-label' }) ariaLabel?: string;
+  @Prop({ attribute: 'aria-label' }) accessibleLabel?: string;
 
   render() {
     const isDisabled = this.disabled || this.loading;
@@ -33,7 +33,7 @@ export class SkButton {
           type={this.type}
           disabled={isDisabled}
           aria-busy={this.loading ? 'true' : 'false'}
-          aria-label={this.ariaLabel}
+          aria-label={this.accessibleLabel}
         >
           <span class="content">
             <span class="icon icon-left">
