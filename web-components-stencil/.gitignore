@@ -19,6 +19,8 @@ log.txt
 .versions/
 node_modules/
 $RECYCLE.BIN/
+storybook-static/
+design-metadata/
 
 .DS_Store
 Thumbs.db
