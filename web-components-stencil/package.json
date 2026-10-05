@@ -14,6 +14,10 @@
       "require": "./dist/web-components-stencil/web-components-stencil.cjs.js"
     },
     "./tokens.css": "./dist/tokens.css",
+    "./design-tokens": {
+      "import": "./dist/design-tokens.js",
+      "types": "./dist/design-tokens.d.ts"
+    },
     "./my-component": {
       "import": "./dist/components/my-component.js",
       "types": "./dist/components/my-component.d.ts"
@@ -33,9 +37,12 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build",
-    "start": "stencil build --dev --watch --serve",
-    "test": "stencil-test",
+    "generate:tokens": "node scripts/generate-tokens.mjs",
+    "sync:tokens": "node scripts/generate-tokens.mjs",
+    "validate:tokens": "node scripts/generate-tokens.mjs && git diff --exit-code -- src/global/tokens.css src/design-tokens.ts",
+    "build": "npm run generate:tokens && stencil build",
+    "start": "npm run generate:tokens && stencil build --dev --watch --serve",
+    "test": "npm run generate:tokens && stencil-test",
     "test:watch": "stencil-test --watch",
     "generate": "stencil generate"
   },

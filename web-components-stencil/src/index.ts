@@ -8,7 +8,6 @@
  * to consume components of this package as outlined in the `README.md`.
  */
 
-export { SK_COLOR_TOKENS, SK_DYNAMIC_COLOR_TOKENS, SK_THEMES } from './design-tokens';
-export type { SkTheme } from './design-tokens';
+export * from './design-tokens';
 export { format } from './utils/utils';
 export type * from './components.d.ts';

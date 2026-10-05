@@ -1,8 +1,0 @@
-:host {
-  display: block;
-}
-
-.block-video video {
-  width: 100%;
-  border-radius: var(--ai-chat-radius-md, 0.8rem);
-}

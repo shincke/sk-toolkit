@@ -1,0 +1,62 @@
+{
+  "name": "kaqui-button",
+  "category": "actions",
+  "purpose": "Triggers a user action. Primary/secondary variants swap colors on hover.",
+  "variants": {
+    "variant": [
+      "primary",
+      "secondary",
+      "ghost",
+      "destructive"
+    ],
+    "size": [
+      "sm",
+      "md",
+      "lg"
+    ]
+  },
+  "properties": {
+    "disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "loading": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "slots": {
+    "default": "Button label or content",
+    "iconLeft": "Leading icon",
+    "iconRight": "Trailing icon"
+  },
+  "events": [
+    "click"
+  ],
+  "states": [
+    "default",
+    "hover",
+    "focus",
+    "disabled",
+    "loading"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": true
+  },
+  "usage": {
+    "do": [
+      "Use primary for the single most important action.",
+      "Use secondary for supporting actions."
+    ],
+    "dont": [
+      "Do not use multiple primary buttons for competing actions.",
+      "Do not disable without explanation."
+    ]
+  },
+  "code": {
+    "tag": "kaqui-button",
+    "example": "<kaqui-button variant=\"primary\" size=\"md\">Add to cart</kaqui-button>"
+  }
+}

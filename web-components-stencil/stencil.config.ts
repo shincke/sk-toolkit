@@ -3,6 +3,7 @@ import { Config } from '@stencil/core';
 export const config: Config = {
   namespace: 'web-components-stencil',
   globalStyle: 'src/global/tokens.css',
+  preamble: 'Generated from Figma design library source. Do not edit manually.',
   outputTargets: [
     {
       type: 'dist',
