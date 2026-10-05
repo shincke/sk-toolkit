@@ -8,6 +8,20 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ChevronDirection, IconName } from "./utils/icons";
 export { ChevronDirection, IconName } from "./utils/icons";
 export namespace Components {
+    interface SkBadge {
+        /**
+          * @default 'default'
+         */
+        "color": 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default 'status'
+         */
+        "variant": 'status' | 'filled' | 'category' | 'ai-chip';
+    }
     interface SkButton {
         "accessibleLabel"?: string;
         /**
@@ -109,11 +123,32 @@ export namespace Components {
         "label"?: string;
     }
 }
+export interface SkBadgeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkBadgeElement;
+}
 export interface SkToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkToggleElement;
 }
 declare global {
+    interface HTMLSkBadgeElementEventMap {
+        "skClick": MouseEvent;
+    }
+    interface HTMLSkBadgeElement extends Components.SkBadge, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkBadgeElement: {
+        prototype: HTMLSkBadgeElement;
+        new (): HTMLSkBadgeElement;
+    };
     interface HTMLSkButtonElement extends Components.SkButton, HTMLStencilElement {
     }
     var HTMLSkButtonElement: {
@@ -174,6 +209,7 @@ declare global {
         new (): HTMLSkToggleElement;
     };
     interface HTMLElementTagNameMap {
+        "sk-badge": HTMLSkBadgeElement;
         "sk-button": HTMLSkButtonElement;
         "sk-caption": HTMLSkCaptionElement;
         "sk-heading": HTMLSkHeadingElement;
@@ -184,6 +220,21 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface SkBadge {
+        /**
+          * @default 'default'
+         */
+        "color"?: 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onSkClick"?: (event: SkBadgeCustomEvent<MouseEvent>) => void;
+        /**
+          * @default 'status'
+         */
+        "variant"?: 'status' | 'filled' | 'category' | 'ai-chip';
+    }
     interface SkButton {
         "accessibleLabel"?: string;
         /**
@@ -286,6 +337,11 @@ declare namespace LocalJSX {
         "onSkChange"?: (event: SkToggleCustomEvent<boolean>) => void;
     }
 
+    interface SkBadgeAttributes {
+        "variant": 'status' | 'filled' | 'category' | 'ai-chip';
+        "color": 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
+        "label": string;
+    }
     interface SkButtonAttributes {
         "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
         "size": 'sm' | 'md' | 'lg';
@@ -325,6 +381,7 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
+        "sk-badge": Omit<SkBadge, keyof SkBadgeAttributes> & { [K in keyof SkBadge & keyof SkBadgeAttributes]?: SkBadge[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `attr:${K}`]?: SkBadgeAttributes[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `prop:${K}`]?: SkBadge[K] };
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
         "sk-caption": Omit<SkCaption, keyof SkCaptionAttributes> & { [K in keyof SkCaption & keyof SkCaptionAttributes]?: SkCaption[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `attr:${K}`]?: SkCaptionAttributes[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `prop:${K}`]?: SkCaption[K] };
         "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
@@ -338,6 +395,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "sk-badge": LocalJSX.IntrinsicElements["sk-badge"] & JSXBase.HTMLAttributes<HTMLSkBadgeElement>;
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
             "sk-caption": LocalJSX.IntrinsicElements["sk-caption"] & JSXBase.HTMLAttributes<HTMLSkCaptionElement>;
             "sk-heading": LocalJSX.IntrinsicElements["sk-heading"] & JSXBase.HTMLAttributes<HTMLSkHeadingElement>;

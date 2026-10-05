@@ -9,13 +9,14 @@
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
   </head>
-  <body class="light">
+  <body class="dark">
     <!-- Buttons -->
     <sk-caption>Buttons</sk-caption>
     <sk-button variant="primary" size="sm">Click me</sk-button>
+    <sk-button variant="secondary" size="md">Click me</sk-button>
     <sk-button variant="secondary" size="md" loading>Click me</sk-button>
     <sk-button variant="destructive" size="lg" disabled>Click me</sk-button>
-    <sk-button variant="ghost" size="lg" full-width>Click me</sk-button>
+    <sk-button variant="ghost" size="lg">Click me</sk-button>
     <sk-button size="lg" iconOnly>
       <sk-icon name="plus" aria-label="Add"></sk-icon>
     </sk-button>
@@ -37,6 +38,42 @@
     <sk-text size="sm">Awazu's experimental collage work collapsed the distance between art, protest, and commercial design across three decades of radical practice.</sk-text>
 
     <sk-caption>Fig. 01 - Osaka, 1970</sk-caption>
+
+    <!-- Badges -->
+    <sk-caption>Badges</sk-caption>
+    <sk-caption>Status</sk-caption>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+      <sk-badge variant="status" color="success" label="Published"></sk-badge>
+      <sk-badge variant="status" color="warning" label="Draft"></sk-badge>
+      <sk-badge variant="status" color="secondary" label="Archived"></sk-badge>
+      <sk-badge variant="status" color="accent" label="Featured"></sk-badge>
+      <sk-badge variant="status" color="error" label="Error"></sk-badge>
+    </div>
+    <sk-caption>Filled</sk-caption>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
+      <sk-badge variant="filled" color="success" label="Published"></sk-badge>
+      <sk-badge variant="filled" color="warning" label="Draft"></sk-badge>
+      <sk-badge variant="filled" color="secondary" label="Archived"></sk-badge>
+      <sk-badge variant="filled" color="accent" label="Featured"></sk-badge>
+      <sk-badge variant="filled" color="error" label="Error"></sk-badge>
+    </div>
+    <sk-caption>Category / Metadata</sk-caption>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
+      <sk-badge variant="category" color="default" label="Research"></sk-badge>
+      <sk-badge variant="category" color="default" label="Archive"></sk-badge>
+      <sk-badge variant="category" color="default" label="Poster Design"></sk-badge>
+      <sk-badge variant="category" color="default" label="Typography"></sk-badge>
+      <sk-badge variant="category" color="default" label="Editorial"></sk-badge>
+      <sk-badge variant="category" color="default" label="Vol. 04"></sk-badge>
+    </div>
+    <sk-caption>AI Suggestion Chip</sk-caption>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
+      <sk-caption>Try</sk-caption>
+      <sk-badge variant="ai-chip" color="default" label="Something atmospheric"></sk-badge>
+      <sk-badge variant="ai-chip" color="default" label="Brazilian electronic"></sk-badge>
+      <sk-badge variant="ai-chip" color="default" label="Japanese ambient 1980s"></sk-badge>
+      <sk-badge variant="ai-chip" color="default" label="Similar to Aphex Twin"></sk-badge>
+    </div>
 
     <!-- Icons -->
     <sk-caption>Icons</sk-caption>
