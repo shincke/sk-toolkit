@@ -1,0 +1,80 @@
+{
+  "name": "sk-loading",
+  "description": "Animated arc-based loading spinner for indicating ongoing operations or data fetching.",
+  "status": "stable",
+  "variants": [
+    {
+      "name": "14px",
+      "example": "<sk-loading size=\"14\"></sk-loading>",
+      "description": "Compact spinner for inline or tight spaces"
+    },
+    {
+      "name": "20px",
+      "example": "<sk-loading size=\"20\"></sk-loading>",
+      "description": "Small spinner for button or form contexts"
+    },
+    {
+      "name": "28px",
+      "example": "<sk-loading size=\"28\"></sk-loading>",
+      "description": "Medium spinner for section loading"
+    },
+    {
+      "name": "40px",
+      "example": "<sk-loading size=\"40\"></sk-loading>",
+      "description": "Large spinner for full-page or modal loading"
+    },
+    {
+      "name": "With Label",
+      "example": "<sk-loading size=\"28\" label=\"Loading data...\"></sk-loading>",
+      "description": "Spinner with descriptive text below"
+    }
+  ],
+  "properties": [
+    {
+      "name": "size",
+      "type": "number",
+      "default": "40",
+      "options": [14, 20, 28, 40],
+      "reflected": true,
+      "description": "Size of the loading spinner in pixels"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "''",
+      "description": "Optional label text shown below the spinner"
+    }
+  ],
+  "events": [],
+  "accessibility": {
+    "keyboard": "N/A",
+    "ariaAttrs": ["role=\"status\"", "aria-label"],
+    "screenReader": "Fully compatible; announces loading status via aria-label",
+    "focus": "Non-interactive; does not receive focus"
+  },
+  "styling": {
+    "customProperties": [
+      "--color-focus",
+      "--color-text-secondary",
+      "--space-6",
+      "--space-8"
+    ],
+    "responsive": "Adjusts label spacing on small screens"
+  },
+  "usage": {
+    "description": "Use sk-loading to indicate ongoing operations such as data fetching, form submission, or background processing. Choose size based on context.",
+    "dos": [
+      "Always show loading state during async operations",
+      "Use 14px or 20px for inline/button contexts",
+      "Use 28px or 40px for section or full-page loading",
+      "Provide descriptive label when needed",
+      "Replace with result content once loading completes"
+    ],
+    "donts": [
+      "Don't show indefinitely without feedback",
+      "Don't use for progress with determinate completion (use progress bar)",
+      "Don't forget to provide aria-label context",
+      "Don't overlay on content without clear indication"
+    ]
+  }
+}

@@ -19,6 +19,20 @@
 | `variant`         | `variant`    |             | `"destructive" \| "ghost" \| "primary" \| "secondary"` | `'primary'` |
 
 
+## Dependencies
+
+### Depends on
+
+- [sk-loading](../sk-loading)
+
+### Graph
+```mermaid
+graph TD;
+  sk-button --> sk-loading
+  sk-loading --> sk-caption
+  style sk-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

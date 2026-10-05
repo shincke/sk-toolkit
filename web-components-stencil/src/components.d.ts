@@ -127,6 +127,16 @@ export namespace Components {
          */
         "value": string;
     }
+    interface SkLoading {
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default 40
+         */
+        "size": 14 | 20 | 28 | 40;
+    }
     interface SkSelect {
         "accessibleLabel"?: string;
         /**
@@ -261,6 +271,12 @@ declare global {
         prototype: HTMLSkInputElement;
         new (): HTMLSkInputElement;
     };
+    interface HTMLSkLoadingElement extends Components.SkLoading, HTMLStencilElement {
+    }
+    var HTMLSkLoadingElement: {
+        prototype: HTMLSkLoadingElement;
+        new (): HTMLSkLoadingElement;
+    };
     interface HTMLSkSelectElementEventMap {
         "skChange": string | null;
     }
@@ -314,6 +330,7 @@ declare global {
         "sk-heading": HTMLSkHeadingElement;
         "sk-icon": HTMLSkIconElement;
         "sk-input": HTMLSkInputElement;
+        "sk-loading": HTMLSkLoadingElement;
         "sk-select": HTMLSkSelectElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
         "sk-text": HTMLSkTextElement;
@@ -445,6 +462,16 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SkLoading {
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * @default 40
+         */
+        "size"?: 14 | 20 | 28 | 40;
+    }
     interface SkSelect {
         "accessibleLabel"?: string;
         /**
@@ -535,6 +562,10 @@ declare namespace LocalJSX {
         "error": string;
         "accessibleLabel": string;
     }
+    interface SkLoadingAttributes {
+        "size": 14 | 20 | 28 | 40;
+        "label": string;
+    }
     interface SkSelectAttributes {
         "options": string[] | string;
         "value": string | null;
@@ -565,6 +596,7 @@ declare namespace LocalJSX {
         "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
         "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
         "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
+        "sk-loading": Omit<SkLoading, keyof SkLoadingAttributes> & { [K in keyof SkLoading & keyof SkLoadingAttributes]?: SkLoading[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `attr:${K}`]?: SkLoadingAttributes[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `prop:${K}`]?: SkLoading[K] };
         "sk-select": Omit<SkSelect, keyof SkSelectAttributes> & { [K in keyof SkSelect & keyof SkSelectAttributes]?: SkSelect[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `attr:${K}`]?: SkSelectAttributes[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `prop:${K}`]?: SkSelect[K] };
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
         "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
@@ -587,6 +619,7 @@ declare module "@stencil/core" {
              */
             "sk-icon": LocalJSX.IntrinsicElements["sk-icon"] & JSXBase.HTMLAttributes<HTMLSkIconElement>;
             "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
+            "sk-loading": LocalJSX.IntrinsicElements["sk-loading"] & JSXBase.HTMLAttributes<HTMLSkLoadingElement>;
             "sk-select": LocalJSX.IntrinsicElements["sk-select"] & JSXBase.HTMLAttributes<HTMLSkSelectElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
             "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;

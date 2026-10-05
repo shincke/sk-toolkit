@@ -51,9 +51,22 @@ export class SkButton {
             </span>
           </span>
 
-          {this.loading ? <span class="spinner spinner-rotate" aria-hidden="true" /> : null}
+          {this.loading ? <sk-loading size={this.getLoadingSize()} aria-hidden="true" /> : null}
         </button>
       </Host>
     );
+  }
+
+  private getLoadingSize(): 14 | 20 | 28 {
+    switch (this.size) {
+      case 'sm':
+        return 14;
+      case 'md':
+        return 20;
+      case 'lg':
+        return 28;
+      default:
+        return 20;
+    }
   }
 }

@@ -18,6 +18,7 @@
 
  - [sk-badge](../sk-badge)
  - [sk-input](../sk-input)
+ - [sk-loading](../sk-loading)
  - [sk-select](../sk-select)
  - [sk-side-drawer](../side-drawer)
  - [sk-toggle](../sk-toggle)
@@ -27,6 +28,7 @@
 graph TD;
   sk-badge --> sk-caption
   sk-input --> sk-caption
+  sk-loading --> sk-caption
   sk-select --> sk-caption
   sk-side-drawer --> sk-caption
   sk-toggle --> sk-caption
