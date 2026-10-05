@@ -1,0 +1,57 @@
+{
+  "name": "sk-toggle",
+  "tag": "sk-toggle",
+  "category": "inputs",
+  "purpose": "Boolean on/off switch, used for theme and setting toggles.",
+  "variants": {
+    "size": [
+      "default"
+    ]
+  },
+  "properties": {
+    "checked": {
+      "type": "boolean",
+      "default": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "ariaLabel": {
+      "type": "string"
+    }
+  },
+  "slots": {},
+  "events": [
+    "skChange"
+  ],
+  "states": [
+    "default",
+    "checked",
+    "focus",
+    "disabled"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": true
+  },
+  "usage": {
+    "do": [
+      "Pair with a visible label.",
+      "Use for binary settings with immediate effect."
+    ],
+    "dont": [
+      "Do not use for actions — use a button instead.",
+      "Do not use for multi-choice selection."
+    ]
+  },
+  "code": {
+    "tag": "sk-toggle",
+    "example": "<sk-toggle checked label=\"Dark mode\"></sk-toggle>"
+  }
+}

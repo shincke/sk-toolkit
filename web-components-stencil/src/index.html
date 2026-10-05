@@ -9,131 +9,46 @@
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
   </head>
-  <body class="dark">
-    <sk-ai-chat id="chat"></sk-ai-chat>
+  <body class="light">
+    <!-- Buttons -->
+    <h2>Buttons</h2>
+    <sk-button variant="primary" size="sm">Click me</sk-button>
+    <sk-button variant="secondary" size="md" loading>Click me</sk-button>
+    <sk-button variant="destructive" size="lg" disabled>Click me</sk-button>
+    <sk-button variant="ghost" size="lg" full-width>Click me</sk-button>
+    <sk-button size="lg" iconOnly>
+      <sk-icon name="plus" aria-label="Add"></sk-icon>
+    </sk-button>
+
+    <!-- Toggle -->
+    <h2>Toggle</h2>
+    <sk-toggle label="Theme mode"></sk-toggle>
+    <sk-toggle checked label="Dark mode"></sk-toggle>
+
+    <!-- Icons -->
+    <h2>Icons</h2>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+      <sk-icon name="arrow" size="16" aria-label="Arrow"></sk-icon>
+      <sk-icon name="plus" size="24" aria-label="Add"></sk-icon>
+      <sk-icon name="close" size="24" aria-label="Close"></sk-icon>
+      <sk-icon name="menu" size="24" aria-label="Menu"></sk-icon>
+      <sk-icon name="search" size="24" aria-label="Search"></sk-icon>
+      <sk-icon name="chevron" size="24" dir="down" aria-label="Chevron down"></sk-icon>
+      <sk-icon name="chevron" size="24" dir="up" aria-label="Chevron up"></sk-icon>
+      <sk-icon name="chevron" size="24" dir="left" aria-label="Chevron left"></sk-icon>
+      <sk-icon name="chevron" size="24" dir="right" aria-label="Chevron right"></sk-icon>
+      <sk-icon name="check" size="24" aria-label="Check"></sk-icon>
+      <sk-icon name="external" size="24" aria-label="External"></sk-icon>
+      <sk-icon name="moon" size="24" aria-label="Moon"></sk-icon>
+      <sk-icon name="sun" size="24" aria-label="Sun"></sk-icon>
+      <sk-icon name="mail" size="24" aria-label="Mail"></sk-icon>
+      <sk-icon name="github" size="24" aria-label="GitHub"></sk-icon>
+      <sk-icon name="instagram" size="24" aria-label="Instagram"></sk-icon>
+    </div>
+    <sk-icon name="chevron" dir="down" size="32"></sk-icon>
 
     <script type="module">
-      customElements.whenDefined("sk-ai-chat").then(() => {
-        const chat = document.querySelector("#chat");
-
-        let responses = [];
-
-        const suggestions = [
-          {
-            id: "s-1",
-            label: "Show me Japanese Jazz",
-            description: "Curated picks from 70s and 80s",
-            icon: "🎷",
-            category: "genres",
-          },
-          {
-            id: "s-2",
-            label: "Recommend Brazilian records",
-            description: "Bossa nova and MPB classics",
-            icon: "🇧🇷",
-            category: "genres",
-          },
-          {
-            id: "s-3",
-            label: "Explain your curation criteria",
-            description: "How this collection is selected",
-            icon: "🧠",
-            category: "about",
-          },
-        ];
-
-        chat.text = {
-          header: "What do you want to know?",
-          subheader: "Search",
-          inputPlaceholder: "Type your question...",
-          inputButtonLabel: "Send",
-          suggestionsLabel: "Suggested prompts",
-          emptyTitle: "Ask your first question",
-          emptyDescription: "Try a suggested prompt or write your own.",
-          errorMessage: "Something went wrong while loading this conversation.",
-          retryLabel: "Retry",
-          loadingLabel: "Thinking",
-        };
-
-        chat.layout = "auto";
-        chat.status = "idle";
-        chat.suggestions = suggestions;
-
-        function createTextResponse(id, role, text) {
-          return {
-            id,
-            role,
-            blocks: [
-              {
-                id: `${id}-text`,
-                type: "text",
-                text,
-              },
-            ],
-            timestamp: new Date().toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
-            avatarLabel: role === "assistant" ? "AI" : "ME",
-          };
-        }
-
-        function render(next) {
-          responses = next;
-          chat.responses = responses;
-        }
-
-        render([
-          createTextResponse(
-            "a-1",
-            "assistant",
-            "Welcome! Ask about our collection, genres, or recommendations."
-          ),
-        ]);
-
-        chat.addEventListener("messageSubmit", (event) => {
-          const prompt = String(event.detail || "").trim();
-          if (!prompt) {
-            return;
-          }
-
-          const next = [...responses, createTextResponse(crypto.randomUUID(), "user", prompt)];
-          render(next);
-
-          chat.status = "loading";
-          chat.streamingAssistantContent = "";
-
-          const fullAnswer = `You asked: "${prompt}". This is a mock assistant response using the new Responses -> Blocks architecture.`;
-          let cursor = 0;
-
-          const streamTimer = setInterval(() => {
-            cursor += 5;
-            chat.streamingAssistantContent = fullAnswer.slice(0, cursor);
-
-            if (cursor >= fullAnswer.length) {
-              clearInterval(streamTimer);
-              chat.streamingAssistantContent = "";
-              chat.status = "idle";
-              render([...next, createTextResponse(crypto.randomUUID(), "assistant", fullAnswer)]);
-            }
-          }, 28);
-        });
-
-        chat.addEventListener("suggestionSelect", (event) => {
-          const suggestion = event.detail;
-          if (!suggestion || !suggestion.label) {
-            return;
-          }
-
-          chat.dispatchEvent(
-            new CustomEvent("messageSubmit", {
-              detail: suggestion.label,
-              bubbles: true,
-              composed: true,
-            })
-          );
-        });
-      });
+      
     </script>
   </body>
 </html>

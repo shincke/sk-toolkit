@@ -1,0 +1,50 @@
+{
+  "name": "kaqui-typography",
+  "category": "foundations",
+  "purpose": "Three-font system: display serif, UI sans-serif, monospace caption.",
+  "variants": {
+    "scale": [
+      "display",
+      "headline",
+      "title",
+      "body",
+      "caption"
+    ]
+  },
+  "properties": {
+    "--font-display": {
+      "type": "string",
+      "value": "'Noto Serif JP', serif"
+    },
+    "--font-sans": {
+      "type": "string",
+      "value": "'Inter', sans-serif"
+    },
+    "--font-mono": {
+      "type": "string",
+      "value": "'Space Mono', monospace"
+    }
+  },
+  "slots": {},
+  "events": [],
+  "states": [],
+  "accessibility": {
+    "keyboardAccessible": false,
+    "visibleFocusState": false,
+    "accessibleNameRequired": false
+  },
+  "usage": {
+    "do": [
+      "Use Noto Serif JP for display/editorial headings.",
+      "Use Space Mono for labels, captions, and metadata."
+    ],
+    "dont": [
+      "Do not use display font for body copy.",
+      "Do not use sans-serif for captions."
+    ]
+  },
+  "code": {
+    "tag": "n/a",
+    "example": "font-family: var(--font-display); /* display */\nfont-family: var(--font-sans);    /* UI */\nfont-family: var(--font-mono);    /* captions */"
+  }
+}

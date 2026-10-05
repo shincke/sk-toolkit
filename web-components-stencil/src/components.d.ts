@@ -5,43 +5,262 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ChevronDirection, IconName } from "./utils/icons";
+export { ChevronDirection, IconName } from "./utils/icons";
 export namespace Components {
+    interface SkButton {
+        "ariaLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default false
+         */
+        "fullWidth": boolean;
+        /**
+          * @default false
+         */
+        "iconOnly": boolean;
+        /**
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+        /**
+          * @default 'button'
+         */
+        "type": 'button' | 'submit' | 'reset';
+        /**
+          * @default 'primary'
+         */
+        "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
+    }
+    /**
+     * sk-icon: Scalable SVG icon component
+     * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+     * @example <sk-icon name="arrow" size="24"></sk-icon>
+     * <sk-icon name="chevron" dir="left"></sk-icon>
+     */
+    interface SkIcon {
+        /**
+          * Optional aria-label for accessibility
+         */
+        "ariaLabel"?: string;
+        /**
+          * Direction for chevron icon (down, up, left, right) Only used when name is 'chevron'
+          * @default 'down'
+         */
+        "dir": ChevronDirection;
+        /**
+          * The name of the icon to display
+          * @default 'arrow'
+         */
+        "name": IconName;
+        /**
+          * The size of the icon in pixels
+          * @default 16
+         */
+        "size": number;
+    }
     interface SkSideDrawer {
         "header": string;
         "open": boolean;
     }
+    interface SkToggle {
+        "ariaLabel"?: string;
+        /**
+          * @default false
+         */
+        "checked": boolean;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        "label"?: string;
+    }
+}
+export interface SkToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkToggleElement;
 }
 declare global {
+    interface HTMLSkButtonElement extends Components.SkButton, HTMLStencilElement {
+    }
+    var HTMLSkButtonElement: {
+        prototype: HTMLSkButtonElement;
+        new (): HTMLSkButtonElement;
+    };
+    /**
+     * sk-icon: Scalable SVG icon component
+     * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+     * @example <sk-icon name="arrow" size="24"></sk-icon>
+     * <sk-icon name="chevron" dir="left"></sk-icon>
+     */
+    interface HTMLSkIconElement extends Components.SkIcon, HTMLStencilElement {
+    }
+    var HTMLSkIconElement: {
+        prototype: HTMLSkIconElement;
+        new (): HTMLSkIconElement;
+    };
     interface HTMLSkSideDrawerElement extends Components.SkSideDrawer, HTMLStencilElement {
     }
     var HTMLSkSideDrawerElement: {
         prototype: HTMLSkSideDrawerElement;
         new (): HTMLSkSideDrawerElement;
     };
+    interface HTMLSkToggleElementEventMap {
+        "skChange": boolean;
+    }
+    interface HTMLSkToggleElement extends Components.SkToggle, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkToggleElementEventMap>(type: K, listener: (this: HTMLSkToggleElement, ev: SkToggleCustomEvent<HTMLSkToggleElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkToggleElementEventMap>(type: K, listener: (this: HTMLSkToggleElement, ev: SkToggleCustomEvent<HTMLSkToggleElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkToggleElement: {
+        prototype: HTMLSkToggleElement;
+        new (): HTMLSkToggleElement;
+    };
     interface HTMLElementTagNameMap {
+        "sk-button": HTMLSkButtonElement;
+        "sk-icon": HTMLSkIconElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
+        "sk-toggle": HTMLSkToggleElement;
     }
 }
 declare namespace LocalJSX {
+    interface SkButton {
+        "ariaLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default false
+         */
+        "fullWidth"?: boolean;
+        /**
+          * @default false
+         */
+        "iconOnly"?: boolean;
+        /**
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+        /**
+          * @default 'button'
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+        /**
+          * @default 'primary'
+         */
+        "variant"?: 'primary' | 'secondary' | 'ghost' | 'destructive';
+    }
+    /**
+     * sk-icon: Scalable SVG icon component
+     * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+     * @example <sk-icon name="arrow" size="24"></sk-icon>
+     * <sk-icon name="chevron" dir="left"></sk-icon>
+     */
+    interface SkIcon {
+        /**
+          * Optional aria-label for accessibility
+         */
+        "ariaLabel"?: string;
+        /**
+          * Direction for chevron icon (down, up, left, right) Only used when name is 'chevron'
+          * @default 'down'
+         */
+        "dir"?: ChevronDirection;
+        /**
+          * The name of the icon to display
+          * @default 'arrow'
+         */
+        "name"?: IconName;
+        /**
+          * The size of the icon in pixels
+          * @default 16
+         */
+        "size"?: number;
+    }
     interface SkSideDrawer {
         "header"?: string;
         "open"?: boolean;
     }
+    interface SkToggle {
+        "ariaLabel"?: string;
+        /**
+          * @default false
+         */
+        "checked"?: boolean;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        "label"?: string;
+        "onSkChange"?: (event: SkToggleCustomEvent<boolean>) => void;
+    }
 
+    interface SkButtonAttributes {
+        "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
+        "size": 'sm' | 'md' | 'lg';
+        "disabled": boolean;
+        "loading": boolean;
+        "fullWidth": boolean;
+        "iconOnly": boolean;
+        "type": 'button' | 'submit' | 'reset';
+        "ariaLabel": string;
+    }
+    interface SkIconAttributes {
+        "name": IconName;
+        "size": number;
+        "dir": ChevronDirection;
+        "ariaLabel": string;
+    }
     interface SkSideDrawerAttributes {
         "header": string;
         "open": boolean;
     }
+    interface SkToggleAttributes {
+        "checked": boolean;
+        "disabled": boolean;
+        "label": string;
+        "ariaLabel": string;
+    }
 
     interface IntrinsicElements {
+        "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
+        "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
+        "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
+            /**
+             * sk-icon: Scalable SVG icon component
+             * Icons inherit color from the text color (currentColor) and can be sized via the size prop.
+             * @example <sk-icon name="arrow" size="24"></sk-icon>
+             * <sk-icon name="chevron" dir="left"></sk-icon>
+             */
+            "sk-icon": LocalJSX.IntrinsicElements["sk-icon"] & JSXBase.HTMLAttributes<HTMLSkIconElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
+            "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;
         }
     }
 }

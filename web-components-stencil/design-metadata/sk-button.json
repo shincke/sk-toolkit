@@ -1,5 +1,5 @@
 {
-  "name": "kaqui-button",
+  "name": "sk-button",
   "category": "actions",
   "purpose": "Triggers a user action. Primary/secondary variants swap colors on hover.",
   "variants": {
@@ -23,6 +23,17 @@
     "loading": {
       "type": "boolean",
       "default": false
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "default": false
+    },
+    "iconOnly": {
+      "type": "boolean",
+      "default": false
+    },
+    "ariaLabel": {
+      "type": "string"
     }
   },
   "slots": {
@@ -56,7 +67,7 @@
     ]
   },
   "code": {
-    "tag": "kaqui-button",
-    "example": "<kaqui-button variant=\"primary\" size=\"md\">Add to cart</kaqui-button>"
+    "tag": "sk-button",
+    "example": "<sk-button variant=\"primary\" size=\"md\">Add to cart</sk-button>"
   }
 }

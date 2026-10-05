@@ -1,0 +1,96 @@
+:host {
+  display: inline-block;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font: inherit;
+  transition: opacity 0.18s ease;
+}
+
+.toggle:focus {
+  outline: none;
+}
+
+.toggle:focus-visible .track {
+  box-shadow: 0 0 0 var(--border-strong) var(--color-focus);
+}
+
+.toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+  border: var(--border-hairline) solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.18s ease;
+}
+
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  transition:
+    left 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.thumb-icon {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  color: var(--color-border);
+  transition:
+    left 0.2s ease,
+    color 0.2s ease;
+}
+
+.toggle.is-checked .track {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.toggle.is-checked .thumb {
+  left: 17px;
+  background: var(--color-accent-fg);
+}
+
+.toggle.is-checked .thumb-icon {
+  left: 18px;
+  color: var(--color-accent);
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
