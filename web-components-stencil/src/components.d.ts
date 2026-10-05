@@ -96,6 +96,60 @@ export namespace Components {
          */
         "size": number;
     }
+    interface SkInput {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default false
+         */
+        "error": string | boolean;
+        /**
+          * @default ''
+         */
+        "hint": string;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default ''
+         */
+        "placeholder": string;
+        /**
+          * @default 'text'
+         */
+        "type": 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url';
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
+    interface SkSelect {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default []
+         */
+        "options": string[] | string;
+        /**
+          * @default 'Select...'
+         */
+        "placeholder": string;
+        /**
+          * @default null
+         */
+        "value": string | null;
+    }
     interface SkSideDrawer {
         "header": string;
         "open": boolean;
@@ -126,6 +180,14 @@ export namespace Components {
 export interface SkBadgeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkBadgeElement;
+}
+export interface SkInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkInputElement;
+}
+export interface SkSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkSelectElement;
 }
 export interface SkToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -179,6 +241,43 @@ declare global {
         prototype: HTMLSkIconElement;
         new (): HTMLSkIconElement;
     };
+    interface HTMLSkInputElementEventMap {
+        "skChange": string;
+        "skInput": string;
+        "skBlur": string;
+        "skFocus": string;
+    }
+    interface HTMLSkInputElement extends Components.SkInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkInputElementEventMap>(type: K, listener: (this: HTMLSkInputElement, ev: SkInputCustomEvent<HTMLSkInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkInputElementEventMap>(type: K, listener: (this: HTMLSkInputElement, ev: SkInputCustomEvent<HTMLSkInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkInputElement: {
+        prototype: HTMLSkInputElement;
+        new (): HTMLSkInputElement;
+    };
+    interface HTMLSkSelectElementEventMap {
+        "skChange": string | null;
+    }
+    interface HTMLSkSelectElement extends Components.SkSelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkSelectElementEventMap>(type: K, listener: (this: HTMLSkSelectElement, ev: SkSelectCustomEvent<HTMLSkSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkSelectElementEventMap>(type: K, listener: (this: HTMLSkSelectElement, ev: SkSelectCustomEvent<HTMLSkSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkSelectElement: {
+        prototype: HTMLSkSelectElement;
+        new (): HTMLSkSelectElement;
+    };
     interface HTMLSkSideDrawerElement extends Components.SkSideDrawer, HTMLStencilElement {
     }
     var HTMLSkSideDrawerElement: {
@@ -214,6 +313,8 @@ declare global {
         "sk-caption": HTMLSkCaptionElement;
         "sk-heading": HTMLSkHeadingElement;
         "sk-icon": HTMLSkIconElement;
+        "sk-input": HTMLSkInputElement;
+        "sk-select": HTMLSkSelectElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
         "sk-text": HTMLSkTextElement;
         "sk-toggle": HTMLSkToggleElement;
@@ -309,6 +410,65 @@ declare namespace LocalJSX {
          */
         "size"?: number;
     }
+    interface SkInput {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default false
+         */
+        "error"?: string | boolean;
+        /**
+          * @default ''
+         */
+        "hint"?: string;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onSkBlur"?: (event: SkInputCustomEvent<string>) => void;
+        "onSkChange"?: (event: SkInputCustomEvent<string>) => void;
+        "onSkFocus"?: (event: SkInputCustomEvent<string>) => void;
+        "onSkInput"?: (event: SkInputCustomEvent<string>) => void;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * @default 'text'
+         */
+        "type"?: 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url';
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
+    interface SkSelect {
+        "accessibleLabel"?: string;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onSkChange"?: (event: SkSelectCustomEvent<string | null>) => void;
+        /**
+          * @default []
+         */
+        "options"?: string[] | string;
+        /**
+          * @default 'Select...'
+         */
+        "placeholder"?: string;
+        /**
+          * @default null
+         */
+        "value"?: string | null;
+    }
     interface SkSideDrawer {
         "header"?: string;
         "open"?: boolean;
@@ -365,6 +525,24 @@ declare namespace LocalJSX {
         "direction": ChevronDirection;
         "accessibleLabel": string;
     }
+    interface SkInputAttributes {
+        "value": string;
+        "placeholder": string;
+        "disabled": boolean;
+        "type": 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url';
+        "label": string;
+        "hint": string;
+        "error": string;
+        "accessibleLabel": string;
+    }
+    interface SkSelectAttributes {
+        "options": string[] | string;
+        "value": string | null;
+        "label": string;
+        "placeholder": string;
+        "disabled": boolean;
+        "accessibleLabel": string;
+    }
     interface SkSideDrawerAttributes {
         "header": string;
         "open": boolean;
@@ -386,6 +564,8 @@ declare namespace LocalJSX {
         "sk-caption": Omit<SkCaption, keyof SkCaptionAttributes> & { [K in keyof SkCaption & keyof SkCaptionAttributes]?: SkCaption[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `attr:${K}`]?: SkCaptionAttributes[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `prop:${K}`]?: SkCaption[K] };
         "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
         "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
+        "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
+        "sk-select": Omit<SkSelect, keyof SkSelectAttributes> & { [K in keyof SkSelect & keyof SkSelectAttributes]?: SkSelect[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `attr:${K}`]?: SkSelectAttributes[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `prop:${K}`]?: SkSelect[K] };
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
         "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
         "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
@@ -406,6 +586,8 @@ declare module "@stencil/core" {
              * <sk-icon name="chevron" dir="left"></sk-icon>
              */
             "sk-icon": LocalJSX.IntrinsicElements["sk-icon"] & JSXBase.HTMLAttributes<HTMLSkIconElement>;
+            "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
+            "sk-select": LocalJSX.IntrinsicElements["sk-select"] & JSXBase.HTMLAttributes<HTMLSkSelectElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
             "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;
             "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;

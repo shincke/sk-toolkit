@@ -3,102 +3,327 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
+    <title>SK Toolkit Showcase</title>
 
     <link rel="stylesheet" href="/build/web-components-stencil.css" />
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      body.dark {
+        color-scheme: dark;
+      }
+
+      body {
+        padding: 32px 20px 72px;
+      }
+
+      .showcase-shell {
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+
+      .showcase-hero {
+        display: grid;
+        gap: 24px;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .showcase-hero-top {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .showcase-theme-toggle {
+        display: inline-flex;
+        justify-content: flex-end;
+      }
+
+      .showcase-kicker {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .showcase-lead {
+        max-width: 62rem;
+      }
+
+      .showcase-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+      }
+
+      .showcase-card {
+        grid-column: span 12;
+        display: grid;
+        gap: 20px;
+        padding: 24px;
+        border: 1px solid var(--color-border);
+        background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+        box-shadow: var(--shadow-none);
+      }
+
+      .showcase-card.is-wide {
+        grid-column: span 12;
+      }
+
+      .showcase-card-header {
+        display: grid;
+        gap: 10px;
+      }
+
+      .showcase-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .showcase-row.is-spread {
+        justify-content: space-between;
+      }
+
+      .showcase-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .showcase-columns {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .showcase-selects {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .showcase-typography {
+        display: grid;
+        gap: 14px;
+      }
+
+      .showcase-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .showcase-muted {
+        opacity: 0.88;
+      }
+
+      @media (min-width: 900px) {
+        .showcase-card.is-half {
+          grid-column: span 6;
+        }
+      }
+
+      @media (max-width: 899px) {
+        .showcase-columns,
+        .showcase-selects {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 20px 14px 48px;
+        }
+
+        .showcase-hero-top {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .showcase-card {
+          padding: 18px;
+        }
+
+        .showcase-theme-toggle {
+          justify-content: flex-start;
+        }
+      }
+    </style>
   </head>
-  <body class="dark">
-    <!-- Buttons -->
-    <sk-caption>Buttons</sk-caption>
-    <sk-button variant="primary" size="sm">Click me</sk-button>
-    <sk-button variant="secondary" size="md">Click me</sk-button>
-    <sk-button variant="secondary" size="md" loading>Click me</sk-button>
-    <sk-button variant="destructive" size="lg" disabled>Click me</sk-button>
-    <sk-button variant="ghost" size="lg">Click me</sk-button>
-    <sk-button size="lg" iconOnly>
-      <sk-icon name="plus" aria-label="Add"></sk-icon>
-    </sk-button>
+  <body class="light">
+    <main class="showcase-shell">
+      <section class="showcase-hero">
+        <div class="showcase-hero-top">
+          <div>
+            <sk-caption class="showcase-kicker">SK Toolkit / Web Components</sk-caption>
+            <sk-heading size="display">Component Catalog</sk-heading>
+          </div>
+          <div class="showcase-theme-toggle">
+            <sk-toggle id="theme-toggle" label="Dark mode"></sk-toggle>
+          </div>
+        </div>
+        <div class="showcase-lead">
+          <sk-text size="lg">A living showcase for the current SK Toolkit primitives, built to compare states, typography, and interaction patterns in one place.</sk-text>
+        </div>
+      </section>
 
-    <!-- Toggle -->
-    <sk-caption>Toggle</sk-caption>
-    <sk-toggle label="Theme mode"></sk-toggle>
-    <sk-toggle checked label="Dark mode"></sk-toggle>
+      <section class="showcase-grid">
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Buttons</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Action styles, disabled states, loading behavior, and icon-only treatment.</sk-text>
+          </div>
+          <div class="showcase-row">
+            <sk-button variant="primary" size="sm">Click me</sk-button>
+            <sk-button variant="secondary" size="md">Click me</sk-button>
+            <sk-button variant="secondary" size="md" loading>Click me</sk-button>
+            <sk-button variant="destructive" size="lg" disabled>Click me</sk-button>
+            <sk-button variant="ghost" size="lg">Click me</sk-button>
+            <sk-button size="lg" iconOnly>
+              <sk-icon name="plus" aria-label="Add"></sk-icon>
+            </sk-button>
+          </div>
+        </article>
 
-    <!-- Typography -->
-    <sk-caption>Typography</sk-caption>
-    <sk-heading size="display">形態</sk-heading>
-    <sk-heading size="lg">Graphic Form</sk-heading>
-    <sk-heading size="md">Spatial Memory</sk-heading>
-    <sk-heading size="sm">Geometric Reduction</sk-heading>
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Form Controls</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Input, switch, and select patterns using native semantics and design-system tokens.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <sk-caption>Text Input</sk-caption>
+            <div class="showcase-row">
+              <sk-input label="Username" placeholder="Enter username"></sk-input>
+              <sk-input type="email" label="Email" placeholder="you@example.com" hint="We'll never share your email"></sk-input>
+            </div>
+            <div class="showcase-row">
+              <sk-input type="password" label="Password" placeholder="Enter password"></sk-input>
+              <sk-input type="password" label="Password" value="password123" error="Passwords must be at least 8 characters"></sk-input>
+            </div>
+            <div class="showcase-row">
+              <sk-input label="Disabled" value="Cannot edit" disabled></sk-input>
+              <sk-input type="number" label="Age" placeholder="Enter your age"></sk-input>
+            </div>
+            <sk-caption>Toggles</sk-caption>
+            <div class="showcase-row">
+              <sk-toggle label="Theme mode"></sk-toggle>
+              <sk-toggle checked label="Dark mode"></sk-toggle>
+            </div>
+            <sk-caption>Select</sk-caption>
+            <div class="showcase-row">
+              <sk-select label="City" placeholder="Select city..." options='["Tokyo","Osaka","Kyoto","Sapporo"]'></sk-select>
+              <sk-select label="City" placeholder="Select city..." options='["Tokyo","Osaka","Kyoto","Sapporo"]' disabled></sk-select>
+            </div>
+          </div>
+        </article>
 
-    <sk-text size="lg">The postwar Japanese graphic poster synthesized Western modernism with indigenous visual traditions to produce a singular and enduring aesthetic language.</sk-text>
-    <sk-text size="md">Shigeo Fukuda's reductive compositions strip imagery to geometric essentials, allowing negative space to generate meaning as forcefully as positive form.</sk-text>
-    <sk-text size="sm">Awazu's experimental collage work collapsed the distance between art, protest, and commercial design across three decades of radical practice.</sk-text>
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Typography</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Serif editorial headings, body copy scales, and monospace supporting text.</sk-text>
+          </div>
+          <div class="showcase-typography">
+            <sk-heading size="display">形態</sk-heading>
+            <sk-heading size="lg">Graphic Form</sk-heading>
+            <sk-heading size="md">Spatial Memory</sk-heading>
+            <sk-heading size="sm">Geometric Reduction</sk-heading>
+            <sk-text size="lg">The postwar Japanese graphic poster synthesized Western modernism with indigenous visual traditions to produce a singular and enduring aesthetic language.</sk-text>
+            <sk-text size="md">Shigeo Fukuda's reductive compositions strip imagery to geometric essentials, allowing negative space to generate meaning as forcefully as positive form.</sk-text>
+            <sk-text size="sm">Awazu's experimental collage work collapsed the distance between art, protest, and commercial design across three decades of radical practice.</sk-text>
+            <sk-caption>Fig. 01 - Osaka, 1970</sk-caption>
+          </div>
+        </article>
 
-    <sk-caption>Fig. 01 - Osaka, 1970</sk-caption>
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Badges</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Status markers, metadata chips, and AI-style suggestion prompts.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <sk-caption>Status</sk-caption>
+            <div class="showcase-row">
+              <sk-badge variant="status" color="success" label="Published"></sk-badge>
+              <sk-badge variant="status" color="warning" label="Draft"></sk-badge>
+              <sk-badge variant="status" color="secondary" label="Archived"></sk-badge>
+              <sk-badge variant="status" color="accent" label="Featured"></sk-badge>
+              <sk-badge variant="status" color="error" label="Error"></sk-badge>
+            </div>
+            <sk-caption>Filled</sk-caption>
+            <div class="showcase-row">
+              <sk-badge variant="filled" color="success" label="Published"></sk-badge>
+              <sk-badge variant="filled" color="warning" label="Draft"></sk-badge>
+              <sk-badge variant="filled" color="secondary" label="Archived"></sk-badge>
+              <sk-badge variant="filled" color="accent" label="Featured"></sk-badge>
+              <sk-badge variant="filled" color="error" label="Error"></sk-badge>
+            </div>
+            <sk-caption>Category / Metadata</sk-caption>
+            <div class="showcase-row">
+              <sk-badge variant="category" color="default" label="Research"></sk-badge>
+              <sk-badge variant="category" color="default" label="Archive"></sk-badge>
+              <sk-badge variant="category" color="default" label="Poster Design"></sk-badge>
+              <sk-badge variant="category" color="default" label="Typography"></sk-badge>
+              <sk-badge variant="category" color="default" label="Editorial"></sk-badge>
+              <sk-badge variant="category" color="default" label="Vol. 04"></sk-badge>
+            </div>
+            <sk-caption>AI Suggestion Chip</sk-caption>
+            <div class="showcase-row">
+              <sk-caption>Try</sk-caption>
+              <sk-badge variant="ai-chip" color="default" label="Something atmospheric"></sk-badge>
+              <sk-badge variant="ai-chip" color="default" label="Brazilian electronic"></sk-badge>
+              <sk-badge variant="ai-chip" color="default" label="Japanese ambient 1980s"></sk-badge>
+              <sk-badge variant="ai-chip" color="default" label="Similar to Aphex Twin"></sk-badge>
+            </div>
+          </div>
+        </article>
 
-    <!-- Badges -->
-    <sk-caption>Badges</sk-caption>
-    <sk-caption>Status</sk-caption>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-      <sk-badge variant="status" color="success" label="Published"></sk-badge>
-      <sk-badge variant="status" color="warning" label="Draft"></sk-badge>
-      <sk-badge variant="status" color="secondary" label="Archived"></sk-badge>
-      <sk-badge variant="status" color="accent" label="Featured"></sk-badge>
-      <sk-badge variant="status" color="error" label="Error"></sk-badge>
-    </div>
-    <sk-caption>Filled</sk-caption>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
-      <sk-badge variant="filled" color="success" label="Published"></sk-badge>
-      <sk-badge variant="filled" color="warning" label="Draft"></sk-badge>
-      <sk-badge variant="filled" color="secondary" label="Archived"></sk-badge>
-      <sk-badge variant="filled" color="accent" label="Featured"></sk-badge>
-      <sk-badge variant="filled" color="error" label="Error"></sk-badge>
-    </div>
-    <sk-caption>Category / Metadata</sk-caption>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
-      <sk-badge variant="category" color="default" label="Research"></sk-badge>
-      <sk-badge variant="category" color="default" label="Archive"></sk-badge>
-      <sk-badge variant="category" color="default" label="Poster Design"></sk-badge>
-      <sk-badge variant="category" color="default" label="Typography"></sk-badge>
-      <sk-badge variant="category" color="default" label="Editorial"></sk-badge>
-      <sk-badge variant="category" color="default" label="Vol. 04"></sk-badge>
-    </div>
-    <sk-caption>AI Suggestion Chip</sk-caption>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px;">
-      <sk-caption>Try</sk-caption>
-      <sk-badge variant="ai-chip" color="default" label="Something atmospheric"></sk-badge>
-      <sk-badge variant="ai-chip" color="default" label="Brazilian electronic"></sk-badge>
-      <sk-badge variant="ai-chip" color="default" label="Japanese ambient 1980s"></sk-badge>
-      <sk-badge variant="ai-chip" color="default" label="Similar to Aphex Twin"></sk-badge>
-    </div>
-
-    <!-- Icons -->
-    <sk-caption>Icons</sk-caption>
-    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
-      <sk-icon name="arrow" size="16" aria-label="Arrow"></sk-icon>
-      <sk-icon name="plus" size="24" aria-label="Add"></sk-icon>
-      <sk-icon name="close" size="24" aria-label="Close"></sk-icon>
-      <sk-icon name="menu" size="24" aria-label="Menu"></sk-icon>
-      <sk-icon name="search" size="24" aria-label="Search"></sk-icon>
-      <sk-icon name="chevron" size="24" dir="down" aria-label="Chevron down"></sk-icon>
-      <sk-icon name="chevron" size="24" dir="up" aria-label="Chevron up"></sk-icon>
-      <sk-icon name="chevron" size="24" dir="left" aria-label="Chevron left"></sk-icon>
-      <sk-icon name="chevron" size="24" dir="right" aria-label="Chevron right"></sk-icon>
-      <sk-icon name="check" size="24" aria-label="Check"></sk-icon>
-      <sk-icon name="external" size="24" aria-label="External"></sk-icon>
-      <sk-icon name="moon" size="24" aria-label="Moon"></sk-icon>
-      <sk-icon name="sun" size="24" aria-label="Sun"></sk-icon>
-      <sk-icon name="mail" size="24" aria-label="Mail"></sk-icon>
-      <sk-icon name="github" size="24" aria-label="GitHub"></sk-icon>
-      <sk-icon name="instagram" size="24" aria-label="Instagram"></sk-icon>
-    </div>
-    <sk-icon name="chevron" dir="down" size="32"></sk-icon>
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Icons</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Stroke-based symbol set for navigation, state, contact, and utility affordances.</sk-text>
+          </div>
+          <div class="showcase-icons">
+            <sk-icon name="arrow" size="16" aria-label="Arrow"></sk-icon>
+            <sk-icon name="plus" size="24" aria-label="Add"></sk-icon>
+            <sk-icon name="close" size="24" aria-label="Close"></sk-icon>
+            <sk-icon name="menu" size="24" aria-label="Menu"></sk-icon>
+            <sk-icon name="search" size="24" aria-label="Search"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="down" aria-label="Chevron down"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="up" aria-label="Chevron up"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="left" aria-label="Chevron left"></sk-icon>
+            <sk-icon name="chevron" size="24" dir="right" aria-label="Chevron right"></sk-icon>
+            <sk-icon name="check" size="24" aria-label="Check"></sk-icon>
+            <sk-icon name="external" size="24" aria-label="External"></sk-icon>
+            <sk-icon name="moon" size="24" aria-label="Moon"></sk-icon>
+            <sk-icon name="sun" size="24" aria-label="Sun"></sk-icon>
+            <sk-icon name="mail" size="24" aria-label="Mail"></sk-icon>
+            <sk-icon name="github" size="24" aria-label="GitHub"></sk-icon>
+            <sk-icon name="instagram" size="24" aria-label="Instagram"></sk-icon>
+            <sk-icon name="chevron" dir="down" size="32" aria-label="Chevron"></sk-icon>
+          </div>
+        </article>
+      </section>
+    </main>
 
     <script type="module">
-      
+      const body = document.body;
+      const themeToggle = document.querySelector('#theme-toggle');
+
+      if (themeToggle) {
+        themeToggle.checked = body.classList.contains('dark');
+        themeToggle.addEventListener('skChange', (event) => {
+          const isDark = Boolean(event.detail);
+          body.classList.toggle('dark', isDark);
+          body.classList.toggle('light', !isDark);
+        });
+      }
     </script>
   </body>
 </html>

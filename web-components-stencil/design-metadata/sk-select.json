@@ -1,0 +1,64 @@
+{
+  "name": "sk-select",
+  "tag": "sk-select",
+  "category": "inputs",
+  "purpose": "Single-choice dropdown selector with keyboard navigation.",
+  "variants": {
+    "state": [
+      "default",
+      "open",
+      "disabled"
+    ]
+  },
+  "properties": {
+    "options": {
+      "type": "string[]",
+      "default": []
+    },
+    "value": {
+      "type": "string | null",
+      "default": null
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "Select…"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "slots": {},
+  "events": [
+    "skChange"
+  ],
+  "states": [
+    "default",
+    "open",
+    "focus",
+    "disabled"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": true
+  },
+  "usage": {
+    "do": [
+      "Always provide a label.",
+      "Use when 4 or more options exist."
+    ],
+    "dont": [
+      "Do not use for binary choices — use a toggle.",
+      "Do not omit the placeholder."
+    ]
+  },
+  "code": {
+    "tag": "sk-select",
+    "example": "<sk-select label=\"City\" options={['Tokyo','Osaka']} placeholder=\"Choose city\"></sk-select>"
+  }
+}

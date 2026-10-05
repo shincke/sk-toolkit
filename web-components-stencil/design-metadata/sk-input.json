@@ -1,0 +1,160 @@
+{
+  "name": "sk-input",
+  "description": "Text input component for single-line text entry with support for multiple input types, labels, and error states.",
+  "status": "stable",
+  "variants": [
+    {
+      "name": "Default",
+      "example": "<sk-input label=\"Username\" placeholder=\"Enter text\"></sk-input>",
+      "description": "Basic text input with label and placeholder"
+    },
+    {
+      "name": "Email",
+      "example": "<sk-input type=\"email\" label=\"Email\" placeholder=\"you@example.com\"></sk-input>",
+      "description": "Email input with type validation"
+    },
+    {
+      "name": "Password",
+      "example": "<sk-input type=\"password\" label=\"Password\" placeholder=\"Enter password\"></sk-input>",
+      "description": "Password input that masks characters"
+    },
+    {
+      "name": "With Hint",
+      "example": "<sk-input label=\"Email\" hint=\"We'll never share your email\"></sk-input>",
+      "description": "Input with helper text"
+    },
+    {
+      "name": "Error State",
+      "example": "<sk-input label=\"Email\" value=\"invalid\" error=\"Invalid email format\"></sk-input>",
+      "description": "Input showing error message"
+    },
+    {
+      "name": "Disabled",
+      "example": "<sk-input label=\"Username\" value=\"john_doe\" disabled></sk-input>",
+      "description": "Disabled input that cannot be edited"
+    }
+  ],
+  "properties": [
+    {
+      "name": "value",
+      "type": "string",
+      "default": "''",
+      "mutable": true,
+      "reflected": true,
+      "description": "The current value of the input"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "''",
+      "description": "Placeholder text shown when input is empty"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "reflected": true,
+      "description": "Whether the input is disabled"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "default": "'text'",
+      "options": ["text", "email", "password", "number", "search", "tel", "url"],
+      "description": "HTML input type"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "''",
+      "description": "Label text rendered via sk-caption"
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "default": "''",
+      "description": "Helper text shown below the input"
+    },
+    {
+      "name": "error",
+      "type": "string | boolean",
+      "default": "false",
+      "description": "Error state; if string, displays error message"
+    },
+    {
+      "name": "accessibleLabel",
+      "type": "string",
+      "attribute": "aria-label",
+      "description": "Accessible label for screen readers"
+    }
+  ],
+  "events": [
+    {
+      "name": "skInput",
+      "detail": "string",
+      "description": "Emitted on every keystroke (real-time input event)"
+    },
+    {
+      "name": "skChange",
+      "detail": "string",
+      "description": "Emitted when the input value changes"
+    },
+    {
+      "name": "skBlur",
+      "detail": "string",
+      "description": "Emitted when the input loses focus"
+    },
+    {
+      "name": "skFocus",
+      "detail": "string",
+      "description": "Emitted when the input receives focus"
+    }
+  ],
+  "accessibility": {
+    "keyboard": "Supports all standard keyboard interactions for text input (Tab navigation, arrow keys, etc.)",
+    "ariaAttrs": ["aria-label", "aria-invalid", "aria-describedby"],
+    "screenReader": "Fully compatible with screen readers; announces label, hint, error state, and input type",
+    "focus": "Visual focus indicator with color-focus ring"
+  },
+  "styling": {
+    "customProperties": [
+      "--color-surface",
+      "--color-border",
+      "--color-border-hover",
+      "--color-text-primary",
+      "--color-text-secondary",
+      "--color-text-tertiary",
+      "--color-focus",
+      "--color-error",
+      "--color-error-light",
+      "--color-surface-disabled",
+      "--space-6",
+      "--space-8",
+      "--space-10",
+      "--font-family-sans",
+      "--font-size-sm",
+      "--font-size-md",
+      "--line-height-md",
+      "--radius-md",
+      "--border-hairline",
+      "--border-strong"
+    ],
+    "responsive": "Fills container width (100%)"
+  },
+  "usage": {
+    "description": "Use sk-input for any single-line text entry where users need to provide input. Supports validation through error prop.",
+    "dos": [
+      "Always provide a label for accessibility",
+      "Use appropriate type prop for different input needs",
+      "Show error messages for validation feedback",
+      "Use hint text for helpful context",
+      "Disable when async validation is in progress"
+    ],
+    "donts": [
+      "Don't rely on placeholder alone for labeling",
+      "Don't use for multi-line text (use textarea instead)",
+      "Don't clear input on blur without user interaction",
+      "Don't hide required status in placeholder"
+    ]
+  }
+}
