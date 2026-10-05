@@ -20,8 +20,8 @@
  - [sk-card](../sk-card)
  - [sk-input](../sk-input)
  - [sk-loading](../sk-loading)
+ - [sk-record-card](../../patterns/sk-record-card)
  - [sk-select](../sk-select)
- - [sk-side-drawer](../side-drawer)
  - [sk-toggle](../sk-toggle)
 
 ### Graph
@@ -31,8 +31,8 @@ graph TD;
   sk-card --> sk-caption
   sk-input --> sk-caption
   sk-loading --> sk-caption
+  sk-record-card --> sk-caption
   sk-select --> sk-caption
-  sk-side-drawer --> sk-caption
   sk-toggle --> sk-caption
   style sk-caption fill:#f9f,stroke:#333,stroke-width:4px
 ```

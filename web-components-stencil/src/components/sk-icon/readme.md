@@ -26,16 +26,16 @@ Icons inherit color from the text color (currentColor) and can be sized via the 
 ### Used by
 
  - [sk-card](../sk-card)
+ - [sk-drawer](../sk-drawer)
  - [sk-select](../sk-select)
- - [sk-side-drawer](../side-drawer)
  - [sk-toggle](../sk-toggle)
 
 ### Graph
 ```mermaid
 graph TD;
   sk-card --> sk-icon
+  sk-drawer --> sk-icon
   sk-select --> sk-icon
-  sk-side-drawer --> sk-icon
   sk-toggle --> sk-icon
   style sk-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

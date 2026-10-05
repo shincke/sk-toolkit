@@ -3,9 +3,13 @@ import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 @Component({
   tag: 'sk-badge',
   styleUrl: './sk-badge.css',
-  shadow: true,
+  shadow: true, // it could be scoped too, however shadow is more performant
 })
+
+// extends HTMLElement will be done by Stencil in build process
 export class SkBadge {
+  // adds an attribute to the HTML element <sk-side-drawer title="...">
+  // watch for changes inside the component, not coming from parent
   @Prop({ reflect: true }) variant: 'status' | 'filled' | 'category' | 'ai-chip' = 'status';
   @Prop({ reflect: true }) color: 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default' = 'default';
   @Prop() label = '';

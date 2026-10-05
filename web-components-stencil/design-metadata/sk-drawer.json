@@ -1,0 +1,66 @@
+{
+  "name": "sk-drawer",
+  "category": "overlay",
+  "purpose": "Fixed side panel that slides in from the right. Used for selection checkout and profile.",
+  "variants": {
+    "type": [
+      "selection",
+      "profile-logged-in",
+      "profile-logged-out"
+    ],
+    "size": [
+      "default (400px)",
+      "mobile (100vw)"
+    ]
+  },
+  "properties": {
+    "open": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "width": {
+      "type": "number | string",
+      "default": 400
+    },
+    "isMobile": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "slots": {
+    "header": "Drawer title + close button",
+    "default": "Drawer body content",
+    "footer": "Primary action or sign-out"
+  },
+  "events": [
+    "skClose"
+  ],
+  "states": [
+    "closed",
+    "open"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": true
+  },
+  "usage": {
+    "do": [
+      "Always render a backdrop behind the drawer.",
+      "Full-width on mobile (100vw).",
+      "Trap focus while open."
+    ],
+    "dont": [
+      "Do not stack multiple drawers.",
+      "Do not open a drawer from within a drawer."
+    ]
+  },
+  "code": {
+    "tag": "sk-drawer",
+    "example": "<sk-drawer open title=\"Selection - 2\" type=\"selection\" onSkClose={handler}><div>Drawer content</div><sk-button slot=\"footer\" variant=\"primary\" full-width>Checkout</sk-button></sk-drawer>"
+  }
+}

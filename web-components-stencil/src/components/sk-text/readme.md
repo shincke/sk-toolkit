@@ -18,13 +18,13 @@
 ### Used by
 
  - [sk-badge](../sk-badge)
- - [sk-side-drawer](../side-drawer)
+ - [sk-record-card](../../patterns/sk-record-card)
 
 ### Graph
 ```mermaid
 graph TD;
   sk-badge --> sk-text
-  sk-side-drawer --> sk-text
+  sk-record-card --> sk-text
   style sk-text fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

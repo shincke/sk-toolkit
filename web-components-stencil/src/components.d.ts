@@ -86,6 +86,29 @@ export namespace Components {
          */
         "variant": 'default' | 'image' | 'selected';
     }
+    interface SkDrawer {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "drawerTitle": string;
+        /**
+          * @default false
+         */
+        "isMobile": boolean;
+        /**
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * @default 'selection'
+         */
+        "type": 'selection' | 'profile-logged-in' | 'profile-logged-out';
+        /**
+          * @default 400
+         */
+        "width": number | string;
+    }
     interface SkHeading {
         /**
           * @default 'left'
@@ -164,6 +187,53 @@ export namespace Components {
          */
         "size": 14 | 20 | 28 | 40;
     }
+    interface SkRecordCard {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "artist": string;
+        /**
+          * @default ''
+         */
+        "condition": 'VERY GOOD' | 'GOOD' | 'RARE' | 'NM' | 'VG' | 'VG+' | 'G' | '';
+        /**
+          * @default ''
+         */
+        "genre": string;
+        /**
+          * @default ''
+         */
+        "imageAlt": string;
+        /**
+          * @default ''
+         */
+        "imageSrc": string;
+        /**
+          * @default true
+         */
+        "inStock": boolean;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default 0
+         */
+        "price": number;
+        /**
+          * @default ''
+         */
+        "recordTitle": string;
+        /**
+          * @default 'grid'
+         */
+        "variant": 'list' | 'grid' | 'detail';
+        /**
+          * @default ''
+         */
+        "year": string;
+    }
     interface SkSelect {
         "accessibleLabel"?: string;
         /**
@@ -186,10 +256,6 @@ export namespace Components {
           * @default null
          */
         "value": string | null;
-    }
-    interface SkSideDrawer {
-        "header": string;
-        "open": boolean;
     }
     interface SkSkeleton {
         /**
@@ -232,9 +298,17 @@ export interface SkCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkCardElement;
 }
+export interface SkDrawerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkDrawerElement;
+}
 export interface SkInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkInputElement;
+}
+export interface SkRecordCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkRecordCardElement;
 }
 export interface SkSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -291,6 +365,23 @@ declare global {
         prototype: HTMLSkCardElement;
         new (): HTMLSkCardElement;
     };
+    interface HTMLSkDrawerElementEventMap {
+        "skClose": void;
+    }
+    interface HTMLSkDrawerElement extends Components.SkDrawer, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkDrawerElementEventMap>(type: K, listener: (this: HTMLSkDrawerElement, ev: SkDrawerCustomEvent<HTMLSkDrawerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkDrawerElementEventMap>(type: K, listener: (this: HTMLSkDrawerElement, ev: SkDrawerCustomEvent<HTMLSkDrawerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkDrawerElement: {
+        prototype: HTMLSkDrawerElement;
+        new (): HTMLSkDrawerElement;
+    };
     interface HTMLSkHeadingElement extends Components.SkHeading, HTMLStencilElement {
     }
     var HTMLSkHeadingElement: {
@@ -335,6 +426,23 @@ declare global {
         prototype: HTMLSkLoadingElement;
         new (): HTMLSkLoadingElement;
     };
+    interface HTMLSkRecordCardElementEventMap {
+        "skAddToSelection": MouseEvent | KeyboardEvent;
+    }
+    interface HTMLSkRecordCardElement extends Components.SkRecordCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkRecordCardElementEventMap>(type: K, listener: (this: HTMLSkRecordCardElement, ev: SkRecordCardCustomEvent<HTMLSkRecordCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkRecordCardElementEventMap>(type: K, listener: (this: HTMLSkRecordCardElement, ev: SkRecordCardCustomEvent<HTMLSkRecordCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkRecordCardElement: {
+        prototype: HTMLSkRecordCardElement;
+        new (): HTMLSkRecordCardElement;
+    };
     interface HTMLSkSelectElementEventMap {
         "skChange": string | null;
     }
@@ -351,12 +459,6 @@ declare global {
     var HTMLSkSelectElement: {
         prototype: HTMLSkSelectElement;
         new (): HTMLSkSelectElement;
-    };
-    interface HTMLSkSideDrawerElement extends Components.SkSideDrawer, HTMLStencilElement {
-    }
-    var HTMLSkSideDrawerElement: {
-        prototype: HTMLSkSideDrawerElement;
-        new (): HTMLSkSideDrawerElement;
     };
     interface HTMLSkSkeletonElement extends Components.SkSkeleton, HTMLStencilElement {
     }
@@ -392,12 +494,13 @@ declare global {
         "sk-button": HTMLSkButtonElement;
         "sk-caption": HTMLSkCaptionElement;
         "sk-card": HTMLSkCardElement;
+        "sk-drawer": HTMLSkDrawerElement;
         "sk-heading": HTMLSkHeadingElement;
         "sk-icon": HTMLSkIconElement;
         "sk-input": HTMLSkInputElement;
         "sk-loading": HTMLSkLoadingElement;
+        "sk-record-card": HTMLSkRecordCardElement;
         "sk-select": HTMLSkSelectElement;
-        "sk-side-drawer": HTMLSkSideDrawerElement;
         "sk-skeleton": HTMLSkSkeletonElement;
         "sk-text": HTMLSkTextElement;
         "sk-toggle": HTMLSkToggleElement;
@@ -484,6 +587,30 @@ declare namespace LocalJSX {
          */
         "variant"?: 'default' | 'image' | 'selected';
     }
+    interface SkDrawer {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "drawerTitle"?: string;
+        /**
+          * @default false
+         */
+        "isMobile"?: boolean;
+        "onSkClose"?: (event: SkDrawerCustomEvent<void>) => void;
+        /**
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * @default 'selection'
+         */
+        "type"?: 'selection' | 'profile-logged-in' | 'profile-logged-out';
+        /**
+          * @default 400
+         */
+        "width"?: number | string;
+    }
     interface SkHeading {
         /**
           * @default 'left'
@@ -566,6 +693,54 @@ declare namespace LocalJSX {
          */
         "size"?: 14 | 20 | 28 | 40;
     }
+    interface SkRecordCard {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "artist"?: string;
+        /**
+          * @default ''
+         */
+        "condition"?: 'VERY GOOD' | 'GOOD' | 'RARE' | 'NM' | 'VG' | 'VG+' | 'G' | '';
+        /**
+          * @default ''
+         */
+        "genre"?: string;
+        /**
+          * @default ''
+         */
+        "imageAlt"?: string;
+        /**
+          * @default ''
+         */
+        "imageSrc"?: string;
+        /**
+          * @default true
+         */
+        "inStock"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onSkAddToSelection"?: (event: SkRecordCardCustomEvent<MouseEvent | KeyboardEvent>) => void;
+        /**
+          * @default 0
+         */
+        "price"?: number;
+        /**
+          * @default ''
+         */
+        "recordTitle"?: string;
+        /**
+          * @default 'grid'
+         */
+        "variant"?: 'list' | 'grid' | 'detail';
+        /**
+          * @default ''
+         */
+        "year"?: string;
+    }
     interface SkSelect {
         "accessibleLabel"?: string;
         /**
@@ -589,10 +764,6 @@ declare namespace LocalJSX {
           * @default null
          */
         "value"?: string | null;
-    }
-    interface SkSideDrawer {
-        "header"?: string;
-        "open"?: boolean;
     }
     interface SkSkeleton {
         /**
@@ -655,6 +826,14 @@ declare namespace LocalJSX {
         "selected": boolean;
         "accessibleLabel": string;
     }
+    interface SkDrawerAttributes {
+        "open": boolean;
+        "drawerTitle": string;
+        "width": string;
+        "type": 'selection' | 'profile-logged-in' | 'profile-logged-out';
+        "isMobile": boolean;
+        "accessibleLabel": string;
+    }
     interface SkHeadingAttributes {
         "size": 'display' | 'lg' | 'md' | 'sm';
         "align": 'left' | 'center';
@@ -679,6 +858,20 @@ declare namespace LocalJSX {
         "size": 14 | 20 | 28 | 40;
         "label": string;
     }
+    interface SkRecordCardAttributes {
+        "variant": 'list' | 'grid' | 'detail';
+        "recordTitle": string;
+        "artist": string;
+        "year": string;
+        "label": string;
+        "genre": string;
+        "condition": 'VERY GOOD' | 'GOOD' | 'RARE' | 'NM' | 'VG' | 'VG+' | 'G' | '';
+        "price": number;
+        "imageSrc": string;
+        "imageAlt": string;
+        "inStock": boolean;
+        "accessibleLabel": string;
+    }
     interface SkSelectAttributes {
         "options": string[] | string;
         "value": string | null;
@@ -686,10 +879,6 @@ declare namespace LocalJSX {
         "placeholder": string;
         "disabled": boolean;
         "accessibleLabel": string;
-    }
-    interface SkSideDrawerAttributes {
-        "header": string;
-        "open": boolean;
     }
     interface SkSkeletonAttributes {
         "width": string;
@@ -711,12 +900,13 @@ declare namespace LocalJSX {
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
         "sk-caption": Omit<SkCaption, keyof SkCaptionAttributes> & { [K in keyof SkCaption & keyof SkCaptionAttributes]?: SkCaption[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `attr:${K}`]?: SkCaptionAttributes[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `prop:${K}`]?: SkCaption[K] };
         "sk-card": Omit<SkCard, keyof SkCardAttributes> & { [K in keyof SkCard & keyof SkCardAttributes]?: SkCard[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `attr:${K}`]?: SkCardAttributes[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `prop:${K}`]?: SkCard[K] };
+        "sk-drawer": Omit<SkDrawer, keyof SkDrawerAttributes> & { [K in keyof SkDrawer & keyof SkDrawerAttributes]?: SkDrawer[K] } & { [K in keyof SkDrawer & keyof SkDrawerAttributes as `attr:${K}`]?: SkDrawerAttributes[K] } & { [K in keyof SkDrawer & keyof SkDrawerAttributes as `prop:${K}`]?: SkDrawer[K] };
         "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
         "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
         "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
         "sk-loading": Omit<SkLoading, keyof SkLoadingAttributes> & { [K in keyof SkLoading & keyof SkLoadingAttributes]?: SkLoading[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `attr:${K}`]?: SkLoadingAttributes[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `prop:${K}`]?: SkLoading[K] };
+        "sk-record-card": Omit<SkRecordCard, keyof SkRecordCardAttributes> & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes]?: SkRecordCard[K] } & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes as `attr:${K}`]?: SkRecordCardAttributes[K] } & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes as `prop:${K}`]?: SkRecordCard[K] };
         "sk-select": Omit<SkSelect, keyof SkSelectAttributes> & { [K in keyof SkSelect & keyof SkSelectAttributes]?: SkSelect[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `attr:${K}`]?: SkSelectAttributes[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `prop:${K}`]?: SkSelect[K] };
-        "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
         "sk-skeleton": Omit<SkSkeleton, keyof SkSkeletonAttributes> & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes]?: SkSkeleton[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `attr:${K}`]?: SkSkeletonAttributes[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `prop:${K}`]?: SkSkeleton[K] };
         "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
         "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
@@ -730,6 +920,7 @@ declare module "@stencil/core" {
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
             "sk-caption": LocalJSX.IntrinsicElements["sk-caption"] & JSXBase.HTMLAttributes<HTMLSkCaptionElement>;
             "sk-card": LocalJSX.IntrinsicElements["sk-card"] & JSXBase.HTMLAttributes<HTMLSkCardElement>;
+            "sk-drawer": LocalJSX.IntrinsicElements["sk-drawer"] & JSXBase.HTMLAttributes<HTMLSkDrawerElement>;
             "sk-heading": LocalJSX.IntrinsicElements["sk-heading"] & JSXBase.HTMLAttributes<HTMLSkHeadingElement>;
             /**
              * sk-icon: Scalable SVG icon component
@@ -740,8 +931,8 @@ declare module "@stencil/core" {
             "sk-icon": LocalJSX.IntrinsicElements["sk-icon"] & JSXBase.HTMLAttributes<HTMLSkIconElement>;
             "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
             "sk-loading": LocalJSX.IntrinsicElements["sk-loading"] & JSXBase.HTMLAttributes<HTMLSkLoadingElement>;
+            "sk-record-card": LocalJSX.IntrinsicElements["sk-record-card"] & JSXBase.HTMLAttributes<HTMLSkRecordCardElement>;
             "sk-select": LocalJSX.IntrinsicElements["sk-select"] & JSXBase.HTMLAttributes<HTMLSkSelectElement>;
-            "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
             "sk-skeleton": LocalJSX.IntrinsicElements["sk-skeleton"] & JSXBase.HTMLAttributes<HTMLSkSkeletonElement>;
             "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;
             "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;

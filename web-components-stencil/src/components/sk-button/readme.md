@@ -21,6 +21,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [sk-record-card](../../patterns/sk-record-card)
+
 ### Depends on
 
 - [sk-loading](../sk-loading)
@@ -30,6 +34,7 @@
 graph TD;
   sk-button --> sk-loading
   sk-loading --> sk-caption
+  sk-record-card --> sk-button
   style sk-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

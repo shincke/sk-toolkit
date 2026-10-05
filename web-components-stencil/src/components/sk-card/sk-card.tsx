@@ -96,7 +96,7 @@ export class SkCard {
 
           <div class="content">
             {this.subtitle ? <sk-caption class="subtitle">{this.subtitle}</sk-caption> : null}
-            {this.cardTitle ? <sk-heading size="lg">{this.cardTitle}</sk-heading> : null}
+            {this.cardTitle ? <sk-heading size="md">{this.cardTitle}</sk-heading> : null}
 
             {hasBody ? (
               <div class="body">

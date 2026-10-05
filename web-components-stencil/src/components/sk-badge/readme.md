@@ -23,6 +23,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [sk-record-card](../../patterns/sk-record-card)
+
 ### Depends on
 
 - [sk-text](../sk-text)
@@ -33,6 +37,7 @@
 graph TD;
   sk-badge --> sk-text
   sk-badge --> sk-caption
+  sk-record-card --> sk-badge
   style sk-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

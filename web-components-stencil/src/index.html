@@ -129,6 +129,121 @@
         color: var(--color-text-primary);
       }
 
+      .showcase-patterns-grid {
+        display: grid;
+        gap: 24px;
+      }
+
+      .showcase-patterns-layouts {
+        display: grid;
+        gap: 24px;
+      }
+
+      .showcase-patterns-grid-demo {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-auto-rows: 1fr;
+      }
+
+      .showcase-patterns-detail {
+        max-width: 100%;
+      }
+
+      .showcase-patterns-section-title {
+        display: grid;
+        gap: 10px;
+      }
+
+      .showcase-patterns-note {
+        max-width: 56rem;
+      }
+
+      .showcase-drawer-launches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .showcase-drawer-items {
+        display: grid;
+        gap: 0;
+      }
+
+      .showcase-drawer-item {
+        display: grid;
+        grid-template-columns: 88px minmax(0, 1fr) auto;
+        gap: 16px;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .showcase-drawer-item:last-child {
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .showcase-drawer-item.is-mobile {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .showcase-drawer-thumb {
+        width: 88px;
+        height: 88px;
+        border: 1px solid var(--color-border);
+        background: color-mix(in srgb, var(--color-background) 65%, var(--color-surface));
+      }
+
+      .showcase-drawer-item.is-mobile .showcase-drawer-thumb {
+        display: none;
+      }
+
+      .showcase-drawer-copy {
+        display: grid;
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .showcase-drawer-title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .showcase-drawer-item.is-mobile .showcase-drawer-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .showcase-drawer-artist,
+      .showcase-drawer-label,
+      .showcase-drawer-price {
+        margin: 0;
+      }
+
+      .showcase-drawer-price {
+        color: var(--color-text-primary);
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .showcase-drawer-footer {
+        display: grid;
+        gap: 16px;
+      }
+
+      .showcase-drawer-total {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
       .showcase-skeleton-grid {
         display: grid;
         gap: 16px;
@@ -169,6 +284,10 @@
         .showcase-card-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+
+        .showcase-patterns-grid-demo {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
       }
 
       @media (max-width: 640px) {
@@ -193,6 +312,10 @@
         .showcase-columns,
         .showcase-selects {
           grid-template-columns: 1fr;
+        }
+
+        .showcase-patterns-grid-demo {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
     </style>
@@ -330,7 +453,7 @@
           </div>
           <div class="showcase-card-grid">
             <sk-card variant="default" title="Graphic Form and Spatial Memory" subtitle="Research · 2024">
-              <sk-text size="lg">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-text size="md">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
               <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
               <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
             </sk-card>
@@ -341,13 +464,13 @@
               subtitle="Research · 2024"
               image-alt="Abstract waterside gate illustration"
             >
-              <sk-text size="lg">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-text size="md">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
               <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
               <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
             </sk-card>
 
             <sk-card variant="selected" title="Graphic Form and Spatial Memory" subtitle="Research · 2024" selected>
-              <sk-text size="lg">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-text size="md">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
               <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
               <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
             </sk-card>
@@ -369,6 +492,19 @@
             </div>
             <sk-caption>Loading State</sk-caption>
             <sk-loading size="28" label="Loading records..."></sk-loading>
+          </div>
+        </article>
+
+        <article class="showcase-card is-half">
+          <div class="showcase-card-header">
+            <sk-caption>Drawer</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Selection drawer overlay with desktop width and mobile full-width behavior.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <div class="showcase-drawer-launches">
+              <sk-button id="open-selection-drawer" variant="secondary">Open Selection Drawer</sk-button>
+              <sk-button id="open-mobile-drawer" variant="ghost">Open Mobile Drawer</sk-button>
+            </div>
           </div>
         </article>
 
@@ -424,12 +560,86 @@
             <sk-icon name="chevron" dir="down" size="32" aria-label="Chevron"></sk-icon>
           </div>
         </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-patterns-grid">
+            <div class="showcase-patterns-section-title">
+              <sk-caption>Patterns</sk-caption>
+              <sk-text size="sm" class="showcase-muted showcase-patterns-note">A component is a reusable UI building block. A pattern is a reusable combination of building blocks that solves a specific UI problem.</sk-text>
+            </div>
+
+            <div class="showcase-patterns-layouts">
+              <div class="showcase-card-header">
+                <sk-caption>List - Checkout / Selection</sk-caption>
+              </div>
+              <div class="showcase-stack">
+                <sk-record-card variant="list" title="Watering a Flower" artist="Haruomi Hosono" price="32" label="LP" condition="VG+" image-alt="Album artwork"></sk-record-card>
+                <sk-record-card variant="list" title="Through the Looking Glass" artist="Midori Takada" price="28" label="LP" condition="NM" image-alt="Album artwork"></sk-record-card>
+                <sk-record-card variant="list" title="Technodelic" artist="Yellow Magic Orchestra" price="45" label="LP" condition="VG" image-alt="Album artwork"></sk-record-card>
+              </div>
+
+              <div class="showcase-card-header">
+                <sk-caption>Grid - Shop Listing</sk-caption>
+              </div>
+              <div class="showcase-patterns-grid-demo">
+                <sk-record-card variant="grid" title="Watering a Flower" artist="Haruomi Hosono" price="32" condition="G"></sk-record-card>
+                <sk-record-card variant="grid" title="Through the Looking Glass" artist="Midori Takada" price="28" condition="NM"></sk-record-card>
+                <sk-record-card variant="grid" title="Technodelic" artist="Yellow Magic Orchestra" price="45" condition="RARE"></sk-record-card>
+                <sk-record-card variant="grid" title="B-2 Unit" artist="Ryuichi Sakamoto" price="38" condition="VG+"></sk-record-card>
+              </div>
+
+              <div class="showcase-card-header">
+                <sk-caption>Detail - Single Product</sk-caption>
+              </div>
+              <div class="showcase-patterns-detail">
+                <sk-record-card
+                  variant="detail"
+                  title="Watering a Flower"
+                  artist="Haruomi Hosono"
+                  price="32"
+                  label="LP"
+                  year="1984"
+                  condition="VG+"
+                  genre="Ambient, Electronic, Japanese"
+                ></sk-record-card>
+              </div>
+            </div>
+          </div>
+        </article>
       </section>
     </main>
+
+    <sk-drawer id="selection-drawer" title="Selection - 2" type="selection">
+      <div class="showcase-drawer-items">
+        <sk-record-card variant="list" title="Watering a Flower" artist="Haruomi Hosono" price="32" label="LP" condition="VG+" image-alt="Album artwork"></sk-record-card>
+        <sk-record-card variant="list" title="Through the Looking Glass" artist="Midori Takada" price="28" label="LP" condition="NM" image-alt="Album artwork"></sk-record-card>
+      </div>
+      <div slot="footer" class="showcase-drawer-footer">
+        <div class="showcase-drawer-total">
+          <sk-caption class="showcase-drawer-label">Total</sk-caption>
+          <p class="showcase-drawer-price">$60</p>
+        </div>
+        <sk-button variant="primary" full-width>Checkout</sk-button>
+      </div>
+    </sk-drawer>
+
+    <sk-drawer id="mobile-drawer" title="Selection - 2" type="selection" is-mobile>
+      <div class="showcase-drawer-items">
+        <sk-record-card variant="list" title="Watering a Flower" artist="Haruomi Hosono" price="32" label="LP" condition="VG+" image-alt="Album artwork"></sk-record-card>
+        <sk-record-card variant="list" title="Through the Looking Glass" artist="Midori Takada" price="28" label="LP" condition="NM" image-alt="Album artwork"></sk-record-card>
+      </div>
+      <div slot="footer" class="showcase-drawer-footer">
+        <sk-button variant="primary" full-width>Checkout</sk-button>
+      </div>
+    </sk-drawer>
 
     <script type="module">
       const body = document.body;
       const themeToggle = document.querySelector('#theme-toggle');
+      const selectionDrawer = document.querySelector('#selection-drawer');
+      const mobileDrawer = document.querySelector('#mobile-drawer');
+      const openSelectionDrawer = document.querySelector('#open-selection-drawer');
+      const openMobileDrawer = document.querySelector('#open-mobile-drawer');
 
       if (themeToggle) {
         themeToggle.checked = body.classList.contains('dark');
@@ -437,6 +647,18 @@
           const isDark = Boolean(event.detail);
           body.classList.toggle('dark', isDark);
           body.classList.toggle('light', !isDark);
+        });
+      }
+
+      if (openSelectionDrawer && selectionDrawer) {
+        openSelectionDrawer.addEventListener('click', () => {
+          selectionDrawer.open = true;
+        });
+      }
+
+      if (openMobileDrawer && mobileDrawer) {
+        openMobileDrawer.addEventListener('click', () => {
+          mobileDrawer.open = true;
         });
       }
     </script>
