@@ -114,6 +114,20 @@
         gap: 14px;
       }
 
+      .showcase-skeleton-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .showcase-skeleton-list {
+        display: grid;
+      }
+
+      .showcase-skeleton-list sk-skeleton {
+        border-bottom: 1px solid var(--color-border);
+      }
+
       .showcase-icons {
         display: flex;
         flex-wrap: wrap;
@@ -299,6 +313,33 @@
             </div>
             <sk-caption>Loading State</sk-caption>
             <sk-loading size="28" label="Loading records..."></sk-loading>
+          </div>
+        </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Skeleton</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Loading placeholders that mimic content shape for skeleton screens.</sk-text>
+          </div>
+          <div class="showcase-stack">
+            <sk-caption>Grid Variant</sk-caption>
+            <div class="showcase-skeleton-grid" style="margin-bottom: 24px;">
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+              <sk-skeleton variant="grid"></sk-skeleton>
+            </div>
+            <sk-caption>List Variant</sk-caption>
+            <div class="showcase-skeleton-list" style="margin-bottom: 24px;">
+              <sk-skeleton variant="list"></sk-skeleton>
+              <sk-skeleton variant="list"></sk-skeleton>
+              <sk-skeleton variant="list"></sk-skeleton>
+            </div>
+            <sk-caption>Text Block Variant</sk-caption>
+            <div style="margin-bottom: 24px;">
+              <sk-skeleton variant="text-block"></sk-skeleton>
+            </div>
           </div>
         </article>
 

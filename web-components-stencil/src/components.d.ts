@@ -164,6 +164,16 @@ export namespace Components {
         "header": string;
         "open": boolean;
     }
+    interface SkSkeleton {
+        /**
+          * @default 'text-block'
+         */
+        "variant": 'grid' | 'list' | 'text-block';
+        /**
+          * @default '100%'
+         */
+        "width": string | number;
+    }
     interface SkText {
         /**
           * @default 'left'
@@ -300,6 +310,12 @@ declare global {
         prototype: HTMLSkSideDrawerElement;
         new (): HTMLSkSideDrawerElement;
     };
+    interface HTMLSkSkeletonElement extends Components.SkSkeleton, HTMLStencilElement {
+    }
+    var HTMLSkSkeletonElement: {
+        prototype: HTMLSkSkeletonElement;
+        new (): HTMLSkSkeletonElement;
+    };
     interface HTMLSkTextElement extends Components.SkText, HTMLStencilElement {
     }
     var HTMLSkTextElement: {
@@ -333,6 +349,7 @@ declare global {
         "sk-loading": HTMLSkLoadingElement;
         "sk-select": HTMLSkSelectElement;
         "sk-side-drawer": HTMLSkSideDrawerElement;
+        "sk-skeleton": HTMLSkSkeletonElement;
         "sk-text": HTMLSkTextElement;
         "sk-toggle": HTMLSkToggleElement;
     }
@@ -500,6 +517,16 @@ declare namespace LocalJSX {
         "header"?: string;
         "open"?: boolean;
     }
+    interface SkSkeleton {
+        /**
+          * @default 'text-block'
+         */
+        "variant"?: 'grid' | 'list' | 'text-block';
+        /**
+          * @default '100%'
+         */
+        "width"?: string | number;
+    }
     interface SkText {
         /**
           * @default 'left'
@@ -578,6 +605,10 @@ declare namespace LocalJSX {
         "header": string;
         "open": boolean;
     }
+    interface SkSkeletonAttributes {
+        "width": string;
+        "variant": 'grid' | 'list' | 'text-block';
+    }
     interface SkTextAttributes {
         "size": 'lg' | 'md' | 'sm';
         "align": 'left' | 'center';
@@ -599,6 +630,7 @@ declare namespace LocalJSX {
         "sk-loading": Omit<SkLoading, keyof SkLoadingAttributes> & { [K in keyof SkLoading & keyof SkLoadingAttributes]?: SkLoading[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `attr:${K}`]?: SkLoadingAttributes[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `prop:${K}`]?: SkLoading[K] };
         "sk-select": Omit<SkSelect, keyof SkSelectAttributes> & { [K in keyof SkSelect & keyof SkSelectAttributes]?: SkSelect[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `attr:${K}`]?: SkSelectAttributes[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `prop:${K}`]?: SkSelect[K] };
         "sk-side-drawer": Omit<SkSideDrawer, keyof SkSideDrawerAttributes> & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes]?: SkSideDrawer[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `attr:${K}`]?: SkSideDrawerAttributes[K] } & { [K in keyof SkSideDrawer & keyof SkSideDrawerAttributes as `prop:${K}`]?: SkSideDrawer[K] };
+        "sk-skeleton": Omit<SkSkeleton, keyof SkSkeletonAttributes> & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes]?: SkSkeleton[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `attr:${K}`]?: SkSkeletonAttributes[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `prop:${K}`]?: SkSkeleton[K] };
         "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
         "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
     }
@@ -622,6 +654,7 @@ declare module "@stencil/core" {
             "sk-loading": LocalJSX.IntrinsicElements["sk-loading"] & JSXBase.HTMLAttributes<HTMLSkLoadingElement>;
             "sk-select": LocalJSX.IntrinsicElements["sk-select"] & JSXBase.HTMLAttributes<HTMLSkSelectElement>;
             "sk-side-drawer": LocalJSX.IntrinsicElements["sk-side-drawer"] & JSXBase.HTMLAttributes<HTMLSkSideDrawerElement>;
+            "sk-skeleton": LocalJSX.IntrinsicElements["sk-skeleton"] & JSXBase.HTMLAttributes<HTMLSkSkeletonElement>;
             "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;
             "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;
         }
