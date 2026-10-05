@@ -59,6 +59,33 @@ export namespace Components {
          */
         "align": 'left' | 'center';
     }
+    interface SkCard {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "cardTitle": string;
+        /**
+          * @default ''
+         */
+        "imageAlt": string;
+        /**
+          * @default ''
+         */
+        "imageSrc": string;
+        /**
+          * @default false
+         */
+        "selected": boolean;
+        /**
+          * @default ''
+         */
+        "subtitle": string;
+        /**
+          * @default 'default'
+         */
+        "variant": 'default' | 'image' | 'selected';
+    }
     interface SkHeading {
         /**
           * @default 'left'
@@ -201,6 +228,10 @@ export interface SkBadgeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkBadgeElement;
 }
+export interface SkCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkCardElement;
+}
 export interface SkInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkInputElement;
@@ -242,6 +273,23 @@ declare global {
     var HTMLSkCaptionElement: {
         prototype: HTMLSkCaptionElement;
         new (): HTMLSkCaptionElement;
+    };
+    interface HTMLSkCardElementEventMap {
+        "skClick": MouseEvent | KeyboardEvent;
+    }
+    interface HTMLSkCardElement extends Components.SkCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkCardElementEventMap>(type: K, listener: (this: HTMLSkCardElement, ev: SkCardCustomEvent<HTMLSkCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkCardElementEventMap>(type: K, listener: (this: HTMLSkCardElement, ev: SkCardCustomEvent<HTMLSkCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkCardElement: {
+        prototype: HTMLSkCardElement;
+        new (): HTMLSkCardElement;
     };
     interface HTMLSkHeadingElement extends Components.SkHeading, HTMLStencilElement {
     }
@@ -343,6 +391,7 @@ declare global {
         "sk-badge": HTMLSkBadgeElement;
         "sk-button": HTMLSkButtonElement;
         "sk-caption": HTMLSkCaptionElement;
+        "sk-card": HTMLSkCardElement;
         "sk-heading": HTMLSkHeadingElement;
         "sk-icon": HTMLSkIconElement;
         "sk-input": HTMLSkInputElement;
@@ -406,6 +455,34 @@ declare namespace LocalJSX {
           * @default 'left'
          */
         "align"?: 'left' | 'center';
+    }
+    interface SkCard {
+        "accessibleLabel"?: string;
+        /**
+          * @default ''
+         */
+        "cardTitle"?: string;
+        /**
+          * @default ''
+         */
+        "imageAlt"?: string;
+        /**
+          * @default ''
+         */
+        "imageSrc"?: string;
+        "onSkClick"?: (event: SkCardCustomEvent<MouseEvent | KeyboardEvent>) => void;
+        /**
+          * @default false
+         */
+        "selected"?: boolean;
+        /**
+          * @default ''
+         */
+        "subtitle"?: string;
+        /**
+          * @default 'default'
+         */
+        "variant"?: 'default' | 'image' | 'selected';
     }
     interface SkHeading {
         /**
@@ -569,6 +646,15 @@ declare namespace LocalJSX {
     interface SkCaptionAttributes {
         "align": 'left' | 'center';
     }
+    interface SkCardAttributes {
+        "cardTitle": string;
+        "subtitle": string;
+        "imageSrc": string;
+        "imageAlt": string;
+        "variant": 'default' | 'image' | 'selected';
+        "selected": boolean;
+        "accessibleLabel": string;
+    }
     interface SkHeadingAttributes {
         "size": 'display' | 'lg' | 'md' | 'sm';
         "align": 'left' | 'center';
@@ -624,6 +710,7 @@ declare namespace LocalJSX {
         "sk-badge": Omit<SkBadge, keyof SkBadgeAttributes> & { [K in keyof SkBadge & keyof SkBadgeAttributes]?: SkBadge[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `attr:${K}`]?: SkBadgeAttributes[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `prop:${K}`]?: SkBadge[K] };
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
         "sk-caption": Omit<SkCaption, keyof SkCaptionAttributes> & { [K in keyof SkCaption & keyof SkCaptionAttributes]?: SkCaption[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `attr:${K}`]?: SkCaptionAttributes[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `prop:${K}`]?: SkCaption[K] };
+        "sk-card": Omit<SkCard, keyof SkCardAttributes> & { [K in keyof SkCard & keyof SkCardAttributes]?: SkCard[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `attr:${K}`]?: SkCardAttributes[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `prop:${K}`]?: SkCard[K] };
         "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
         "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
         "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
@@ -642,6 +729,7 @@ declare module "@stencil/core" {
             "sk-badge": LocalJSX.IntrinsicElements["sk-badge"] & JSXBase.HTMLAttributes<HTMLSkBadgeElement>;
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
             "sk-caption": LocalJSX.IntrinsicElements["sk-caption"] & JSXBase.HTMLAttributes<HTMLSkCaptionElement>;
+            "sk-card": LocalJSX.IntrinsicElements["sk-card"] & JSXBase.HTMLAttributes<HTMLSkCardElement>;
             "sk-heading": LocalJSX.IntrinsicElements["sk-heading"] & JSXBase.HTMLAttributes<HTMLSkHeadingElement>;
             /**
              * sk-icon: Scalable SVG icon component

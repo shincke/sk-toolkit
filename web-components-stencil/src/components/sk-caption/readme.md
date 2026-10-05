@@ -17,6 +17,7 @@
 ### Used by
 
  - [sk-badge](../sk-badge)
+ - [sk-card](../sk-card)
  - [sk-input](../sk-input)
  - [sk-loading](../sk-loading)
  - [sk-select](../sk-select)
@@ -27,6 +28,7 @@
 ```mermaid
 graph TD;
   sk-badge --> sk-caption
+  sk-card --> sk-caption
   sk-input --> sk-caption
   sk-loading --> sk-caption
   sk-select --> sk-caption

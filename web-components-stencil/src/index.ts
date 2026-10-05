@@ -10,4 +10,5 @@
 
 export * from './design-tokens';
 export { format } from './utils/utils';
+export * from './utils/image-placeholder';
 export type * from './components.d.ts';

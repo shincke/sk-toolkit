@@ -114,6 +114,21 @@
         gap: 14px;
       }
 
+      .showcase-card-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .showcase-card-meta,
+      .showcase-card-link {
+        margin: 0;
+      }
+
+      .showcase-card-link {
+        color: var(--color-text-primary);
+      }
+
       .showcase-skeleton-grid {
         display: grid;
         gap: 16px;
@@ -150,6 +165,10 @@
         .showcase-selects {
           grid-template-columns: 1fr;
         }
+
+        .showcase-card-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
       }
 
       @media (max-width: 640px) {
@@ -168,6 +187,12 @@
 
         .showcase-theme-toggle {
           justify-content: flex-start;
+        }
+
+        .showcase-card-grid,
+        .showcase-columns,
+        .showcase-selects {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -295,6 +320,37 @@
               <sk-badge variant="ai-chip" color="default" label="Japanese ambient 1980s"></sk-badge>
               <sk-badge variant="ai-chip" color="default" label="Similar to Aphex Twin"></sk-badge>
             </div>
+          </div>
+        </article>
+
+        <article class="showcase-card is-wide">
+          <div class="showcase-card-header">
+            <sk-caption>Cards</sk-caption>
+            <sk-text size="sm" class="showcase-muted">Editorial surfaces with default, image, and selected variants.</sk-text>
+          </div>
+          <div class="showcase-card-grid">
+            <sk-card variant="default" title="Graphic Form and Spatial Memory" subtitle="Research · 2024">
+              <sk-text size="lg">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
+              <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
+            </sk-card>
+
+            <sk-card
+              variant="image"
+              title="Graphic Form and Spatial Memory"
+              subtitle="Research · 2024"
+              image-alt="Abstract waterside gate illustration"
+            >
+              <sk-text size="lg">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
+              <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
+            </sk-card>
+
+            <sk-card variant="selected" title="Graphic Form and Spatial Memory" subtitle="Research · 2024" selected>
+              <sk-text size="lg">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text>
+              <sk-caption slot="footer-start" class="showcase-card-meta">Kamekura, Y. - 12 min</sk-caption>
+              <sk-button slot="footer-end" variant="ghost" size="sm">Read →</sk-button>
+            </sk-card>
           </div>
         </article>
 

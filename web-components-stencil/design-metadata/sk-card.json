@@ -1,0 +1,73 @@
+{
+  "name": "sk-card",
+  "category": "display",
+  "purpose": "Generic surface card with optional image, title, and body content.",
+  "variants": {
+    "variant": [
+      "default",
+      "image",
+      "selected"
+    ]
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "subtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "imageSrc": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "selected": {
+      "type": "boolean",
+      "default": false
+    },
+    "variant": {
+      "type": "'default' | 'image' | 'selected'",
+      "default": "default"
+    }
+  },
+  "slots": {
+    "default": "Card body content",
+    "footer-start": "Card footer metadata or supporting text",
+    "footer-end": "Card footer action or trailing content"
+  },
+  "events": [
+    "skClick"
+  ],
+  "states": [
+    "default",
+    "hover",
+    "selected"
+  ],
+  "accessibility": {
+    "keyboardAccessible": true,
+    "visibleFocusState": true,
+    "accessibleNameRequired": true
+  },
+  "usage": {
+    "do": [
+      "Use for grouping related content.",
+      "Provide hover feedback for interactive cards.",
+      "Use the image variant when the card needs a visual stage.",
+      "Use the selected variant for toggleable cards.",
+      "Use the default slot for supporting copy and the footer slots for metadata and actions."
+    ],
+    "dont": [
+      "Do not nest cards inside cards.",
+      "Do not use without a visible title for screen readers."
+    ]
+  },
+  "code": {
+    "tag": "sk-card",
+    "example": "<sk-card variant=\"image\" title=\"Graphic Form and Spatial Memory\" subtitle=\"Research · 2024\" image-src=\"/cover.jpg\"><sk-text size=\"lg\">How bold geometric reduction in postwar Japanese poster design encodes cultural memory and political meaning through shape alone.</sk-text><sk-caption slot=\"footer-start\">Kamekura, Y. - 12 min</sk-caption><sk-text slot=\"footer-end\">Read →</sk-text></sk-card>"
+  }
+}
