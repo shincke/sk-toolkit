@@ -1,15 +1,16 @@
-body {
-  margin: 0;
-  padding: 32px;
-  background: var(--color-background);
-  color: var(--color-text-primary);
-  font-family: var(--font-sans);
-}
-
 .story-page {
   display: grid;
   gap: 24px;
   max-width: 1240px;
+  /* border: 3px solid red; */
+}
+
+.story-stage {
+  padding: 32px;
+  border: var(--border-hairline) solid var(--color-border);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
 }
 
 .story-section {
@@ -67,12 +68,9 @@ body {
 }
 
 @media (max-width: 640px) {
-  body {
-    padding: 20px 14px 48px;
-  }
-
   .story-section,
-  .story-panel {
+  .story-panel,
+  .story-stage {
     padding: 18px;
   }
 

@@ -14,3 +14,5 @@ export const storyStack = (...items: string[]) => `<div class="story-stack">${it
 export const storyGrid = (columns: 2 | 3 | 4, ...items: string[]) => `<div class="story-grid cols-${columns}">${items.join('')}</div>`;
 
 export const storyPanel = (body: string) => `<div class="story-panel">${body}</div>`;
+
+export const storyStage = (body: string) => `<div class="story-stage">${body}</div>`;
