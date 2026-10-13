@@ -19,6 +19,15 @@
 | `variant`         | `variant`    |             | `"destructive" \| "ghost" \| "primary" \| "secondary"` | `'primary'` |
 
 
+## Slots
+
+| Slot          | Description      |
+| ------------- | ---------------- |
+|               | The default slot |
+| `"iconLeft"`  |                  |
+| `"iconRight"` |                  |
+
+
 ## Dependencies
 
 ### Used by

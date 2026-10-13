@@ -25,6 +25,15 @@
 | `skClick` |             | `CustomEvent<KeyboardEvent \| MouseEvent>` |
 
 
+## Slots
+
+| Slot             | Description      |
+| ---------------- | ---------------- |
+|                  | The default slot |
+| `"footer-end"`   |                  |
+| `"footer-start"` |                  |
+
+
 ## Dependencies
 
 ### Depends on

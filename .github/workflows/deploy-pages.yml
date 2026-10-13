@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Deploy GitHub Pages #automation recipe GitHub executes
 
 on:
   push:
@@ -17,40 +17,47 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # github-hosted VM/container-like runner with Ubuntu OS
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Check out repository
+      - name: 📥 Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: 🟢 Set up Node.js #configures node on the runner
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: web-components-stencil/package-lock.json
+          registry-url: https://registry.npmjs.org/
 
-      - name: Configure GitHub Pages
+      - name: 📦 Pin npm version
+        run: |
+          npm install -g npm@11.8.0
+          npm -v
+
+      - name: ⚙️ Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Install dependencies
+      - name: 📚 Install dependencies
         working-directory: web-components-stencil
-        run: npm ci
+        run: |
+          npm cache clean --force
+          rm -rf node_modules package-lock.json
+          npm install --registry=https://registry.npmjs.org/
 
-      - name: Build Pages site
+      - name: 🛠️ Build Pages site
         working-directory: web-components-stencil
         env:
           PAGES_BASE_PATH: /${{ github.event.repository.name }}/catalog/
         run: npm run pages:build
 
-      - name: Upload Pages artifact
+      - name: ⬆️ Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: web-components-stencil/docs
+          path: web-components-stencil/docs #uploads the built site to be deployed to GitHub Pages
 
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

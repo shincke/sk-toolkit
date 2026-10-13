@@ -24,6 +24,15 @@
 | `skClose` |             | `CustomEvent<void>` |
 
 
+## Slots
+
+| Slot       | Description      |
+| ---------- | ---------------- |
+|            | The default slot |
+| `"footer"` |                  |
+| `"header"` |                  |
+
+
 ## Dependencies
 
 ### Depends on

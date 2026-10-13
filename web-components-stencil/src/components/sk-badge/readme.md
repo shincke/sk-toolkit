@@ -21,6 +21,13 @@
 | `skClick` |             | `CustomEvent<MouseEvent>` |
 
 
+## Slots
+
+| Slot | Description      |
+| ---- | ---------------- |
+|      | The default slot |
+
+
 ## Dependencies
 
 ### Used by

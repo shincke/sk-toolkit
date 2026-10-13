@@ -1,0 +1,4 @@
+# it affects affects what gets included when you publish a package to npm
+node_modules
+src/*
+.gitignore

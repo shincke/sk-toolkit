@@ -13,6 +13,13 @@
 | `size`   | `size`    |             | `"lg" \| "md" \| "sm"` | `'md'`   |
 
 
+## Slots
+
+| Slot | Description      |
+| ---- | ---------------- |
+|      | The default slot |
+
+
 ## Dependencies
 
 ### Used by

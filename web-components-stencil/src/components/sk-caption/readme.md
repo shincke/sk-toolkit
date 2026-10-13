@@ -12,6 +12,13 @@
 | `align`  | `align`   |             | `"center" \| "left"` | `'left'` |
 
 
+## Slots
+
+| Slot | Description      |
+| ---- | ---------------- |
+|      | The default slot |
+
+
 ## Dependencies
 
 ### Used by
