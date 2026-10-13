@@ -19,8 +19,15 @@ log.txt
 .versions/
 node_modules/
 $RECYCLE.BIN/
+storybook-static/
+design-metadata/
 
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+
+docs/build/
+docs/catalog/
+docs/index.html
+docs/tokens.css
