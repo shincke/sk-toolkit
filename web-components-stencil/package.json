@@ -44,6 +44,8 @@
     "start": "npm run generate:tokens && stencil build --dev --watch --serve",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
+    "pages:build": "node scripts/build-pages.mjs",
+    "pages:preview": "npm run pages:build && python3 -m http.server 4173 -d docs",
     "test": "npm run generate:tokens && stencil-test",
     "test:watch": "stencil-test --watch",
     "generate": "stencil generate"
