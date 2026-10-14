@@ -25,10 +25,10 @@ const renderButton = (args: ButtonStoryArgs) => {
   const typeAttribute = ` type="${args.type}"`;
   const accessibleLabelAttribute = args.accessibleLabel ? ` aria-label="${args.accessibleLabel}"` : '';
 
+  const innerContent = args.iconOnly ? '<sk-icon slot="iconLeft" name="plus" aria-label="Add"></sk-icon>' : label;
+
   return storyStage(
-    `<sk-button${variantAttribute}${sizeAttribute}${disabledAttribute}${loadingAttribute}${fullWidthAttribute}${iconOnlyAttribute}${typeAttribute}${accessibleLabelAttribute}${
-      label ? `>${label}</sk-button>` : '></sk-button>'
-    }`,
+    `<sk-button${variantAttribute}${sizeAttribute}${disabledAttribute}${loadingAttribute}${fullWidthAttribute}${iconOnlyAttribute}${typeAttribute}${accessibleLabelAttribute}>${innerContent}</sk-button>`,
   );
 };
 

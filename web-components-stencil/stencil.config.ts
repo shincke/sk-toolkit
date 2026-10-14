@@ -8,7 +8,10 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: '../loader',
-      copy: [{ src: 'global/tokens.css', dest: 'tokens.css' }],
+      copy: [
+        { src: 'global/tokens.css', dest: 'tokens.css' },
+        { src: 'showcase.css', dest: 'showcase.css' },
+      ],
     },
     {
       type: 'dist-custom-elements',
@@ -21,7 +24,10 @@ export const config: Config = {
     {
       type: 'www',
       serviceWorker: null, // disable service workers
-      copy: [{ src: 'global/tokens.css', dest: 'tokens.css' }],
+      copy: [
+        { src: 'global/tokens.css', dest: 'tokens.css' },
+        { src: 'showcase.css', dest: 'showcase.css' },
+      ],
     },
   ],
 };
