@@ -5,7 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 import { ChevronDirection, IconName } from "./utils/icons";
+export { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 export { ChevronDirection, IconName } from "./utils/icons";
 export namespace Components {
     interface SkBadge {
@@ -22,16 +24,27 @@ export namespace Components {
          */
         "variant": 'status' | 'filled' | 'category' | 'ai-chip';
     }
+    /**
+     * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+     * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
+     * It can be used as a button or as a link, depending on whether the `href` property is set.
+     */
     interface SkButton {
         "accessibleLabel"?: string;
         /**
           * @default false
          */
         "disabled": boolean;
+        "download"?: string;
+        /**
+          * @default false
+         */
+        "focusableWhenDisabled": boolean;
         /**
           * @default false
          */
         "fullWidth": boolean;
+        "href"?: string;
         /**
           * @default false
          */
@@ -40,18 +53,21 @@ export namespace Components {
           * @default false
          */
         "loading": boolean;
+        "pressed"?: boolean;
+        "rel"?: string;
         /**
           * @default 'md'
          */
-        "size": 'sm' | 'md' | 'lg';
+        "size": ButtonSize;
+        "target"?: string;
         /**
           * @default 'button'
          */
-        "type": 'button' | 'submit' | 'reset';
+        "type": ButtonType;
         /**
           * @default 'primary'
          */
-        "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
+        "variant": ButtonVariant;
     }
     interface SkCaption {
         /**
@@ -294,6 +310,10 @@ export interface SkBadgeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkBadgeElement;
 }
+export interface SkButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkButtonElement;
+}
 export interface SkCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkCardElement;
@@ -336,7 +356,25 @@ declare global {
         prototype: HTMLSkBadgeElement;
         new (): HTMLSkBadgeElement;
     };
+    interface HTMLSkButtonElementEventMap {
+        "skClick": MouseEvent | KeyboardEvent;
+        "skFocus": void;
+        "skBlur": void;
+    }
+    /**
+     * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+     * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
+     * It can be used as a button or as a link, depending on whether the `href` property is set.
+     */
     interface HTMLSkButtonElement extends Components.SkButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkButtonElementEventMap>(type: K, listener: (this: HTMLSkButtonElement, ev: SkButtonCustomEvent<HTMLSkButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkButtonElementEventMap>(type: K, listener: (this: HTMLSkButtonElement, ev: SkButtonCustomEvent<HTMLSkButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLSkButtonElement: {
         prototype: HTMLSkButtonElement;
@@ -522,16 +560,27 @@ declare namespace LocalJSX {
          */
         "variant"?: 'status' | 'filled' | 'category' | 'ai-chip';
     }
+    /**
+     * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+     * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
+     * It can be used as a button or as a link, depending on whether the `href` property is set.
+     */
     interface SkButton {
         "accessibleLabel"?: string;
         /**
           * @default false
          */
         "disabled"?: boolean;
+        "download"?: string;
+        /**
+          * @default false
+         */
+        "focusableWhenDisabled"?: boolean;
         /**
           * @default false
          */
         "fullWidth"?: boolean;
+        "href"?: string;
         /**
           * @default false
          */
@@ -540,18 +589,24 @@ declare namespace LocalJSX {
           * @default false
          */
         "loading"?: boolean;
+        "onSkBlur"?: (event: SkButtonCustomEvent<void>) => void;
+        "onSkClick"?: (event: SkButtonCustomEvent<MouseEvent | KeyboardEvent>) => void;
+        "onSkFocus"?: (event: SkButtonCustomEvent<void>) => void;
+        "pressed"?: boolean;
+        "rel"?: string;
         /**
           * @default 'md'
          */
-        "size"?: 'sm' | 'md' | 'lg';
+        "size"?: ButtonSize;
+        "target"?: string;
         /**
           * @default 'button'
          */
-        "type"?: 'button' | 'submit' | 'reset';
+        "type"?: ButtonType;
         /**
           * @default 'primary'
          */
-        "variant"?: 'primary' | 'secondary' | 'ghost' | 'destructive';
+        "variant"?: ButtonVariant;
     }
     interface SkCaption {
         /**
@@ -805,13 +860,19 @@ declare namespace LocalJSX {
         "label": string;
     }
     interface SkButtonAttributes {
-        "variant": 'primary' | 'secondary' | 'ghost' | 'destructive';
-        "size": 'sm' | 'md' | 'lg';
+        "variant": ButtonVariant;
+        "size": ButtonSize;
         "disabled": boolean;
         "loading": boolean;
         "fullWidth": boolean;
         "iconOnly": boolean;
-        "type": 'button' | 'submit' | 'reset';
+        "focusableWhenDisabled": boolean;
+        "pressed": boolean;
+        "type": ButtonType;
+        "href": string;
+        "download": string;
+        "rel": string;
+        "target": string;
         "accessibleLabel": string;
     }
     interface SkCaptionAttributes {
@@ -917,6 +978,11 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "sk-badge": LocalJSX.IntrinsicElements["sk-badge"] & JSXBase.HTMLAttributes<HTMLSkBadgeElement>;
+            /**
+             * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+             * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
+             * It can be used as a button or as a link, depending on whether the `href` property is set.
+             */
             "sk-button": LocalJSX.IntrinsicElements["sk-button"] & JSXBase.HTMLAttributes<HTMLSkButtonElement>;
             "sk-caption": LocalJSX.IntrinsicElements["sk-caption"] & JSXBase.HTMLAttributes<HTMLSkCaptionElement>;
             "sk-card": LocalJSX.IntrinsicElements["sk-card"] & JSXBase.HTMLAttributes<HTMLSkCardElement>;

@@ -39,6 +39,8 @@ const meta: Meta<SelectStoryArgs> = {
     disabled: false,
     accessibleLabel: 'City',
   },
+  // set up controls for the component's properties in Storybook
+  // read more: https://storybook.js.org/docs/essentials/controls#configuration
   argTypes: {
     label: {
       control: 'text',
