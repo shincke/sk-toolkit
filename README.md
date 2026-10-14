@@ -4,8 +4,7 @@ SK Toolkit is a web component library built with Stencil.
 
 ## Documentation
 
-- Component catalog: https://hincksof.github.io/sk-toolkit/
-- Storybook: https://hincksof.github.io/sk-toolkit/catalog/
+[https://hincksof.github.io/sk-toolkit/](https://shincke.github.io/sk-toolkit/)
 
 ## Local Development
 
