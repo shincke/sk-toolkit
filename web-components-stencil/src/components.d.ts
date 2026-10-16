@@ -7,8 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 import { ChevronDirection, IconName } from "./utils/icons";
+import { SpinnerSize } from "./components/sk-spinner/sk-spinner";
 export { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 export { ChevronDirection, IconName } from "./utils/icons";
+export { SpinnerSize } from "./components/sk-spinner/sk-spinner";
 export namespace Components {
     interface SkBadge {
         /**
@@ -193,16 +195,6 @@ export namespace Components {
          */
         "value": string;
     }
-    interface SkLoading {
-        /**
-          * @default ''
-         */
-        "label": string;
-        /**
-          * @default 40
-         */
-        "size": 14 | 20 | 28 | 40;
-    }
     interface SkRecordCard {
         "accessibleLabel"?: string;
         /**
@@ -282,6 +274,26 @@ export namespace Components {
           * @default '100%'
          */
         "width": string | number;
+    }
+    /**
+     * sk-spinner is used as a sign that something is loading or being processed on a page.
+     * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
+     * @prop label - The accessible label for the spinner.
+     * @prop paused - If true, the spinner animation is paused. Default is false.
+     */
+    interface SkSpinner {
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default false
+         */
+        "paused": boolean;
+        /**
+          * @default 'md'
+         */
+        "size": SpinnerSize;
     }
     interface SkText {
         /**
@@ -458,12 +470,6 @@ declare global {
         prototype: HTMLSkInputElement;
         new (): HTMLSkInputElement;
     };
-    interface HTMLSkLoadingElement extends Components.SkLoading, HTMLStencilElement {
-    }
-    var HTMLSkLoadingElement: {
-        prototype: HTMLSkLoadingElement;
-        new (): HTMLSkLoadingElement;
-    };
     interface HTMLSkRecordCardElementEventMap {
         "skAddToSelection": MouseEvent | KeyboardEvent;
     }
@@ -504,6 +510,18 @@ declare global {
         prototype: HTMLSkSkeletonElement;
         new (): HTMLSkSkeletonElement;
     };
+    /**
+     * sk-spinner is used as a sign that something is loading or being processed on a page.
+     * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
+     * @prop label - The accessible label for the spinner.
+     * @prop paused - If true, the spinner animation is paused. Default is false.
+     */
+    interface HTMLSkSpinnerElement extends Components.SkSpinner, HTMLStencilElement {
+    }
+    var HTMLSkSpinnerElement: {
+        prototype: HTMLSkSpinnerElement;
+        new (): HTMLSkSpinnerElement;
+    };
     interface HTMLSkTextElement extends Components.SkText, HTMLStencilElement {
     }
     var HTMLSkTextElement: {
@@ -536,10 +554,10 @@ declare global {
         "sk-heading": HTMLSkHeadingElement;
         "sk-icon": HTMLSkIconElement;
         "sk-input": HTMLSkInputElement;
-        "sk-loading": HTMLSkLoadingElement;
         "sk-record-card": HTMLSkRecordCardElement;
         "sk-select": HTMLSkSelectElement;
         "sk-skeleton": HTMLSkSkeletonElement;
+        "sk-spinner": HTMLSkSpinnerElement;
         "sk-text": HTMLSkTextElement;
         "sk-toggle": HTMLSkToggleElement;
     }
@@ -738,16 +756,6 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
-    interface SkLoading {
-        /**
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @default 40
-         */
-        "size"?: 14 | 20 | 28 | 40;
-    }
     interface SkRecordCard {
         "accessibleLabel"?: string;
         /**
@@ -829,6 +837,26 @@ declare namespace LocalJSX {
           * @default '100%'
          */
         "width"?: string | number;
+    }
+    /**
+     * sk-spinner is used as a sign that something is loading or being processed on a page.
+     * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
+     * @prop label - The accessible label for the spinner.
+     * @prop paused - If true, the spinner animation is paused. Default is false.
+     */
+    interface SkSpinner {
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * @default false
+         */
+        "paused"?: boolean;
+        /**
+          * @default 'md'
+         */
+        "size"?: SpinnerSize;
     }
     interface SkText {
         /**
@@ -915,10 +943,6 @@ declare namespace LocalJSX {
         "error": string;
         "accessibleLabel": string;
     }
-    interface SkLoadingAttributes {
-        "size": 14 | 20 | 28 | 40;
-        "label": string;
-    }
     interface SkRecordCardAttributes {
         "variant": 'list' | 'grid' | 'detail';
         "recordTitle": string;
@@ -945,6 +969,11 @@ declare namespace LocalJSX {
         "width": string;
         "variant": 'grid' | 'list' | 'text-block';
     }
+    interface SkSpinnerAttributes {
+        "size": SpinnerSize;
+        "label": string;
+        "paused": boolean;
+    }
     interface SkTextAttributes {
         "size": 'lg' | 'md' | 'sm';
         "align": 'left' | 'center';
@@ -965,10 +994,10 @@ declare namespace LocalJSX {
         "sk-heading": Omit<SkHeading, keyof SkHeadingAttributes> & { [K in keyof SkHeading & keyof SkHeadingAttributes]?: SkHeading[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `attr:${K}`]?: SkHeadingAttributes[K] } & { [K in keyof SkHeading & keyof SkHeadingAttributes as `prop:${K}`]?: SkHeading[K] };
         "sk-icon": Omit<SkIcon, keyof SkIconAttributes> & { [K in keyof SkIcon & keyof SkIconAttributes]?: SkIcon[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `attr:${K}`]?: SkIconAttributes[K] } & { [K in keyof SkIcon & keyof SkIconAttributes as `prop:${K}`]?: SkIcon[K] };
         "sk-input": Omit<SkInput, keyof SkInputAttributes> & { [K in keyof SkInput & keyof SkInputAttributes]?: SkInput[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `attr:${K}`]?: SkInputAttributes[K] } & { [K in keyof SkInput & keyof SkInputAttributes as `prop:${K}`]?: SkInput[K] };
-        "sk-loading": Omit<SkLoading, keyof SkLoadingAttributes> & { [K in keyof SkLoading & keyof SkLoadingAttributes]?: SkLoading[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `attr:${K}`]?: SkLoadingAttributes[K] } & { [K in keyof SkLoading & keyof SkLoadingAttributes as `prop:${K}`]?: SkLoading[K] };
         "sk-record-card": Omit<SkRecordCard, keyof SkRecordCardAttributes> & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes]?: SkRecordCard[K] } & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes as `attr:${K}`]?: SkRecordCardAttributes[K] } & { [K in keyof SkRecordCard & keyof SkRecordCardAttributes as `prop:${K}`]?: SkRecordCard[K] };
         "sk-select": Omit<SkSelect, keyof SkSelectAttributes> & { [K in keyof SkSelect & keyof SkSelectAttributes]?: SkSelect[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `attr:${K}`]?: SkSelectAttributes[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `prop:${K}`]?: SkSelect[K] };
         "sk-skeleton": Omit<SkSkeleton, keyof SkSkeletonAttributes> & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes]?: SkSkeleton[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `attr:${K}`]?: SkSkeletonAttributes[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `prop:${K}`]?: SkSkeleton[K] };
+        "sk-spinner": Omit<SkSpinner, keyof SkSpinnerAttributes> & { [K in keyof SkSpinner & keyof SkSpinnerAttributes]?: SkSpinner[K] } & { [K in keyof SkSpinner & keyof SkSpinnerAttributes as `attr:${K}`]?: SkSpinnerAttributes[K] } & { [K in keyof SkSpinner & keyof SkSpinnerAttributes as `prop:${K}`]?: SkSpinner[K] };
         "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
         "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
     }
@@ -996,10 +1025,16 @@ declare module "@stencil/core" {
              */
             "sk-icon": LocalJSX.IntrinsicElements["sk-icon"] & JSXBase.HTMLAttributes<HTMLSkIconElement>;
             "sk-input": LocalJSX.IntrinsicElements["sk-input"] & JSXBase.HTMLAttributes<HTMLSkInputElement>;
-            "sk-loading": LocalJSX.IntrinsicElements["sk-loading"] & JSXBase.HTMLAttributes<HTMLSkLoadingElement>;
             "sk-record-card": LocalJSX.IntrinsicElements["sk-record-card"] & JSXBase.HTMLAttributes<HTMLSkRecordCardElement>;
             "sk-select": LocalJSX.IntrinsicElements["sk-select"] & JSXBase.HTMLAttributes<HTMLSkSelectElement>;
             "sk-skeleton": LocalJSX.IntrinsicElements["sk-skeleton"] & JSXBase.HTMLAttributes<HTMLSkSkeletonElement>;
+            /**
+             * sk-spinner is used as a sign that something is loading or being processed on a page.
+             * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
+             * @prop label - The accessible label for the spinner.
+             * @prop paused - If true, the spinner animation is paused. Default is false.
+             */
+            "sk-spinner": LocalJSX.IntrinsicElements["sk-spinner"] & JSXBase.HTMLAttributes<HTMLSkSpinnerElement>;
             "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;
             "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;
         }

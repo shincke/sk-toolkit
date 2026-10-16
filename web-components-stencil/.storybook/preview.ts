@@ -11,7 +11,7 @@ import { defineCustomElement as defineSkDrawer } from '../dist/components/sk-dra
 import { defineCustomElement as defineSkHeading } from '../dist/components/sk-heading';
 import { defineCustomElement as defineSkIcon } from '../dist/components/sk-icon';
 import { defineCustomElement as defineSkInput } from '../dist/components/sk-input';
-import { defineCustomElement as defineSkLoading } from '../dist/components/sk-loading';
+import { defineCustomElement as defineSkSpinner } from '../dist/components/sk-spinner';
 import { defineCustomElement as defineSkRecordCard } from '../dist/components/sk-record-card';
 import { defineCustomElement as defineSkSelect } from '../dist/components/sk-select';
 import { defineCustomElement as defineSkSkeleton } from '../dist/components/sk-skeleton';
@@ -32,7 +32,7 @@ registerElement('sk-drawer', defineSkDrawer);
 registerElement('sk-heading', defineSkHeading);
 registerElement('sk-icon', defineSkIcon);
 registerElement('sk-input', defineSkInput);
-registerElement('sk-loading', defineSkLoading);
+registerElement('sk-spinner', defineSkSpinner);
 registerElement('sk-record-card', defineSkRecordCard);
 registerElement('sk-select', defineSkSelect);
 registerElement('sk-skeleton', defineSkSkeleton);

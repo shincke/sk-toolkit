@@ -60,7 +60,7 @@ describe('sk-button', () => {
     });
 
     const button = page.root?.shadowRoot?.querySelector('button');
-    const spinner = page.root?.shadowRoot?.querySelector('sk-loading');
+    const spinner = page.root?.shadowRoot?.querySelector('sk-spinner');
     expect(button?.disabled).toBe(true);
     expect(button?.getAttribute('aria-busy')).toBe('true');
     expect(spinner).not.toBeNull();
