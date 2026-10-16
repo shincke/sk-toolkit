@@ -4,7 +4,7 @@ import { storyPage, storyRow, storySection } from '../storybook-helpers';
 
 const meta: Meta = {
   title: 'Components/Loading',
-  component: 'sk-loading',
+  component: 'sk-spinner',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -21,12 +21,12 @@ export const Overview: Story = {
       storySection(
         'Sizes',
         storyRow(
-          '<sk-loading size="14" label="14px"></sk-loading>',
-          '<sk-loading size="20" label="20px"></sk-loading>',
-          '<sk-loading size="28" label="28px"></sk-loading>',
-          '<sk-loading size="40" label="40px"></sk-loading>',
+          '<sk-spinner size="14" label="14px"></sk-spinner>',
+          '<sk-spinner size="20" label="20px"></sk-spinner>',
+          '<sk-spinner size="28" label="28px"></sk-spinner>',
+          '<sk-spinner size="40" label="40px"></sk-spinner>',
         ),
       ),
-      storySection('Loading State', '<sk-loading size="28" label="Loading records..."></sk-loading>'),
+      storySection('Loading State', '<sk-spinner size="28" label="Loading records..."></sk-spinner>'),
     ),
 };

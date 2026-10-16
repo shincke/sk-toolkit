@@ -8,8 +8,8 @@ import { ButtonSize, ButtonVariant, ButtonType } from './sk-button.types';
  *
  * @slot Text content placed within button
  * @slot iconLeft - Optional leading icon content
- * @part button - The button or anchor element rendered within the component
  * @slot iconRight - Optional trailing icon content
+ * @part button - The button or anchor element rendered within the component
  */
 @Component({
   tag: 'sk-button',
@@ -178,7 +178,7 @@ export class SkButton {
           <slot name="iconRight" />
         </span>
       </span>,
-      this.loading ? <sk-loading size={this.getLoadingSize()} aria-hidden="true" /> : null,
+      this.loading ? <sk-spinner size={this.size} aria-hidden="true" /> : null,
     ];
   }
 
@@ -208,18 +208,5 @@ export class SkButton {
 
   private isFocusableDisabled() {
     return this.disabled && this.focusableWhenDisabled && !this.loading;
-  }
-
-  private getLoadingSize(): 14 | 20 | 28 {
-    switch (this.size) {
-      case 'sm':
-        return 14;
-      case 'md':
-        return 20;
-      case 'lg':
-        return 28;
-      default:
-        return 20;
-    }
   }
 }
