@@ -10,9 +10,11 @@ const docsDir = resolve(projectDir, 'docs');
 const buildDir = resolve(docsDir, 'build');
 const outputDir = resolve(docsDir, 'catalog');
 const legacyTokensPath = resolve(docsDir, 'tokens.css');
+const docsShowcasePath = resolve(docsDir, 'showcase.css');
 const sourceIndexPath = resolve(projectDir, 'src/index.html');
 const docsIndexPath = resolve(docsDir, 'index.html');
 const stencilBuildDir = resolve(projectDir, 'www/build');
+const stencilShowcasePath = resolve(projectDir, 'www/showcase.css');
 const npxCommand = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const pagesBasePath = process.env.PAGES_BASE_PATH ?? '/catalog/';
@@ -82,8 +84,10 @@ const runCommand = (command, args) =>
 await rm(buildDir, { recursive: true, force: true });
 await rm(outputDir, { recursive: true, force: true });
 await rm(legacyTokensPath, { force: true });
+await rm(docsShowcasePath, { force: true });
 
 await runCommand(npmCommand, ['run', 'build']);
 await cp(stencilBuildDir, buildDir, { recursive: true });
+await cp(stencilShowcasePath, docsShowcasePath);
 await createDocsIndex();
 await runCommand(npxCommand, ['storybook', 'build', '--output-dir', 'docs/catalog']);
