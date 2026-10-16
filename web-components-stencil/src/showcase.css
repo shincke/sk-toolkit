@@ -40,6 +40,11 @@ body {
   margin-bottom: 16px;
 }
 
+.showcase-storybook-link {
+  display: inline-flex;
+  margin-top: 16px;
+}
+
 .showcase-lead {
   max-width: 62rem;
 }

@@ -21,21 +21,8 @@ const pagesBasePath = process.env.PAGES_BASE_PATH ?? '/catalog/';
 
 const storybookButtonMarkup = [
   '            <div class="showcase-storybook-link">',
-  '              <sk-button id="open-storybook" variant="secondary" size="sm">Open Storybook Documentation</sk-button>',
+  '              <sk-button variant="secondary" size="sm" href="./catalog/" target="_blank" rel="noopener noreferrer">Open Storybook Documentation</sk-button>',
   '            </div>',
-].join('\n');
-
-const storybookButtonStyle = ['', '      .showcase-storybook-link {', '        display: inline-flex;', '        margin-top: 16px;', '      }'].join('\n');
-
-const storybookButtonScript = [
-  "      const openStorybook = document.querySelector('#open-storybook');",
-  '',
-  '      if (openStorybook) {',
-  "        openStorybook.addEventListener('click', () => {",
-  "          window.open('./catalog/', '_blank', 'noopener');",
-  '        });',
-  '      }',
-  '',
 ].join('\n');
 
 const createDocsIndex = async () => {
@@ -44,14 +31,9 @@ const createDocsIndex = async () => {
   const docsHtml = sourceHtml
     .replaceAll('href="/build/', 'href="./build/')
     .replaceAll('src="/build/', 'src="./build/')
-    .replace('      .showcase-lead {', `${storybookButtonStyle}\n\n      .showcase-lead {`)
     .replace(
       '            <sk-heading size="display">Component Catalog</sk-heading>',
       `            <sk-heading size="display">Component Catalog</sk-heading>\n${storybookButtonMarkup}`,
-    )
-    .replace(
-      "      const themeToggle = document.querySelector('#theme-toggle');\n",
-      `      const themeToggle = document.querySelector('#theme-toggle');\n${storybookButtonScript}`,
     );
 
   await writeFile(docsIndexPath, docsHtml);
