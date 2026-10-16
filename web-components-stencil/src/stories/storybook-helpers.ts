@@ -15,4 +15,8 @@ export const storyGrid = (columns: 2 | 3 | 4, ...items: string[]) => `<div class
 
 export const storyPanel = (body: string) => `<div class="story-panel">${body}</div>`;
 
-export const storyStage = (body: string) => `<div class="story-stage">${body}</div>`;
+export const storyStage = (body: string, className = '') => {
+  const classes = ['story-stage', className].filter(Boolean).join(' ');
+
+  return `<div class="${classes}">${body}</div>`;
+};
