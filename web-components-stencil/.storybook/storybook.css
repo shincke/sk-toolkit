@@ -13,6 +13,18 @@
   font-family: var(--font-sans);
 }
 
+.story-stage-clean {
+  border: 0;
+  background: transparent;
+}
+
+.story-stage-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+
 .story-section {
   display: grid;
   gap: 16px;
