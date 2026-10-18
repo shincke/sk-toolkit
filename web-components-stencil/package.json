@@ -37,16 +37,13 @@
     "loader/"
   ],
   "scripts": {
-    "generate:tokens": "node scripts/generate-tokens.mjs",
-    "sync:tokens": "node scripts/generate-tokens.mjs",
-    "validate:tokens": "node scripts/generate-tokens.mjs && git diff --exit-code -- src/global/tokens.css src/design-tokens.ts",
-    "build": "npm run generate:tokens && stencil build",
-    "start": "npm run generate:tokens && stencil build --dev --watch --serve",
-    "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "storybook": "npm run build && concurrently -k \"stencil build --watch --dev\" \"storybook dev -p 6006\"",
+    "storybook:build": "npm run build && storybook build",
     "pages:build": "node scripts/build-pages.mjs",
     "pages:preview": "npm run pages:build && python3 -m http.server 4173 -d docs",
-    "test": "npm run generate:tokens && stencil-test",
+    "test": "stencil-test",
     "test:watch": "stencil-test --watch",
     "generate": "stencil generate"
   },
@@ -58,6 +55,7 @@
     "@storybook/web-components-vite": "^7.6.20",
     "@types/node": "^22.13.5",
     "@vitest/browser-playwright": "^4.0.0",
+    "concurrently": "^9.1.2",
     "storybook": "^7.6.20",
     "vitest": "^4.0.0"
   },
