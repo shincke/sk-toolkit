@@ -1,13 +1,15 @@
 import { h, render } from '@stencil/vitest';
 import { describe, expect, it, vi } from 'vitest';
 
+import { BADGE_COLOR_DEFAULT, BADGE_VARIANT_AI_CHIP, BADGE_VARIANT_DEFAULT } from './sk-badge.types';
+
 describe('sk-badge', () => {
   it('renders status badge by default', async () => {
     const { root } = await render(<sk-badge label="Published"></sk-badge>);
 
     const button = root.shadowRoot?.querySelector('button');
-    expect(button?.className).toContain('variant-status');
-    expect(button?.className).toContain('color-default');
+    expect(button?.className).toContain(`variant-${BADGE_VARIANT_DEFAULT}`);
+    expect(button?.className).toContain(`color-${BADGE_COLOR_DEFAULT}`);
   });
 
   it('renders filled variant and color classes', async () => {
@@ -19,7 +21,7 @@ describe('sk-badge', () => {
   });
 
   it('renders ai-chip text treatment', async () => {
-    const { root } = await render(<sk-badge variant="ai-chip" label="Something atmospheric"></sk-badge>);
+    const { root } = await render(<sk-badge variant={BADGE_VARIANT_AI_CHIP} label="Something atmospheric"></sk-badge>);
 
     expect(root.shadowRoot?.querySelector('sk-text')).toBeTruthy();
   });

@@ -5,18 +5,23 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { BadgeColor, BadgeVariant } from "./components/sk-badge/sk-badge.types";
 import { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 import { ChevronDirection, IconName } from "./utils/icons";
-import { SpinnerSize } from "./components/sk-spinner/sk-spinner";
+import { SpinnerSize } from "./components/sk-spinner/sk-spinner.types";
+export { BadgeColor, BadgeVariant } from "./components/sk-badge/sk-badge.types";
 export { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 export { ChevronDirection, IconName } from "./utils/icons";
-export { SpinnerSize } from "./components/sk-spinner/sk-spinner";
+export { SpinnerSize } from "./components/sk-spinner/sk-spinner.types";
 export namespace Components {
+    /**
+     * sk-badge displays short status labels, category chips, and AI suggestion tags.
+     */
     interface SkBadge {
         /**
           * @default 'default'
          */
-        "color": 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
+        "color": BadgeColor;
         /**
           * @default ''
          */
@@ -24,7 +29,7 @@ export namespace Components {
         /**
           * @default 'status'
          */
-        "variant": 'status' | 'filled' | 'category' | 'ai-chip';
+        "variant": BadgeVariant;
     }
     /**
      * sk-button triggers an action with a single click or tap and acts as a clear call to action.
@@ -354,6 +359,9 @@ declare global {
     interface HTMLSkBadgeElementEventMap {
         "skClick": MouseEvent;
     }
+    /**
+     * sk-badge displays short status labels, category chips, and AI suggestion tags.
+     */
     interface HTMLSkBadgeElement extends Components.SkBadge, HTMLStencilElement {
         addEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -563,11 +571,14 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    /**
+     * sk-badge displays short status labels, category chips, and AI suggestion tags.
+     */
     interface SkBadge {
         /**
           * @default 'default'
          */
-        "color"?: 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
+        "color"?: BadgeColor;
         /**
           * @default ''
          */
@@ -576,7 +587,7 @@ declare namespace LocalJSX {
         /**
           * @default 'status'
          */
-        "variant"?: 'status' | 'filled' | 'category' | 'ai-chip';
+        "variant"?: BadgeVariant;
     }
     /**
      * sk-button triggers an action with a single click or tap and acts as a clear call to action.
@@ -883,8 +894,8 @@ declare namespace LocalJSX {
     }
 
     interface SkBadgeAttributes {
-        "variant": 'status' | 'filled' | 'category' | 'ai-chip';
-        "color": 'success' | 'warning' | 'error' | 'accent' | 'secondary' | 'default';
+        "variant": BadgeVariant;
+        "color": BadgeColor;
         "label": string;
     }
     interface SkButtonAttributes {
@@ -1006,6 +1017,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            /**
+             * sk-badge displays short status labels, category chips, and AI suggestion tags.
+             */
             "sk-badge": LocalJSX.IntrinsicElements["sk-badge"] & JSXBase.HTMLAttributes<HTMLSkBadgeElement>;
             /**
              * sk-button triggers an action with a single click or tap and acts as a clear call to action.

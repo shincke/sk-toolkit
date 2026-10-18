@@ -1,14 +1,17 @@
 import { h, render } from '@stencil/vitest';
 import { describe, expect, it, vi } from 'vitest';
 
+import { BUTTON_SIZE_DEFAULT, BUTTON_TYPE_DEFAULT, BUTTON_VARIANT_DEFAULT } from './sk-button.types';
+
 describe('sk-button', () => {
   it('renders with default props', async () => {
     const { root } = await render(<sk-button>Label</sk-button>);
 
     const button = root.shadowRoot?.querySelector('button');
     expect(button).not.toBeNull();
-    expect(button?.classList.contains('variant-primary')).toBe(true);
-    expect(button?.classList.contains('size-md')).toBe(true);
+    expect(button?.classList.contains(`variant-${BUTTON_VARIANT_DEFAULT}`)).toBe(true);
+    expect(button?.classList.contains(`size-${BUTTON_SIZE_DEFAULT}`)).toBe(true);
+    expect(button?.getAttribute('type')).toBe(BUTTON_TYPE_DEFAULT);
     expect(root.textContent).toContain('Label');
   });
 

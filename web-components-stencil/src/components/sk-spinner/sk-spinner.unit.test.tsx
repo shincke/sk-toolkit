@@ -1,13 +1,15 @@
 import { h, render } from '@stencil/vitest';
 import { describe, expect, it } from 'vitest';
 
+import { SPINNER_SIZE_DEFAULT } from './sk-spinner.types';
+
 describe('sk-spinner', () => {
   it('renders with default size m', async () => {
     const { root } = await render(<sk-spinner></sk-spinner>);
 
     const spinner = root.shadowRoot?.querySelector('.spinner');
-    expect(spinner?.classList.contains('size-md')).toBe(true);
-    expect(root.getAttribute('size')).toBe('md');
+    expect(spinner?.classList.contains(`size-${SPINNER_SIZE_DEFAULT}`)).toBe(true);
+    expect(root.getAttribute('size')).toBe(SPINNER_SIZE_DEFAULT);
   });
 
   it('renders with size sm', async () => {

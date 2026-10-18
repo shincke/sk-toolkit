@@ -1,19 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-import { storyStage } from '../storybook-helpers';
+import { BUTTON_SIZE_DEFAULT, BUTTON_TYPE_DEFAULT, BUTTON_VARIANT_DEFAULT, type ButtonSize, type ButtonType, type ButtonVariant } from '../../components/sk-button/sk-button.types';
+import { docsPageTemplate, storyStage } from '../storybook-helpers';
 
-const variantOptions = ['primary', 'secondary', 'ghost', 'destructive'] as const;
-const sizeOptions = ['sm', 'md', 'lg'] as const;
+const variantOptions: ButtonVariant[] = ['primary', 'secondary', 'ghost', 'destructive'];
+const sizeOptions: ButtonSize[] = ['sm', 'md', 'lg'];
 const iconOptions = ['none', 'plus', 'check', 'arrow'] as const;
-const typeOptions = ['button', 'submit', 'reset'] as const;
+const typeOptions: ButtonType[] = ['button', 'submit', 'reset'];
 
 // This type represents the API we want to expose in Storybook. It can be a bit
 // broader than the minimal set of props in one story because docs and controls
 // are most useful when readers can explore the full public surface.
 type ButtonStoryArgs = {
   label: string;
-  variant: (typeof variantOptions)[number];
-  size: (typeof sizeOptions)[number];
+  variant: ButtonVariant;
+  size: ButtonSize;
   disabled: boolean;
   loading: boolean;
   fullWidth: boolean;
@@ -26,7 +27,7 @@ type ButtonStoryArgs = {
   download?: string;
   iconLeft: (typeof iconOptions)[number];
   iconRight: (typeof iconOptions)[number];
-  type: (typeof typeOptions)[number];
+  type: ButtonType;
   accessibleLabel?: string;
   skClick?: never;
   skFocus?: never;
@@ -83,8 +84,8 @@ const renderButton = (args: ButtonStoryArgs) => {
 
 const defaultArgs: ButtonStoryArgs = {
   label: 'Primary button',
-  variant: 'primary',
-  size: 'md',
+  variant: BUTTON_VARIANT_DEFAULT,
+  size: BUTTON_SIZE_DEFAULT,
   disabled: false,
   loading: false,
   fullWidth: false,
@@ -97,7 +98,7 @@ const defaultArgs: ButtonStoryArgs = {
   download: undefined,
   iconLeft: 'none',
   iconRight: 'none',
-  type: 'button',
+  type: BUTTON_TYPE_DEFAULT,
   accessibleLabel: 'Primary button',
 };
 
@@ -115,12 +116,13 @@ const meta: Meta<ButtonStoryArgs> = {
       handles: ['skClick', 'skFocus', 'skBlur'],
     },
     docs: {
+      page: docsPageTemplate,
       description: {
         component: `sk-button triggers an action with a single click or tap and acts as a clear call to action.
 Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
 It can be used as a button or as a link, depending on whether the \`href\` property is set.
 ## API
-Use the controls below to explore the button states, or open the stories further down this page for focused examples such as icons, links, loading, and toggle behavior.
+Use the controls below to explore the button states and API.
         `,
       },
     },
@@ -145,7 +147,7 @@ Use the controls below to explore the button states, or open the stories further
       description: 'Visual hierarchy of the button.',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'primary' },
+        defaultValue: { summary: BUTTON_VARIANT_DEFAULT },
       },
     },
     size: {
@@ -154,7 +156,7 @@ Use the controls below to explore the button states, or open the stories further
       description: 'Controls the button height and internal spacing.',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'md' },
+        defaultValue: { summary: BUTTON_SIZE_DEFAULT },
       },
     },
     disabled: {
@@ -263,7 +265,7 @@ Use the controls below to explore the button states, or open the stories further
       description: 'Native button type when the component renders a button element.',
       table: {
         category: 'Props',
-        defaultValue: { summary: 'button' },
+        defaultValue: { summary: BUTTON_TYPE_DEFAULT },
       },
     },
     accessibleLabel: {
@@ -366,6 +368,7 @@ export const Secondary: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Secondary buttons are lower contrast than primary buttons and are used for secondary actions.',
       },
@@ -389,6 +392,7 @@ export const Ghost: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Ghost buttons are low-contrast and work well on colored backgrounds.',
       },
@@ -412,6 +416,7 @@ export const Destructive: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Use destructive buttons for actions that are potentially dangerous or irreversible.',
       },
@@ -436,6 +441,7 @@ export const Loading: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Loading states communicate progress and temporarily prevent repeated interaction.',
       },
@@ -460,6 +466,7 @@ export const IconOnly: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Icon-only buttons require an accessible label because there is no visible text content.',
       },
@@ -485,6 +492,7 @@ export const WithIcons: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Use leading and trailing icons to reinforce the action and improve clarity in command-heavy interfaces.',
       },
@@ -513,6 +521,7 @@ export const AsLink: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Set `href` when the button should navigate instead of triggering an in-place action.',
       },
@@ -540,6 +549,7 @@ export const Pressed: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Use `pressed` for toggle-style actions where the button represents an on/off state.',
       },
