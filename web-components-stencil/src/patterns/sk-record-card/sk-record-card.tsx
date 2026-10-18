@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 import { renderImagePlaceholder } from '../../utils/image-placeholder';
 
 @Component({
@@ -7,6 +7,8 @@ import { renderImagePlaceholder } from '../../utils/image-placeholder';
   shadow: true,
 })
 export class SkRecordCard {
+  @Element() hostEl!: HTMLElement;
+
   @Prop({ reflect: true }) variant: 'list' | 'grid' | 'detail' = 'grid';
   @Prop({ attribute: 'title' }) recordTitle = '';
   @Prop() artist = '';
@@ -18,9 +20,16 @@ export class SkRecordCard {
   @Prop() imageSrc = '';
   @Prop() imageAlt = '';
   @Prop({ reflect: true }) inStock = true;
-  @Prop({ attribute: 'aria-label' }) accessibleLabel?: string;
+  @Prop({ attribute: 'aria-label', mutable: true }) accessibleLabel?: string;
 
   @Event() skAddToSelection!: EventEmitter<MouseEvent | KeyboardEvent>;
+
+  private hasExplicitAccessibleLabel = false;
+
+  componentWillLoad() {
+    this.hasExplicitAccessibleLabel = this.hostEl.hasAttribute('aria-label');
+    this.syncAccessibleLabel();
+  }
 
   private handleActivate = (event: MouseEvent | KeyboardEvent) => {
     if (!this.inStock) {
@@ -50,6 +59,12 @@ export class SkRecordCard {
 
   private getAccessibleLabel(): string {
     return this.accessibleLabel || `${this.recordTitle}${this.artist ? ` by ${this.artist}` : ''}` || 'Record card';
+  }
+
+  private syncAccessibleLabel() {
+    if (!this.hasExplicitAccessibleLabel) {
+      this.accessibleLabel = `${this.recordTitle}${this.artist ? ` by ${this.artist}` : ''}` || 'Record card';
+    }
   }
 
   private getPriceLabel(): string {

@@ -15,9 +15,16 @@ export class SkCard {
   @Prop() imageAlt = '';
   @Prop({ reflect: true }) variant: 'default' | 'image' | 'selected' = 'default';
   @Prop({ mutable: true, reflect: true }) selected = false;
-  @Prop({ attribute: 'aria-label' }) accessibleLabel?: string;
+  @Prop({ attribute: 'aria-label', mutable: true }) accessibleLabel?: string;
 
   @Event() skClick!: EventEmitter<MouseEvent | KeyboardEvent>;
+
+  private hasExplicitAccessibleLabel = false;
+
+  componentWillLoad() {
+    this.hasExplicitAccessibleLabel = this.hostEl.hasAttribute('aria-label');
+    this.syncAccessibleLabel();
+  }
 
   private handleClick = (event: MouseEvent) => {
     if (this.variant === 'selected') {
@@ -56,6 +63,12 @@ export class SkCard {
 
   private getAccessibleLabel(): string {
     return this.accessibleLabel || this.cardTitle || this.subtitle || 'Card';
+  }
+
+  private syncAccessibleLabel() {
+    if (!this.hasExplicitAccessibleLabel) {
+      this.accessibleLabel = this.cardTitle || this.subtitle || 'Card';
+    }
   }
 
   render() {

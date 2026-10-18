@@ -1,56 +1,43 @@
-import { newSpecPage } from '@stencil/core/testing';
+import { h, render } from '@stencil/vitest';
 import { describe, expect, it, vi } from 'vitest';
-
-import { SkSelect } from './sk-select';
 
 describe('sk-select', () => {
   it('renders label and placeholder', async () => {
-    const page = await newSpecPage({
-      components: [SkSelect],
-      html: '<sk-select label="City" placeholder="Choose city"></sk-select>',
-    });
+    const { root } = await render(<sk-select label="City" placeholder="Choose city"></sk-select>);
 
-    expect(page.root?.shadowRoot?.querySelector('sk-caption')?.textContent).toBe('City');
-    expect(page.root?.shadowRoot?.querySelector('select option')?.textContent).toBe('Choose city');
+    expect(root.shadowRoot?.querySelector('sk-caption')?.textContent).toBe('City');
+    expect(root.shadowRoot?.querySelector('select option')?.textContent).toBe('Choose city');
   });
 
   it('parses options from JSON attribute string', async () => {
-    const page = await newSpecPage({
-      components: [SkSelect],
-      html: '<sk-select options="[&quot;Tokyo&quot;,&quot;Osaka&quot;]"></sk-select>',
-    });
+    const { root } = await render(<sk-select options='["Tokyo","Osaka"]'></sk-select>);
 
-    const options = page.root?.shadowRoot?.querySelectorAll('option');
+    const options = root.shadowRoot?.querySelectorAll('option');
     expect(options?.length).toBe(3);
     expect(options?.[1].getAttribute('value')).toBe('Tokyo');
   });
 
   it('reflects disabled state', async () => {
-    const page = await newSpecPage({
-      components: [SkSelect],
-      html: '<sk-select disabled></sk-select>',
-    });
+    const { root } = await render(<sk-select disabled></sk-select>);
 
-    expect(page.root?.shadowRoot?.querySelector('select')?.disabled).toBe(true);
+    expect(root.shadowRoot?.querySelector('select')?.getAttribute('disabled')).toBe('');
   });
 
   it('emits skChange and updates value on selection', async () => {
-    const page = await newSpecPage({
-      components: [SkSelect],
-      html: '<sk-select options="Tokyo,Osaka"></sk-select>',
-    });
+    const { root, waitForChanges } = await render(<sk-select options="Tokyo,Osaka"></sk-select>);
+    const selectRoot = root as HTMLSkSelectElement;
 
     const handler = vi.fn();
-    page.root?.addEventListener('skChange', (event: Event) => {
+    root.addEventListener('skChange', (event: Event) => {
       handler((event as CustomEvent<string | null>).detail);
     });
 
-    const select = page.root?.shadowRoot?.querySelector('select') as HTMLSelectElement;
+    const select = root.shadowRoot?.querySelector('select') as HTMLSelectElement;
     select.value = 'Osaka';
     select.dispatchEvent(new Event('change'));
-    await page.waitForChanges();
+    await waitForChanges();
 
-    expect(page.root?.value).toBe('Osaka');
+    expect(selectRoot.value).toBe('Osaka');
     expect(handler).toHaveBeenCalledWith('Osaka');
   });
 });
