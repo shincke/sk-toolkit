@@ -15,20 +15,42 @@ Requirements:
 
 From `web-components-stencil/`:
 
+### 1. Stencil only
+
 ```bash
 npm start
 ```
 
-Build Storybook:
+Use this when you want to work on the Stencil project by itself.
+It runs the Stencil dev server, watches files, rebuilds on change, and serves the local preview.
+
+### 2. Storybook with web components enabled
 
 ```bash
-npm run storybook:build
+npm run storybook
 ```
 
-Build and preview the GitHub Pages site:
+Use this when you want to preview components in Storybook.
+
+What this command does:
+
+1. Runs one Stencil build first.
+2. Starts Stencil in watch mode so component changes rebuild automatically.
+3. Starts Storybook on `http://localhost:6006`.
+
+This is important because Storybook depends on the generated Stencil runtime and loader.
+It does not compile the Stencil components directly from source by itself.
+
+### 3. Test
 
 ```bash
-npm run pages:preview
+npm test
+```
+
+### 4. Production build
+
+```bash
+npm run build
 ```
 
 ## License

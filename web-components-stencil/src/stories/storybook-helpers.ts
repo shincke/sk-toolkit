@@ -1,3 +1,6 @@
+import { Controls, Description, Primary, Title } from '@storybook/blocks';
+import { createElement, Fragment } from 'react';
+
 export const storyPage = (...sections: string[]) => `<div class="story-page">${sections.join('')}</div>`;
 
 export const storySection = (title: string, body: string) => `
@@ -19,4 +22,15 @@ export const storyStage = (body: string, className = '') => {
   const classes = ['story-stage', className].filter(Boolean).join(' ');
 
   return `<div class="${classes}">${body}</div>`;
+};
+
+export const docsPageTemplate = () => {
+  return createElement(
+    Fragment,
+    null,
+    createElement(Title),
+    createElement(Description),
+    createElement(Primary),
+    createElement(Controls),
+  );
 };

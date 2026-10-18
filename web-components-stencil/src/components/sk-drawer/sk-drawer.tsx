@@ -190,12 +190,12 @@ export class SkDrawer {
                 {this.hasHeaderSlot() ? (
                   <slot name="header" />
                 ) : (
-                  <>
-                    <div class="title">{this.drawerTitle}</div>
+                  [
+                    <div class="title">{this.drawerTitle}</div>,
                     <button class="close-button" type="button" aria-label="Close drawer" onClick={this.handleCloseClick}>
-                      <sk-icon name="close" size={20} aria-label={undefined} />
-                    </button>
-                  </>
+                      <sk-icon name="close" size={20} />
+                    </button>,
+                  ]
                 )}
               </div>
 

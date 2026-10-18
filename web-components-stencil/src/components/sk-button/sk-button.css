@@ -183,7 +183,7 @@
   opacity: 0;
 }
 
-.button sk-loading {
+.button sk-spinner {
   position: absolute;
   top: 50%;
   left: 50%;
