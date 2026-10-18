@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-import { storyStage } from '../storybook-helpers';
+import { docsPageTemplate, storyStage } from '../storybook-helpers';
 
 const variantOptions = ['primary', 'secondary', 'ghost', 'destructive'] as const;
 const sizeOptions = ['sm', 'md', 'lg'] as const;
@@ -115,12 +115,13 @@ const meta: Meta<ButtonStoryArgs> = {
       handles: ['skClick', 'skFocus', 'skBlur'],
     },
     docs: {
+      page: docsPageTemplate,
       description: {
         component: `sk-button triggers an action with a single click or tap and acts as a clear call to action.
 Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
 It can be used as a button or as a link, depending on whether the \`href\` property is set.
 ## API
-Use the controls below to explore the button states, or open the stories further down this page for focused examples such as icons, links, loading, and toggle behavior.
+Use the controls below to explore the button states and API.
         `,
       },
     },
@@ -366,6 +367,7 @@ export const Secondary: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Secondary buttons are lower contrast than primary buttons and are used for secondary actions.',
       },
@@ -389,6 +391,7 @@ export const Ghost: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Ghost buttons are low-contrast and work well on colored backgrounds.',
       },
@@ -412,6 +415,7 @@ export const Destructive: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Use destructive buttons for actions that are potentially dangerous or irreversible.',
       },
@@ -436,6 +440,7 @@ export const Loading: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Loading states communicate progress and temporarily prevent repeated interaction.',
       },
@@ -460,6 +465,7 @@ export const IconOnly: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Icon-only buttons require an accessible label because there is no visible text content.',
       },
@@ -485,6 +491,7 @@ export const WithIcons: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Use leading and trailing icons to reinforce the action and improve clarity in command-heavy interfaces.',
       },
@@ -513,6 +520,7 @@ export const AsLink: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Set `href` when the button should navigate instead of triggering an in-place action.',
       },
@@ -540,6 +548,7 @@ export const Pressed: Story = {
   },
   parameters: {
     docs: {
+      disable: true,
       description: {
         story: 'Use `pressed` for toggle-style actions where the button represents an on/off state.',
       },
