@@ -139,11 +139,18 @@
           <div class="showcase-stack">
             <sk-caption>Status</sk-caption>
             <div class="showcase-row">
-              <sk-badge variant="status" color="success" label="Published"></sk-badge>
-              <sk-badge variant="status" color="warning" label="Draft"></sk-badge>
-              <sk-badge variant="status" color="secondary" label="Archived"></sk-badge>
-              <sk-badge variant="status" color="accent" label="Featured"></sk-badge>
-              <sk-badge variant="status" color="error" label="Error"></sk-badge>
+              <!-- <sk-badge variant="status" color="success" label="Published" size="sm"></sk-badge>
+              <sk-badge variant="status" color="warning" label="Draft" size="md"></sk-badge>
+              <sk-badge variant="status" color="secondary" label="Archived" size="lg"></sk-badge>
+              <sk-badge variant="status" color="accent" label="Featured" size="sm"></sk-badge>
+              <sk-badge variant="status" color="error" label="Error" size="sm"></sk-badge> -->
+              <sk-badge variant="status" color="success" label="Published" size="sm"></sk-badge>
+              <sk-badge variant="filled" color="warning" label="Draft" size="sm"></sk-badge>
+              <sk-badge variant="category" color="secondary" label="Archived" size="sm"></sk-badge>
+              <sk-badge variant="status" color="accent" label="Featured" size="md"></sk-badge>
+              <sk-badge variant="filled" color="error" label="Error" size="md"></sk-badge>
+              <sk-badge variant="category" color="error" label="Error" size="md"></sk-badge>
+
             </div>
             <sk-caption>Filled</sk-caption>
             <div class="showcase-row">
@@ -155,20 +162,16 @@
             </div>
             <sk-caption>Category / Metadata</sk-caption>
             <div class="showcase-row">
-              <sk-badge variant="category" color="default" label="Research"></sk-badge>
-              <sk-badge variant="category" color="default" label="Archive"></sk-badge>
-              <sk-badge variant="category" color="default" label="Poster Design"></sk-badge>
-              <sk-badge variant="category" color="default" label="Typography"></sk-badge>
-              <sk-badge variant="category" color="default" label="Editorial"></sk-badge>
-              <sk-badge variant="category" color="default" label="Vol. 04"></sk-badge>
-            </div>
-            <sk-caption>AI Suggestion Chip</sk-caption>
-            <div class="showcase-row">
-              <sk-caption>Try</sk-caption>
-              <sk-badge variant="ai-chip" color="default" label="Something atmospheric"></sk-badge>
-              <sk-badge variant="ai-chip" color="default" label="Brazilian electronic"></sk-badge>
-              <sk-badge variant="ai-chip" color="default" label="Japanese ambient 1980s"></sk-badge>
-              <sk-badge variant="ai-chip" color="default" label="Similar to Aphex Twin"></sk-badge>
+              <sk-badge variant="category" label="Research" size="sm"></sk-badge>
+              <sk-badge variant="category" label="Archive" size="md"></sk-badge>
+              <sk-badge variant="category" label="Poster Design" size="lg"></sk-badge>
+              <sk-badge variant="category" label="Typography" size="sm"></sk-badge>
+              <sk-badge variant="category" label="Editorial" size="sm"></sk-badge>
+              <sk-badge variant="category" label="Vol. 04" size="sm"></sk-badge>
+              <sk-badge variant="category">
+                <sk-icon name="plus" aria-label="Add"></sk-icon>
+                <span>Add new tag</span>
+              </sk-badge>
             </div>
           </div>
         </article>

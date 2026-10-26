@@ -6,12 +6,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.25rem;
-  padding: 0.45rem 0.95rem;
   border: var(--border-hairline) solid var(--badge-border, var(--color-border));
   background: var(--badge-background, transparent);
   color: var(--badge-foreground, var(--color-text-secondary));
-  cursor: pointer;
+  cursor: default;
   border-radius: var(--radius-none);
   box-shadow: none;
   transition:
@@ -21,15 +19,39 @@
     box-shadow 0.18s ease;
 }
 
+.badge.size-xs {
+  min-height: 1.75rem;
+  padding: 0.25rem 0.65rem;
+}
+
+.badge.size-sm {
+  /* min-height: 2.25rem; */
+  padding: 0.45rem 0.95rem;
+}
+
+.badge.size-md {
+  /* min-height: 2.5rem; */
+  padding: 0.55rem 1rem;
+}
+
+.badge.size-lg {
+  /* min-height: 3rem; */
+  padding: 0.7rem 1.15rem;
+}
+
+.badge.is-interactive {
+  cursor: pointer;
+}
+
 .badge:focus {
   outline: none;
 }
 
-.badge:focus-visible {
+.badge.is-interactive:focus-visible {
   box-shadow: 0 0 0 var(--border-strong) var(--color-focus);
 }
 
-.badge:hover {
+.badge.is-interactive:hover {
   background: var(--badge-hover-background, var(--badge-background, transparent));
   color: var(--badge-hover-foreground, var(--badge-foreground, var(--color-text-secondary)));
   border-color: var(--badge-hover-border, var(--badge-border, var(--color-border)));
@@ -46,31 +68,21 @@
 }
 
 .variant-status,
+.variant-filled,
 .variant-category {
-  min-height: 2.25rem;
   background: transparent;
 }
 
 .variant-filled {
-  min-height: 2.25rem;
+  background: var(--badge-background, transparent);
 }
 
-.variant-filled sk-caption {
-  --color-text-secondary: currentColor;
-}
-
-.variant-ai-chip {
-  min-height: 3.5rem;
+.variant-category {
   justify-content: flex-start;
-  padding-inline: var(--space-24);
 }
 
-.variant-ai-chip sk-text {
+.variant-category sk-text {
   --color-text-primary: currentColor;
-}
-
-.variant-ai-chip:hover {
-  background: var(--color-surface-elevated);
 }
 
 .color-success {
@@ -143,4 +155,17 @@
   --badge-background: var(--color-surface-elevated);
   --badge-foreground: var(--color-text-primary);
   --badge-hover-background: color-mix(in srgb, var(--color-surface-elevated) 72%, var(--color-border));
+}
+
+.badge .content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: 100%;
+}
+
+.badge .content > * {
+  display: inline-flex;
+  align-items: center;
 }

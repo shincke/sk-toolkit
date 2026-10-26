@@ -5,27 +5,41 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { BadgeColor, BadgeVariant } from "./components/sk-badge/sk-badge.types";
+import { BadgeColor, BadgeSize, BadgeVariant } from "./components/sk-badge/sk-badge.types";
 import { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 import { ChevronDirection, IconName } from "./utils/icons";
 import { SpinnerSize } from "./components/sk-spinner/sk-spinner.types";
-export { BadgeColor, BadgeVariant } from "./components/sk-badge/sk-badge.types";
+export { BadgeColor, BadgeSize, BadgeVariant } from "./components/sk-badge/sk-badge.types";
 export { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 export { ChevronDirection, IconName } from "./utils/icons";
 export { SpinnerSize } from "./components/sk-spinner/sk-spinner.types";
 export namespace Components {
     /**
-     * sk-badge displays short status labels, category chips, and AI suggestion tags.
+     * sk-badge is a small label for quick recognition and navigation.
+     * status and filled variants are used for status labels, static and non-interactive.
+     * category is the only clickable variant and can be used for filtering and metadata.
      */
     interface SkBadge {
+        /**
+          * @default this.label?.trim() || "Badge"
+         */
+        "ariaLabel": string;
         /**
           * @default 'default'
          */
         "color": BadgeColor;
         /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
           * @default ''
          */
         "label": string;
+        /**
+          * @default 'sm'
+         */
+        "size": BadgeSize;
         /**
           * @default 'status'
          */
@@ -357,10 +371,12 @@ export interface SkToggleCustomEvent<T> extends CustomEvent<T> {
 }
 declare global {
     interface HTMLSkBadgeElementEventMap {
-        "skClick": MouseEvent;
+        "skClick": MouseEvent | KeyboardEvent;
     }
     /**
-     * sk-badge displays short status labels, category chips, and AI suggestion tags.
+     * sk-badge is a small label for quick recognition and navigation.
+     * status and filled variants are used for status labels, static and non-interactive.
+     * category is the only clickable variant and can be used for filtering and metadata.
      */
     interface HTMLSkBadgeElement extends Components.SkBadge, HTMLStencilElement {
         addEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -572,18 +588,32 @@ declare global {
 }
 declare namespace LocalJSX {
     /**
-     * sk-badge displays short status labels, category chips, and AI suggestion tags.
+     * sk-badge is a small label for quick recognition and navigation.
+     * status and filled variants are used for status labels, static and non-interactive.
+     * category is the only clickable variant and can be used for filtering and metadata.
      */
     interface SkBadge {
+        /**
+          * @default this.label?.trim() || "Badge"
+         */
+        "ariaLabel"?: string;
         /**
           * @default 'default'
          */
         "color"?: BadgeColor;
         /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
           * @default ''
          */
         "label"?: string;
-        "onSkClick"?: (event: SkBadgeCustomEvent<MouseEvent>) => void;
+        "onSkClick"?: (event: SkBadgeCustomEvent<MouseEvent | KeyboardEvent>) => void;
+        /**
+          * @default 'sm'
+         */
+        "size"?: BadgeSize;
         /**
           * @default 'status'
          */
@@ -896,7 +926,10 @@ declare namespace LocalJSX {
     interface SkBadgeAttributes {
         "variant": BadgeVariant;
         "color": BadgeColor;
+        "size": BadgeSize;
         "label": string;
+        "disabled": boolean;
+        "ariaLabel": string;
     }
     interface SkButtonAttributes {
         "variant": ButtonVariant;
@@ -1018,7 +1051,9 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             /**
-             * sk-badge displays short status labels, category chips, and AI suggestion tags.
+             * sk-badge is a small label for quick recognition and navigation.
+             * status and filled variants are used for status labels, static and non-interactive.
+             * category is the only clickable variant and can be used for filtering and metadata.
              */
             "sk-badge": LocalJSX.IntrinsicElements["sk-badge"] & JSXBase.HTMLAttributes<HTMLSkBadgeElement>;
             /**

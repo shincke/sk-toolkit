@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-import { BADGE_COLOR_DEFAULT, BADGE_VARIANT_AI_CHIP, BADGE_VARIANT_DEFAULT, type BadgeColor, type BadgeVariant } from '../../components/sk-badge/sk-badge.types';
+import { BADGE_COLOR_DEFAULT, BADGE_VARIANT_DEFAULT, type BadgeColor, type BadgeVariant } from '../../components/sk-badge/sk-badge.types';
 import { docsPageTemplate, storyStage } from '../storybook-helpers';
 
-const variantOptions: BadgeVariant[] = ['status', 'filled', 'category', 'ai-chip'];
+const variantOptions: BadgeVariant[] = ['status', 'filled', 'category'];
 const colorOptions: BadgeColor[] = ['success', 'warning', 'error', 'accent', 'secondary', 'default'];
 
 type BadgeStoryArgs = {
@@ -11,12 +11,13 @@ type BadgeStoryArgs = {
   slotText: string;
   variant: BadgeVariant;
   color: BadgeColor;
+  size: 'sm' | 'md' | 'lg';
   skClick?: never;
   defaultSlot?: never;
 };
 
 const buildBadgeMarkup = (args: BadgeStoryArgs) => {
-  const attributes = [`variant="${args.variant}"`, `color="${args.color}"`, args.label ? `label="${args.label}"` : ''].filter(Boolean);
+  const attributes = [`variant="${args.variant}"`, `color="${args.color}"`, `size="${args.size}"`, args.label ? `label="${args.label}"` : ''].filter(Boolean);
 
   const content = args.label ? '' : args.slotText;
 
@@ -32,6 +33,7 @@ const defaultArgs: BadgeStoryArgs = {
   slotText: 'Published',
   variant: BADGE_VARIANT_DEFAULT,
   color: 'success',
+  size: 'sm',
 };
 
 const meta: Meta<BadgeStoryArgs> = {
@@ -46,9 +48,9 @@ const meta: Meta<BadgeStoryArgs> = {
     docs: {
       page: docsPageTemplate,
       description: {
-        component: `sk-badge displays short status labels, category chips, and AI suggestion tags.
+        component: `sk-badge displays short status labels, category chips, and metadata tags.
 ## API
-Use the controls below to explore the badge variants, colors, and text content. Clear the label control to preview slot-based content.
+Use the controls below to explore the badge variants, sizes, colors, and text content. Clear the label control to preview slot-based content.
         `,
       },
     },
@@ -81,15 +83,24 @@ Use the controls below to explore the badge variants, colors, and text content. 
     color: {
       control: 'select',
       options: colorOptions,
-      description: 'Semantic color treatment applied to the badge.',
+      description: 'Semantic color treatment applied to the badge, unless the variant is interactive category.',
       table: {
         category: 'Props',
         defaultValue: { summary: BADGE_COLOR_DEFAULT },
       },
     },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Badge size. Defaults to `sm`.',
+      table: {
+        category: 'Props',
+        defaultValue: { summary: 'sm' },
+      },
+    },
     skClick: {
       name: 'skClick',
-      description: 'Emitted when the user clicks the badge button.',
+      description: 'Emitted when the user clicks a category badge.',
       control: false,
       table: {
         category: 'Events',
@@ -127,6 +138,7 @@ export const Filled: Story = {
   args: {
     variant: 'filled',
     color: 'success',
+    size: 'sm',
     label: 'Published',
     slotText: 'Published',
   },
@@ -141,6 +153,7 @@ export const Filled: Story = {
           ...defaultArgs,
           variant: 'filled',
           color: 'success',
+          size: 'sm',
           label: 'Published',
           slotText: 'Published',
         }),
@@ -153,6 +166,7 @@ export const Category: Story = {
   args: {
     variant: 'category',
     color: 'default',
+    size: 'sm',
     label: 'Research',
     slotText: 'Research',
   },
@@ -160,41 +174,16 @@ export const Category: Story = {
     docs: {
       disable: true,
       description: {
-        story: 'Category badges work well for labels, groupings, and editorial metadata.',
+        story: 'Category badges are the only clickable variant and can be used for labels, groupings, and metadata.',
       },
       source: {
         code: buildBadgeMarkup({
           ...defaultArgs,
           variant: 'category',
           color: 'default',
+          size: 'sm',
           label: 'Research',
           slotText: 'Research',
-        }),
-      },
-    },
-  },
-};
-
-export const AiChip: Story = {
-  args: {
-    variant: BADGE_VARIANT_AI_CHIP,
-    color: BADGE_COLOR_DEFAULT,
-    label: 'Something atmospheric',
-    slotText: 'Something atmospheric',
-  },
-  parameters: {
-    docs: {
-      disable: true,
-      description: {
-        story: 'AI chip badges use the larger text treatment for suggestion-like content.',
-      },
-      source: {
-        code: buildBadgeMarkup({
-          ...defaultArgs,
-          variant: BADGE_VARIANT_AI_CHIP,
-          color: BADGE_COLOR_DEFAULT,
-          label: 'Something atmospheric',
-          slotText: 'Something atmospheric',
         }),
       },
     },
@@ -207,6 +196,7 @@ export const WithSlotContent: Story = {
     slotText: 'Archived',
     variant: 'status',
     color: 'secondary',
+    size: 'sm',
   },
   parameters: {
     docs: {
@@ -221,6 +211,7 @@ export const WithSlotContent: Story = {
           slotText: 'Archived',
           variant: 'status',
           color: 'secondary',
+          size: 'sm',
         }),
       },
     },
