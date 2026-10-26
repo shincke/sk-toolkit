@@ -4,7 +4,7 @@ import { TAG_COLOR_DEFAULT, TAG_INTERACTIVE_DEFAULT, TAG_SIZE_DEFAULT, TAG_VARIA
 /**
  * sk-tag is a small label for quick recognition and navigation.
  * status and filled variants are used for static and non-interactive tags.
- * category is the only clickable variant and can be used for filtering and performing actions.
+ * interactive is the only clickable variant and can be used for filtering and performing actions.
  *
  * @slot - Tag text content used when the label prop is not provided
  */

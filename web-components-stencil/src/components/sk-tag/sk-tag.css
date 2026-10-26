@@ -66,7 +66,7 @@
 
 .variant-status,
 .variant-filled,
-.variant-category {
+.variant-interactive {
   background: transparent;
 }
 
@@ -74,11 +74,11 @@
   background: var(--tag-background, transparent);
 }
 
-.variant-category {
+.variant-interactive {
   justify-content: flex-start;
 }
 
-.variant-category sk-text {
+.variant-interactive sk-text {
   --color-text-primary: currentColor;
 }
 
