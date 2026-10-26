@@ -1,44 +1,44 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-import { BADGE_COLOR_DEFAULT, BADGE_VARIANT_DEFAULT, type BadgeColor, type BadgeVariant } from '../../components/sk-badge/sk-badge.types';
+import { TAG_COLOR_DEFAULT, TAG_VARIANT_DEFAULT, type TagColor, type TagVariant } from '../../components/sk-tag/sk-tag.types';
 import { docsPageTemplate, storyStage } from '../storybook-helpers';
 
-const variantOptions: BadgeVariant[] = ['status', 'filled', 'category'];
-const colorOptions: BadgeColor[] = ['success', 'warning', 'error', 'accent', 'secondary', 'default'];
+const variantOptions: TagVariant[] = ['status', 'filled', 'category'];
+const colorOptions: TagColor[] = ['success', 'warning', 'error', 'accent', 'secondary', 'default'];
 
-type BadgeStoryArgs = {
+type TagStoryArgs = {
   label: string;
   slotText: string;
-  variant: BadgeVariant;
-  color: BadgeColor;
+  variant: TagVariant;
+  color: TagColor;
   size: 'sm' | 'md' | 'lg';
   skClick?: never;
   defaultSlot?: never;
 };
 
-const buildBadgeMarkup = (args: BadgeStoryArgs) => {
+const buildTagMarkup = (args: TagStoryArgs) => {
   const attributes = [`variant="${args.variant}"`, `color="${args.color}"`, `size="${args.size}"`, args.label ? `label="${args.label}"` : ''].filter(Boolean);
 
   const content = args.label ? '' : args.slotText;
 
-  return `<sk-badge ${attributes.join(' ')}>${content}</sk-badge>`;
+  return `<sk-tag ${attributes.join(' ')}>${content}</sk-tag>`;
 };
 
-const renderBadge = (args: BadgeStoryArgs) => {
-  return storyStage(buildBadgeMarkup(args), 'story-stage-clean story-stage-centered');
+const renderTag = (args: TagStoryArgs) => {
+  return storyStage(buildTagMarkup(args), 'story-stage-clean story-stage-centered');
 };
 
-const defaultArgs: BadgeStoryArgs = {
+const defaultArgs: TagStoryArgs = {
   label: 'Published',
   slotText: 'Published',
-  variant: BADGE_VARIANT_DEFAULT,
-  color: 'success',
+  variant: TAG_VARIANT_DEFAULT,
+  color: TAG_COLOR_DEFAULT,
   size: 'sm',
 };
 
-const meta: Meta<BadgeStoryArgs> = {
-  title: 'Components/Badge',
-  component: 'sk-badge',
+const meta: Meta<TagStoryArgs> = {
+  title: 'Components/Tag',
+  component: 'sk-tag',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -48,9 +48,9 @@ const meta: Meta<BadgeStoryArgs> = {
     docs: {
       page: docsPageTemplate,
       description: {
-        component: `sk-badge displays short status labels, category chips, and metadata tags.
+        component: `sk-tag is a small label for quick recognition and navigation.
 ## API
-Use the controls below to explore the badge variants, sizes, colors, and text content. Clear the label control to preview slot-based content.
+Use the controls below to explore the tag variants, sizes, colors, and text content. Clear the label control to preview slot-based content.
         `,
       },
     },
@@ -74,25 +74,26 @@ Use the controls below to explore the badge variants, sizes, colors, and text co
     variant: {
       control: 'select',
       options: variantOptions,
-      description: 'Visual style of the badge.',
+      description:
+        'Visual style of the tag. `status` and `filled` variants are used for static and non-interactive tags. `category` is the only clickable variant and can be used for filtering and performing actions.',
       table: {
         category: 'Props',
-        defaultValue: { summary: BADGE_VARIANT_DEFAULT },
+        defaultValue: { summary: TAG_VARIANT_DEFAULT },
       },
     },
     color: {
       control: 'select',
       options: colorOptions,
-      description: 'Semantic color treatment applied to the badge, unless the variant is interactive category.',
+      description: 'Semantic color treatment applied to the tag. `success`, `warning`, `error`, `accent`, `secondary`, and `default`.',
       table: {
         category: 'Props',
-        defaultValue: { summary: BADGE_COLOR_DEFAULT },
+        defaultValue: { summary: TAG_COLOR_DEFAULT },
       },
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Badge size. Defaults to `sm`.',
+      description: 'Tag size `sm` | `md` | `lg`.',
       table: {
         category: 'Props',
         defaultValue: { summary: 'sm' },
@@ -100,7 +101,7 @@ Use the controls below to explore the badge variants, sizes, colors, and text co
     },
     skClick: {
       name: 'skClick',
-      description: 'Emitted when the user clicks a category badge.',
+      description: 'Emitted when the user clicks a category tag.',
       control: false,
       table: {
         category: 'Events',
@@ -109,7 +110,7 @@ Use the controls below to explore the badge variants, sizes, colors, and text co
     },
     defaultSlot: {
       name: 'default',
-      description: 'Badge text content used when the `label` prop is not provided.',
+      description: 'Tag text content used when the `label` prop is not provided.',
       control: false,
       table: {
         category: 'Slots',
@@ -117,18 +118,18 @@ Use the controls below to explore the badge variants, sizes, colors, and text co
       },
     },
   },
-  render: renderBadge,
+  render: renderTag,
 };
 
 export default meta;
 
-type Story = StoryObj<BadgeStoryArgs>;
+type Story = StoryObj<TagStoryArgs>;
 
 export const Default: Story = {
   parameters: {
     docs: {
       source: {
-        code: buildBadgeMarkup(defaultArgs),
+        code: buildTagMarkup(defaultArgs),
       },
     },
   },
@@ -146,10 +147,10 @@ export const Filled: Story = {
     docs: {
       disable: true,
       description: {
-        story: 'Filled badges increase emphasis by using a solid background color.',
+        story: 'Filled tags increase emphasis by using a solid background color.',
       },
       source: {
-        code: buildBadgeMarkup({
+        code: buildTagMarkup({
           ...defaultArgs,
           variant: 'filled',
           color: 'success',
@@ -174,10 +175,10 @@ export const Category: Story = {
     docs: {
       disable: true,
       description: {
-        story: 'Category badges are the only clickable variant and can be used for labels, groupings, and metadata.',
+        story: 'Category tags are the only clickable variant and can be used for labels, groupings, and metadata.',
       },
       source: {
-        code: buildBadgeMarkup({
+        code: buildTagMarkup({
           ...defaultArgs,
           variant: 'category',
           color: 'default',
@@ -202,10 +203,10 @@ export const WithSlotContent: Story = {
     docs: {
       disable: true,
       description: {
-        story: 'When `label` is empty, the badge renders its text from the default slot instead.',
+        story: 'When `label` is empty, the tag renders its text from the default slot instead.',
       },
       source: {
-        code: buildBadgeMarkup({
+        code: buildTagMarkup({
           ...defaultArgs,
           label: '',
           slotText: 'Archived',

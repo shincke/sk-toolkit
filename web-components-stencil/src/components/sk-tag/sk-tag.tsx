@@ -1,38 +1,42 @@
 import { Component, Element, Event, EventEmitter, h, Host, JSX, Prop } from '@stencil/core';
-import { BADGE_COLOR_DEFAULT, BADGE_INTERACTIVE_DEFAULT, BADGE_SIZE_DEFAULT, BADGE_VARIANT_DEFAULT, type BadgeColor, type BadgeSize, type BadgeVariant } from './sk-badge.types';
+import { TAG_COLOR_DEFAULT, TAG_INTERACTIVE_DEFAULT, TAG_SIZE_DEFAULT, TAG_VARIANT_DEFAULT, type TagColor, type TagSize, type TagVariant } from './sk-tag.types';
 
 /**
- * sk-badge is a small label for quick recognition and navigation.
- * status and filled variants are used for status labels, static and non-interactive.
- * category is the only clickable variant and can be used for filtering and metadata.
+ * sk-tag is a small label for quick recognition and navigation.
+ * status and filled variants are used for static and non-interactive tags.
+ * category is the only clickable variant and can be used for filtering and performing actions.
  *
- * @slot - Badge text content used when the label prop is not provided
+ * @slot - Tag text content used when the label prop is not provided
  */
 
 @Component({
-  tag: 'sk-badge',
-  styleUrl: './sk-badge.css',
+  tag: 'sk-tag',
+  styleUrl: './sk-tag.css',
   shadow: true,
 })
-export class SkBadge {
+export class SkTag {
   @Element() hostEl!: HTMLElement;
 
-  @Prop({ reflect: true }) variant: BadgeVariant = BADGE_VARIANT_DEFAULT;
-  @Prop({ reflect: true }) color: BadgeColor = BADGE_COLOR_DEFAULT;
-  @Prop({ reflect: true }) size: BadgeSize = BADGE_SIZE_DEFAULT;
+  @Prop({ reflect: true }) variant: TagVariant = TAG_VARIANT_DEFAULT;
+  @Prop({ reflect: true }) color: TagColor = TAG_COLOR_DEFAULT;
+  @Prop({ reflect: true }) size: TagSize = TAG_SIZE_DEFAULT;
   @Prop() label = '';
   @Prop() disabled = false;
-  @Prop() ariaLabel = this.label?.trim() || "Badge";
+  @Prop() ariaLabel?: string;
 
   @Event() skClick!: EventEmitter<MouseEvent | KeyboardEvent>;
 
-  private get isInteractiveVariant(): boolean {
-    return this.variant === BADGE_INTERACTIVE_DEFAULT;
+  private get resolvedAriaLabel(): string {
+    return this.ariaLabel?.trim() || this.label?.trim() || 'Tag';
   }
 
-  private get badgeClassNames() {
+  private get isInteractiveVariant(): boolean {
+    return this.variant === TAG_INTERACTIVE_DEFAULT;
+  }
+
+  private get TagClassNames() {
     return {
-      badge: true,
+      tag: true,
       'is-interactive': this.isInteractiveVariant,
       [`variant-${this.variant}`]: true,
       [`size-${this.size}`]: true,
@@ -67,8 +71,8 @@ export class SkBadge {
     return (
       <Host>
         <Tag
-          class={this.badgeClassNames}
-          aria-label={this.ariaLabel}
+          class={this.TagClassNames}
+          aria-label={this.resolvedAriaLabel}
           {...(this.isInteractiveVariant
             ? {
                 type: 'button',

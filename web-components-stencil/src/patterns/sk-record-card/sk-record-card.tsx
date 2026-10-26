@@ -80,7 +80,7 @@ export class SkRecordCard {
 
   private renderChips(values: string[]) {
     return values.map((value) => (
-      <sk-badge variant="category" color={value === this.condition ? 'accent' : 'default'} label={value}></sk-badge>
+      <sk-tag variant="category" color={value === this.condition ? 'accent' : 'default'} label={value}></sk-tag>
     ));
   }
 
@@ -129,7 +129,7 @@ export class SkRecordCard {
           </sk-heading>
 
           <div class="footer-row">
-            {this.condition && <sk-badge variant="status" color={this.getConditionColor()} label={this.condition}></sk-badge>}
+            {this.condition && <sk-tag variant="status" color={this.getConditionColor()} label={this.condition}></sk-tag>}
             <sk-text size="lg" class="price">{this.getPriceLabel()}</sk-text>
           </div>
         </div>

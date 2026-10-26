@@ -5,46 +5,15 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { BadgeColor, BadgeSize, BadgeVariant } from "./components/sk-badge/sk-badge.types";
 import { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 import { ChevronDirection, IconName } from "./utils/icons";
 import { SpinnerSize } from "./components/sk-spinner/sk-spinner.types";
-export { BadgeColor, BadgeSize, BadgeVariant } from "./components/sk-badge/sk-badge.types";
+import { TagColor, TagSize, TagVariant } from "./components/sk-tag/sk-tag.types";
 export { ButtonSize, ButtonType, ButtonVariant } from "./components/sk-button/sk-button.types";
 export { ChevronDirection, IconName } from "./utils/icons";
 export { SpinnerSize } from "./components/sk-spinner/sk-spinner.types";
+export { TagColor, TagSize, TagVariant } from "./components/sk-tag/sk-tag.types";
 export namespace Components {
-    /**
-     * sk-badge is a small label for quick recognition and navigation.
-     * status and filled variants are used for status labels, static and non-interactive.
-     * category is the only clickable variant and can be used for filtering and metadata.
-     */
-    interface SkBadge {
-        /**
-          * @default this.label?.trim() || "Badge"
-         */
-        "ariaLabel": string;
-        /**
-          * @default 'default'
-         */
-        "color": BadgeColor;
-        /**
-          * @default false
-         */
-        "disabled": boolean;
-        /**
-          * @default ''
-         */
-        "label": string;
-        /**
-          * @default 'sm'
-         */
-        "size": BadgeSize;
-        /**
-          * @default 'status'
-         */
-        "variant": BadgeVariant;
-    }
     /**
      * sk-button triggers an action with a single click or tap and acts as a clear call to action.
      * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
@@ -314,6 +283,34 @@ export namespace Components {
          */
         "size": SpinnerSize;
     }
+    /**
+     * sk-tag is a small label for quick recognition and navigation.
+     * status and filled variants are used for static and non-interactive tags.
+     * category is the only clickable variant and can be used for filtering and performing actions.
+     */
+    interface SkTag {
+        "ariaLabel"?: string;
+        /**
+          * @default 'default'
+         */
+        "color": TagColor;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * @default ''
+         */
+        "label": string;
+        /**
+          * @default 'sm'
+         */
+        "size": TagSize;
+        /**
+          * @default 'status'
+         */
+        "variant": TagVariant;
+    }
     interface SkText {
         /**
           * @default 'left'
@@ -336,10 +333,6 @@ export namespace Components {
         "disabled": boolean;
         "label"?: string;
     }
-}
-export interface SkBadgeCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSkBadgeElement;
 }
 export interface SkButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -365,33 +358,15 @@ export interface SkSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkSelectElement;
 }
+export interface SkTagCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSkTagElement;
+}
 export interface SkToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSkToggleElement;
 }
 declare global {
-    interface HTMLSkBadgeElementEventMap {
-        "skClick": MouseEvent | KeyboardEvent;
-    }
-    /**
-     * sk-badge is a small label for quick recognition and navigation.
-     * status and filled variants are used for status labels, static and non-interactive.
-     * category is the only clickable variant and can be used for filtering and metadata.
-     */
-    interface HTMLSkBadgeElement extends Components.SkBadge, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLSkBadgeElementEventMap>(type: K, listener: (this: HTMLSkBadgeElement, ev: SkBadgeCustomEvent<HTMLSkBadgeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLSkBadgeElement: {
-        prototype: HTMLSkBadgeElement;
-        new (): HTMLSkBadgeElement;
-    };
     interface HTMLSkButtonElementEventMap {
         "skClick": MouseEvent | KeyboardEvent;
         "skFocus": void;
@@ -546,6 +521,28 @@ declare global {
         prototype: HTMLSkSpinnerElement;
         new (): HTMLSkSpinnerElement;
     };
+    interface HTMLSkTagElementEventMap {
+        "skClick": MouseEvent | KeyboardEvent;
+    }
+    /**
+     * sk-tag is a small label for quick recognition and navigation.
+     * status and filled variants are used for static and non-interactive tags.
+     * category is the only clickable variant and can be used for filtering and performing actions.
+     */
+    interface HTMLSkTagElement extends Components.SkTag, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSkTagElementEventMap>(type: K, listener: (this: HTMLSkTagElement, ev: SkTagCustomEvent<HTMLSkTagElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSkTagElementEventMap>(type: K, listener: (this: HTMLSkTagElement, ev: SkTagCustomEvent<HTMLSkTagElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSkTagElement: {
+        prototype: HTMLSkTagElement;
+        new (): HTMLSkTagElement;
+    };
     interface HTMLSkTextElement extends Components.SkText, HTMLStencilElement {
     }
     var HTMLSkTextElement: {
@@ -570,7 +567,6 @@ declare global {
         new (): HTMLSkToggleElement;
     };
     interface HTMLElementTagNameMap {
-        "sk-badge": HTMLSkBadgeElement;
         "sk-button": HTMLSkButtonElement;
         "sk-caption": HTMLSkCaptionElement;
         "sk-card": HTMLSkCardElement;
@@ -582,43 +578,12 @@ declare global {
         "sk-select": HTMLSkSelectElement;
         "sk-skeleton": HTMLSkSkeletonElement;
         "sk-spinner": HTMLSkSpinnerElement;
+        "sk-tag": HTMLSkTagElement;
         "sk-text": HTMLSkTextElement;
         "sk-toggle": HTMLSkToggleElement;
     }
 }
 declare namespace LocalJSX {
-    /**
-     * sk-badge is a small label for quick recognition and navigation.
-     * status and filled variants are used for status labels, static and non-interactive.
-     * category is the only clickable variant and can be used for filtering and metadata.
-     */
-    interface SkBadge {
-        /**
-          * @default this.label?.trim() || "Badge"
-         */
-        "ariaLabel"?: string;
-        /**
-          * @default 'default'
-         */
-        "color"?: BadgeColor;
-        /**
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * @default ''
-         */
-        "label"?: string;
-        "onSkClick"?: (event: SkBadgeCustomEvent<MouseEvent | KeyboardEvent>) => void;
-        /**
-          * @default 'sm'
-         */
-        "size"?: BadgeSize;
-        /**
-          * @default 'status'
-         */
-        "variant"?: BadgeVariant;
-    }
     /**
      * sk-button triggers an action with a single click or tap and acts as a clear call to action.
      * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
@@ -899,6 +864,35 @@ declare namespace LocalJSX {
          */
         "size"?: SpinnerSize;
     }
+    /**
+     * sk-tag is a small label for quick recognition and navigation.
+     * status and filled variants are used for static and non-interactive tags.
+     * category is the only clickable variant and can be used for filtering and performing actions.
+     */
+    interface SkTag {
+        "ariaLabel"?: string;
+        /**
+          * @default 'default'
+         */
+        "color"?: TagColor;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * @default ''
+         */
+        "label"?: string;
+        "onSkClick"?: (event: SkTagCustomEvent<MouseEvent | KeyboardEvent>) => void;
+        /**
+          * @default 'sm'
+         */
+        "size"?: TagSize;
+        /**
+          * @default 'status'
+         */
+        "variant"?: TagVariant;
+    }
     interface SkText {
         /**
           * @default 'left'
@@ -923,14 +917,6 @@ declare namespace LocalJSX {
         "onSkChange"?: (event: SkToggleCustomEvent<boolean>) => void;
     }
 
-    interface SkBadgeAttributes {
-        "variant": BadgeVariant;
-        "color": BadgeColor;
-        "size": BadgeSize;
-        "label": string;
-        "disabled": boolean;
-        "ariaLabel": string;
-    }
     interface SkButtonAttributes {
         "variant": ButtonVariant;
         "size": ButtonSize;
@@ -1018,6 +1004,14 @@ declare namespace LocalJSX {
         "label": string;
         "paused": boolean;
     }
+    interface SkTagAttributes {
+        "variant": TagVariant;
+        "color": TagColor;
+        "size": TagSize;
+        "label": string;
+        "disabled": boolean;
+        "ariaLabel": string;
+    }
     interface SkTextAttributes {
         "size": 'lg' | 'md' | 'sm';
         "align": 'left' | 'center';
@@ -1030,7 +1024,6 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
-        "sk-badge": Omit<SkBadge, keyof SkBadgeAttributes> & { [K in keyof SkBadge & keyof SkBadgeAttributes]?: SkBadge[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `attr:${K}`]?: SkBadgeAttributes[K] } & { [K in keyof SkBadge & keyof SkBadgeAttributes as `prop:${K}`]?: SkBadge[K] };
         "sk-button": Omit<SkButton, keyof SkButtonAttributes> & { [K in keyof SkButton & keyof SkButtonAttributes]?: SkButton[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `attr:${K}`]?: SkButtonAttributes[K] } & { [K in keyof SkButton & keyof SkButtonAttributes as `prop:${K}`]?: SkButton[K] };
         "sk-caption": Omit<SkCaption, keyof SkCaptionAttributes> & { [K in keyof SkCaption & keyof SkCaptionAttributes]?: SkCaption[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `attr:${K}`]?: SkCaptionAttributes[K] } & { [K in keyof SkCaption & keyof SkCaptionAttributes as `prop:${K}`]?: SkCaption[K] };
         "sk-card": Omit<SkCard, keyof SkCardAttributes> & { [K in keyof SkCard & keyof SkCardAttributes]?: SkCard[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `attr:${K}`]?: SkCardAttributes[K] } & { [K in keyof SkCard & keyof SkCardAttributes as `prop:${K}`]?: SkCard[K] };
@@ -1042,6 +1035,7 @@ declare namespace LocalJSX {
         "sk-select": Omit<SkSelect, keyof SkSelectAttributes> & { [K in keyof SkSelect & keyof SkSelectAttributes]?: SkSelect[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `attr:${K}`]?: SkSelectAttributes[K] } & { [K in keyof SkSelect & keyof SkSelectAttributes as `prop:${K}`]?: SkSelect[K] };
         "sk-skeleton": Omit<SkSkeleton, keyof SkSkeletonAttributes> & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes]?: SkSkeleton[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `attr:${K}`]?: SkSkeletonAttributes[K] } & { [K in keyof SkSkeleton & keyof SkSkeletonAttributes as `prop:${K}`]?: SkSkeleton[K] };
         "sk-spinner": Omit<SkSpinner, keyof SkSpinnerAttributes> & { [K in keyof SkSpinner & keyof SkSpinnerAttributes]?: SkSpinner[K] } & { [K in keyof SkSpinner & keyof SkSpinnerAttributes as `attr:${K}`]?: SkSpinnerAttributes[K] } & { [K in keyof SkSpinner & keyof SkSpinnerAttributes as `prop:${K}`]?: SkSpinner[K] };
+        "sk-tag": Omit<SkTag, keyof SkTagAttributes> & { [K in keyof SkTag & keyof SkTagAttributes]?: SkTag[K] } & { [K in keyof SkTag & keyof SkTagAttributes as `attr:${K}`]?: SkTagAttributes[K] } & { [K in keyof SkTag & keyof SkTagAttributes as `prop:${K}`]?: SkTag[K] };
         "sk-text": Omit<SkText, keyof SkTextAttributes> & { [K in keyof SkText & keyof SkTextAttributes]?: SkText[K] } & { [K in keyof SkText & keyof SkTextAttributes as `attr:${K}`]?: SkTextAttributes[K] } & { [K in keyof SkText & keyof SkTextAttributes as `prop:${K}`]?: SkText[K] };
         "sk-toggle": Omit<SkToggle, keyof SkToggleAttributes> & { [K in keyof SkToggle & keyof SkToggleAttributes]?: SkToggle[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `attr:${K}`]?: SkToggleAttributes[K] } & { [K in keyof SkToggle & keyof SkToggleAttributes as `prop:${K}`]?: SkToggle[K] };
     }
@@ -1050,12 +1044,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            /**
-             * sk-badge is a small label for quick recognition and navigation.
-             * status and filled variants are used for status labels, static and non-interactive.
-             * category is the only clickable variant and can be used for filtering and metadata.
-             */
-            "sk-badge": LocalJSX.IntrinsicElements["sk-badge"] & JSXBase.HTMLAttributes<HTMLSkBadgeElement>;
             /**
              * sk-button triggers an action with a single click or tap and acts as a clear call to action.
              * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
@@ -1084,6 +1072,12 @@ declare module "@stencil/core" {
              * @prop paused - If true, the spinner animation is paused. Default is false.
              */
             "sk-spinner": LocalJSX.IntrinsicElements["sk-spinner"] & JSXBase.HTMLAttributes<HTMLSkSpinnerElement>;
+            /**
+             * sk-tag is a small label for quick recognition and navigation.
+             * status and filled variants are used for static and non-interactive tags.
+             * category is the only clickable variant and can be used for filtering and performing actions.
+             */
+            "sk-tag": LocalJSX.IntrinsicElements["sk-tag"] & JSXBase.HTMLAttributes<HTMLSkTagElement>;
             "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;
             "sk-toggle": LocalJSX.IntrinsicElements["sk-toggle"] & JSXBase.HTMLAttributes<HTMLSkToggleElement>;
         }

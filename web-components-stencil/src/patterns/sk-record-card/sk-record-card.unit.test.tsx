@@ -2,26 +2,26 @@ import { h, render } from '@stencil/vitest';
 import { describe, expect, it, vi } from 'vitest';
 
 describe('sk-record-card', () => {
-  it('renders list variant without badges', async () => {
+  it('renders list variant without tags', async () => {
     const { root } = await render(<sk-record-card variant="list" title="Watering a Flower" artist="Haruomi Hosono" price={32} label="LP" condition="VG+"></sk-record-card>);
 
     expect(root.shadowRoot?.querySelector('.variant-list')).toBeTruthy();
     expect(root.shadowRoot?.querySelector('.thumb-wrap')).toBeTruthy();
     expect(root.shadowRoot?.querySelector('sk-heading')?.textContent).toBe('Watering a Flower');
-    expect(root.shadowRoot?.querySelectorAll('sk-badge')).toHaveLength(0);
+    expect(root.shadowRoot?.querySelectorAll('sk-tag')).toHaveLength(0);
   });
 
-  it('renders grid variant with condition badge', async () => {
+  it('renders grid variant with condition tag', async () => {
     const { root } = await render(<sk-record-card variant="grid" title="Technodelic" artist="Yellow Magic Orchestra" price={45} label="LP" year="1981" condition="VG+"></sk-record-card>);
 
     expect(root.shadowRoot?.querySelector('.variant-grid')).toBeTruthy();
     expect(root.shadowRoot?.querySelector('sk-heading')?.textContent).toBe('Technodelic');
     expect(root.shadowRoot?.querySelector('sk-text')?.textContent).toBe('$45');
     
-    const badge = root.shadowRoot?.querySelector('sk-badge');
-    expect(badge).toBeTruthy();
-    expect(badge?.getAttribute('variant')).toBe('status');
-    expect(badge?.getAttribute('color')).toBe('success');
+    const tag = root.shadowRoot?.querySelector('sk-tag');
+    expect(tag).toBeTruthy();
+    expect(tag?.getAttribute('variant')).toBe('status');
+    expect(tag?.getAttribute('color')).toBe('success');
   });
 
   it('renders detail variant layout with CTA', async () => {
