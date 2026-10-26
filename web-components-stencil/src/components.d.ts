@@ -15,7 +15,7 @@ export { SpinnerSize } from "./components/sk-spinner/sk-spinner.types";
 export { TagColor, TagSize, TagVariant } from "./components/sk-tag/sk-tag.types";
 export namespace Components {
     /**
-     * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+     * <sk-button> triggers an action with a single click or tap and acts as a clear call to action.
      * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
      * It can be used as a button or as a link, depending on whether the `href` property is set.
      */
@@ -264,7 +264,7 @@ export namespace Components {
         "width": string | number;
     }
     /**
-     * sk-spinner is used as a sign that something is loading or being processed on a page.
+     * <sk-spinner> is used as a sign that something is loading or being processed on a page.
      * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
      * @prop label - The accessible label for the spinner.
      * @prop paused - If true, the spinner animation is paused. Default is false.
@@ -284,12 +284,21 @@ export namespace Components {
         "size": SpinnerSize;
     }
     /**
-     * sk-tag is a small label for quick recognition and navigation.
-     * status and filled variants are used for static and non-interactive tags.
-     * category is the only clickable variant and can be used for filtering and performing actions.
+     * <sk-tag> is a small label for quick recognition and navigation.
+     * Status and filled variants are used for static and non-interactive tags.
+     * Interactive is the only clickable variant and can be used for filtering and performing actions.
+     * If variant is interactive, checkbox and radio attr will work, otherwise they will be ignored.
      */
     interface SkTag {
         "ariaLabel"?: string;
+        /**
+          * @default false
+         */
+        "checkbox": boolean;
+        /**
+          * @default false
+         */
+        "checked": boolean;
         /**
           * @default 'default'
          */
@@ -299,9 +308,18 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * @default false
+         */
+        "external": boolean;
+        "href"?: string;
+        /**
           * @default ''
          */
         "label": string;
+        /**
+          * @default false
+         */
+        "radio": boolean;
         /**
           * @default 'sm'
          */
@@ -373,7 +391,7 @@ declare global {
         "skBlur": void;
     }
     /**
-     * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+     * <sk-button> triggers an action with a single click or tap and acts as a clear call to action.
      * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
      * It can be used as a button or as a link, depending on whether the `href` property is set.
      */
@@ -510,7 +528,7 @@ declare global {
         new (): HTMLSkSkeletonElement;
     };
     /**
-     * sk-spinner is used as a sign that something is loading or being processed on a page.
+     * <sk-spinner> is used as a sign that something is loading or being processed on a page.
      * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
      * @prop label - The accessible label for the spinner.
      * @prop paused - If true, the spinner animation is paused. Default is false.
@@ -523,11 +541,13 @@ declare global {
     };
     interface HTMLSkTagElementEventMap {
         "skClick": MouseEvent | KeyboardEvent;
+        "skChange": boolean;
     }
     /**
-     * sk-tag is a small label for quick recognition and navigation.
-     * status and filled variants are used for static and non-interactive tags.
-     * category is the only clickable variant and can be used for filtering and performing actions.
+     * <sk-tag> is a small label for quick recognition and navigation.
+     * Status and filled variants are used for static and non-interactive tags.
+     * Interactive is the only clickable variant and can be used for filtering and performing actions.
+     * If variant is interactive, checkbox and radio attr will work, otherwise they will be ignored.
      */
     interface HTMLSkTagElement extends Components.SkTag, HTMLStencilElement {
         addEventListener<K extends keyof HTMLSkTagElementEventMap>(type: K, listener: (this: HTMLSkTagElement, ev: SkTagCustomEvent<HTMLSkTagElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -585,7 +605,7 @@ declare global {
 }
 declare namespace LocalJSX {
     /**
-     * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+     * <sk-button> triggers an action with a single click or tap and acts as a clear call to action.
      * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
      * It can be used as a button or as a link, depending on whether the `href` property is set.
      */
@@ -845,7 +865,7 @@ declare namespace LocalJSX {
         "width"?: string | number;
     }
     /**
-     * sk-spinner is used as a sign that something is loading or being processed on a page.
+     * <sk-spinner> is used as a sign that something is loading or being processed on a page.
      * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
      * @prop label - The accessible label for the spinner.
      * @prop paused - If true, the spinner animation is paused. Default is false.
@@ -865,12 +885,21 @@ declare namespace LocalJSX {
         "size"?: SpinnerSize;
     }
     /**
-     * sk-tag is a small label for quick recognition and navigation.
-     * status and filled variants are used for static and non-interactive tags.
-     * category is the only clickable variant and can be used for filtering and performing actions.
+     * <sk-tag> is a small label for quick recognition and navigation.
+     * Status and filled variants are used for static and non-interactive tags.
+     * Interactive is the only clickable variant and can be used for filtering and performing actions.
+     * If variant is interactive, checkbox and radio attr will work, otherwise they will be ignored.
      */
     interface SkTag {
         "ariaLabel"?: string;
+        /**
+          * @default false
+         */
+        "checkbox"?: boolean;
+        /**
+          * @default false
+         */
+        "checked"?: boolean;
         /**
           * @default 'default'
          */
@@ -880,10 +909,20 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * @default false
+         */
+        "external"?: boolean;
+        "href"?: string;
+        /**
           * @default ''
          */
         "label"?: string;
+        "onSkChange"?: (event: SkTagCustomEvent<boolean>) => void;
         "onSkClick"?: (event: SkTagCustomEvent<MouseEvent | KeyboardEvent>) => void;
+        /**
+          * @default false
+         */
+        "radio"?: boolean;
         /**
           * @default 'sm'
          */
@@ -1008,8 +1047,13 @@ declare namespace LocalJSX {
         "variant": TagVariant;
         "color": TagColor;
         "size": TagSize;
+        "checkbox": boolean;
+        "radio": boolean;
+        "checked": boolean;
         "label": string;
         "disabled": boolean;
+        "href": string;
+        "external": boolean;
         "ariaLabel": string;
     }
     interface SkTextAttributes {
@@ -1045,7 +1089,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             /**
-             * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+             * <sk-button> triggers an action with a single click or tap and acts as a clear call to action.
              * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
              * It can be used as a button or as a link, depending on whether the `href` property is set.
              */
@@ -1066,16 +1110,17 @@ declare module "@stencil/core" {
             "sk-select": LocalJSX.IntrinsicElements["sk-select"] & JSXBase.HTMLAttributes<HTMLSkSelectElement>;
             "sk-skeleton": LocalJSX.IntrinsicElements["sk-skeleton"] & JSXBase.HTMLAttributes<HTMLSkSkeletonElement>;
             /**
-             * sk-spinner is used as a sign that something is loading or being processed on a page.
+             * <sk-spinner> is used as a sign that something is loading or being processed on a page.
              * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
              * @prop label - The accessible label for the spinner.
              * @prop paused - If true, the spinner animation is paused. Default is false.
              */
             "sk-spinner": LocalJSX.IntrinsicElements["sk-spinner"] & JSXBase.HTMLAttributes<HTMLSkSpinnerElement>;
             /**
-             * sk-tag is a small label for quick recognition and navigation.
-             * status and filled variants are used for static and non-interactive tags.
-             * category is the only clickable variant and can be used for filtering and performing actions.
+             * <sk-tag> is a small label for quick recognition and navigation.
+             * Status and filled variants are used for static and non-interactive tags.
+             * Interactive is the only clickable variant and can be used for filtering and performing actions.
+             * If variant is interactive, checkbox and radio attr will work, otherwise they will be ignored.
              */
             "sk-tag": LocalJSX.IntrinsicElements["sk-tag"] & JSXBase.HTMLAttributes<HTMLSkTagElement>;
             "sk-text": LocalJSX.IntrinsicElements["sk-text"] & JSXBase.HTMLAttributes<HTMLSkTextElement>;

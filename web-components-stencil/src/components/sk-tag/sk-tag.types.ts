@@ -1,3 +1,5 @@
+export type TagInteraction = 'button' | 'checkbox' | 'radio' | 'link';
+
 export type TagVariant = 'status' | 'filled' | 'interactive';
 export type TagInteractive = 'interactive';
 export type TagSize = 'xs' | 'sm' | 'md' | 'lg';

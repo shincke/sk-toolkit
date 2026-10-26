@@ -32,7 +32,7 @@
           <div class="showcase-card-header">
             <sk-caption>Buttons</sk-caption>
             <sk-text size="sm" class="showcase-muted">
-              sk-button triggers an action with a single click or tap and acts as a clear call to action.
+              &lt;sk-button&gt; triggers an action with a single click or tap and acts as a clear call to action.
               Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
             </sk-text>
           </div>
@@ -132,45 +132,45 @@
         <article class="showcase-card is-half">
           <div class="showcase-card-header">
             <sk-caption>Tags</sk-caption>
-            <sk-text size="sm" class="showcase-muted">sk-tag is a small label for quick recognition and navigation. Usually appears close or inside a larger element highlighting additional information. 
-              One or more tags can be used to categorize items. Types can be combined:
-              status markers, metadata chips, and AI-style suggestion prompts.</sk-text>
+            <sk-text size="sm" class="showcase-muted">
+              &lt;sk-tag&gt; is a small label for quick recognition and navigation. Usually appears close or inside a larger element highlighting additional information. 
+              One or more tags can be used to categorize items.
+            </sk-text>
           </div>
           <div class="showcase-stack">
+            <sk-caption>Sizes</sk-caption>
+            <div class="showcase-row">
+              <sk-tag label="Small" size="sm"></sk-tag>
+              <sk-tag label="Medium" size="md"></sk-tag>
+              <sk-tag label="Large" size="lg"></sk-tag>
+            </div>
             <sk-caption>Status</sk-caption>
             <div class="showcase-row">
-              <!-- <sk-tag variant="status" color="success" label="Published" size="sm"></sk-tag>
-              <sk-tag variant="status" color="warning" label="Draft" size="md"></sk-tag>
-              <sk-tag variant="status" color="secondary" label="Archived" size="lg"></sk-tag>
-              <sk-tag variant="status" color="accent" label="Featured" size="sm"></sk-tag>
-              <sk-tag variant="status" color="error" label="Error" size="sm"></sk-tag> -->
-              <sk-tag variant="status" color="success" label="Published" size="sm"></sk-tag>
-              <sk-tag variant="filled" color="warning" label="Draft" size="sm"></sk-tag>
-              <sk-tag variant="category" color="secondary" label="Archived" size="sm"></sk-tag>
-              <sk-tag variant="status" color="accent" label="Featured" size="md"></sk-tag>
-              <sk-tag variant="filled" color="error" label="Error" size="md"></sk-tag>
-              <sk-tag variant="category" color="error" label="Error" size="md"></sk-tag>
-
+              <sk-tag variant="status" color="success" label="Success"></sk-tag>
+              <sk-tag variant="status" color="warning" label="Warning"></sk-tag>
+              <sk-tag variant="status" color="error" label="Error"></sk-tag>
+              <sk-tag variant="status" color="accent" label="Accent"></sk-tag>
+              <sk-tag variant="status" color="secondary" label="Secondary"></sk-tag>
+              <sk-tag variant="status" color="default" label="Default"></sk-tag>
             </div>
             <sk-caption>Filled</sk-caption>
             <div class="showcase-row">
-              <sk-tag variant="filled" color="success" label="Published"></sk-tag>
-              <sk-tag variant="filled" color="warning" label="Draft"></sk-tag>
-              <sk-tag variant="filled" color="secondary" label="Archived"></sk-tag>
-              <sk-tag variant="filled" color="accent" label="Featured"></sk-tag>
+              <sk-tag variant="filled" color="success" label="Success"></sk-tag>
+              <sk-tag variant="filled" color="warning" label="Warning"></sk-tag>
               <sk-tag variant="filled" color="error" label="Error"></sk-tag>
+              <sk-tag variant="filled" color="accent" label="Accent"></sk-tag>
+              <sk-tag variant="filled" color="secondary" label="Secondary"></sk-tag>
+              <sk-tag variant="filled" color="default" label="Default"></sk-tag>
             </div>
-            <sk-caption>Category / Metadata</sk-caption>
+            <sk-caption>Interactive</sk-caption>
             <div class="showcase-row">
-              <sk-tag variant="category" label="Research" size="sm"></sk-tag>
-              <sk-tag variant="category" label="Archive" size="md"></sk-tag>
-              <sk-tag variant="category" label="Poster Design" size="lg"></sk-tag>
-              <sk-tag variant="category" label="Typography" size="sm"></sk-tag>
-              <sk-tag variant="category" label="Editorial" size="sm"></sk-tag>
-              <sk-tag variant="category" label="Vol. 04" size="sm"></sk-tag>
-              <sk-tag variant="category">
-                <sk-icon name="plus" aria-label="Add"></sk-icon>
-                <span>Add new tag</span>
+              <sk-tag variant="interactive" label="Checkbox" checkbox></sk-tag>
+              <sk-tag variant="interactive" label="Radio" radio></sk-tag>
+              <sk-tag variant="interactive" label="Link" href="https://example.com" external></sk-tag>
+              <sk-tag variant="interactive" label="Button"></sk-tag>
+              <sk-tag variant="interactive">
+                <sk-icon name="plus" slot="icon" aria-label="Add"></sk-icon>
+                With icon
               </sk-tag>
             </div>
           </div>
@@ -210,7 +210,7 @@
         <article class="showcase-card is-half">
           <div class="showcase-card-header">
             <sk-caption>Spinner</sk-caption>
-            <sk-text size="sm" class="showcase-muted">sk-spinner is used as a sign that something is loading or being processed on a page.</sk-text>
+            <sk-text size="sm" class="showcase-muted">&lt;sk-spinner&gt; is used as a sign that something is loading or being processed on a page.</sk-text>
           </div>
           <div class="showcase-stack">
             <sk-caption>Sizes</sk-caption>
@@ -228,7 +228,7 @@
         <article class="showcase-card is-half">
           <div class="showcase-card-header">
             <sk-caption>Drawer</sk-caption>
-            <sk-text size="sm" class="showcase-muted">Selection drawer overlay with desktop width and mobile full-width behavior.</sk-text>
+            <sk-text size="sm" class="showcase-muted">&lt;sk-drawer&gt; is a selection drawer overlay with desktop width and mobile full-width behavior.</sk-text>
           </div>
           <div class="showcase-stack">
             <div class="showcase-drawer-launches">

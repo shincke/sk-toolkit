@@ -28,8 +28,8 @@ describe('sk-tag', () => {
     expect(staticTag?.className).toContain('size-lg');
   });
 
-  it('renders category as the interactive tag and keeps the passed color', async () => {
-    const { root } = await render(<sk-tag variant="category" color="error" size="md" label="Research"></sk-tag>);
+  it('renders interactive as the clickable tag and keeps the passed color', async () => {
+    const { root } = await render(<sk-tag variant="interactive" color="error" size="md" label="Research"></sk-tag>);
 
     const button = root.shadowRoot?.querySelector('button');
     expect(button).toBeTruthy();
@@ -58,8 +58,8 @@ describe('sk-tag', () => {
     expect(handler).not.toHaveBeenCalled();
   });
 
-  it('emits skClick on click for category tag', async () => {
-    const { root, waitForChanges } = await render(<sk-tag variant="category" color="accent" size="lg" label="Featured"></sk-tag>);
+  it('emits skClick on click for interactive tag', async () => {
+    const { root, waitForChanges } = await render(<sk-tag variant="interactive" color="accent" size="lg" label="Featured"></sk-tag>);
 
     const handler = vi.fn();
     root.addEventListener('skClick', handler);

@@ -80,7 +80,7 @@ export class SkRecordCard {
 
   private renderChips(values: string[]) {
     return values.map((value) => (
-      <sk-tag variant="category" color={value === this.condition ? 'accent' : 'default'} label={value}></sk-tag>
+      <sk-tag variant="interactive" color={value === this.condition ? 'accent' : 'default'} label={value}></sk-tag>
     ));
   }
 

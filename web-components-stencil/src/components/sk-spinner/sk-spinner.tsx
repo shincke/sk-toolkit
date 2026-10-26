@@ -2,7 +2,7 @@ import { Component, Element, h, Host, Prop } from '@stencil/core';
 import { SPINNER_SIZE_DEFAULT, type SpinnerSize } from './sk-spinner.types';
 
 /**
- * sk-spinner is used as a sign that something is loading or being processed on a page.
+ * <sk-spinner> is used as a sign that something is loading or being processed on a page.
  * 
  * @prop size - The size of the spinner. Can be one of 'sm', 'md', 'lg', or 'xl'. Default is 'md'.
  * @prop label - The accessible label for the spinner.

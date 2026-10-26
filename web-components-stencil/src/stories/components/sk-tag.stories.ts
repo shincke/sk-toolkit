@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { TAG_COLOR_DEFAULT, TAG_VARIANT_DEFAULT, type TagColor, type TagVariant } from '../../components/sk-tag/sk-tag.types';
 import { docsPageTemplate, storyStage } from '../storybook-helpers';
 
-const variantOptions: TagVariant[] = ['status', 'filled', 'category'];
+const variantOptions: TagVariant[] = ['status', 'filled', 'interactive'];
 const colorOptions: TagColor[] = ['success', 'warning', 'error', 'accent', 'secondary', 'default'];
 
 type TagStoryArgs = {
@@ -61,23 +61,23 @@ Use the controls below to explore the tag variants, sizes, colors, and text cont
       control: 'text',
       description: 'Text rendered through the `label` prop. When this is empty, the default slot content is shown instead.',
       table: {
-        category: 'Props',
+        interactive: 'Props',
       },
     },
     slotText: {
       control: 'text',
       description: 'Fallback text rendered in the default slot when `label` is empty.',
       table: {
-        category: 'Story Controls',
+        interactive: 'Story Controls',
       },
     },
     variant: {
       control: 'select',
       options: variantOptions,
       description:
-        'Visual style of the tag. `status` and `filled` variants are used for static and non-interactive tags. `category` is the only clickable variant and can be used for filtering and performing actions.',
+        'Visual style of the tag. `status` and `filled` variants are used for static and non-interactive tags. `interactive` is the only clickable variant and can be used for filtering and performing actions.',
       table: {
-        category: 'Props',
+        interactive: 'Props',
         defaultValue: { summary: TAG_VARIANT_DEFAULT },
       },
     },
@@ -86,7 +86,7 @@ Use the controls below to explore the tag variants, sizes, colors, and text cont
       options: colorOptions,
       description: 'Semantic color treatment applied to the tag. `success`, `warning`, `error`, `accent`, `secondary`, and `default`.',
       table: {
-        category: 'Props',
+        interactive: 'Props',
         defaultValue: { summary: TAG_COLOR_DEFAULT },
       },
     },
@@ -95,16 +95,16 @@ Use the controls below to explore the tag variants, sizes, colors, and text cont
       options: ['sm', 'md', 'lg'],
       description: 'Tag size `sm` | `md` | `lg`.',
       table: {
-        category: 'Props',
+        interactive: 'Props',
         defaultValue: { summary: 'sm' },
       },
     },
     skClick: {
       name: 'skClick',
-      description: 'Emitted when the user clicks a category tag.',
+      description: 'Emitted when the user clicks a interactive tag.',
       control: false,
       table: {
-        category: 'Events',
+        interactive: 'Events',
         type: { summary: 'CustomEvent<MouseEvent>' },
       },
     },
@@ -113,7 +113,7 @@ Use the controls below to explore the tag variants, sizes, colors, and text cont
       description: 'Tag text content used when the `label` prop is not provided.',
       control: false,
       table: {
-        category: 'Slots',
+        interactive: 'Slots',
         type: { summary: 'text' },
       },
     },
@@ -147,7 +147,7 @@ export const Filled: Story = {
     docs: {
       disable: true,
       description: {
-        story: 'Filled tags increase emphasis by using a solid background color.',
+        story: '`filled` tags increase emphasis by using a solid background color.',
       },
       source: {
         code: buildTagMarkup({
@@ -163,9 +163,9 @@ export const Filled: Story = {
   },
 };
 
-export const Category: Story = {
+export const interactive: Story = {
   args: {
-    variant: 'category',
+    variant: 'interactive',
     color: 'default',
     size: 'sm',
     label: 'Research',
@@ -175,12 +175,12 @@ export const Category: Story = {
     docs: {
       disable: true,
       description: {
-        story: 'Category tags are the only clickable variant and can be used for labels, groupings, and metadata.',
+        story: '`interactive` tags are the only clickable variant and can be used for labels, groupings, and metadata.',
       },
       source: {
         code: buildTagMarkup({
           ...defaultArgs,
-          variant: 'category',
+          variant: 'interactive',
           color: 'default',
           size: 'sm',
           label: 'Research',

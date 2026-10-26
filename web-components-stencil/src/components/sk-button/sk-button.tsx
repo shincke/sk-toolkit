@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Host, Prop, State } from '@stencil/c
 import { ButtonSize, ButtonVariant, ButtonType } from './sk-button.types';
 
 /**
- * sk-button triggers an action with a single click or tap and acts as a clear call to action.
+ * <sk-button> triggers an action with a single click or tap and acts as a clear call to action.
  * Variants express a hierarchy of importance so users can quickly identify the main, alternative, supplementary, and destructive actions on a page.
  * It can be used as a button or as a link, depending on whether the `href` property is set.
  *
